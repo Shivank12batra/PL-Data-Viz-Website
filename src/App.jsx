@@ -1,8 +1,12 @@
 import './App.css'
+import Home from './components/Home'
 
 function App() {
-  return <div className='text-red-600 text-6xl'>Hello World!</div>
-  
+  return (
+   <div>
+    <Home/>
+   </div>
+  )
 }
 
 export default App
