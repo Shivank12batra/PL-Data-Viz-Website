@@ -572,6 +572,14 @@ video {
   z-index: 10;
 }
 
+.m-12 {
+  margin: 3rem;
+}
+
+.m-16 {
+  margin: 4rem;
+}
+
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -583,6 +591,18 @@ video {
 
 .ml-8 {
   margin-left: 2rem;
+}
+
+.mt-12 {
+  margin-top: 3rem;
+}
+
+.mt-24 {
+  margin-top: 6rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
 }
 
 .inline-block {
@@ -633,6 +653,10 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-col {
@@ -724,6 +748,15 @@ video {
   padding-bottom: 1.5rem;
 }
 
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.pl-0 {
+  padding-left: 0px;
+}
+
 .text-center {
   text-align: center;
 }
@@ -745,6 +778,11 @@ video {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .font-bold {
@@ -839,6 +877,25 @@ video {
 
   .sm\:top-12 {
     top: 3rem;
+  }
+
+  .sm\:mt-24 {
+    margin-top: 6rem;
+  }
+
+  .sm\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sm\:px-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .sm\:px-20 {
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 
   .sm\:text-5xl {

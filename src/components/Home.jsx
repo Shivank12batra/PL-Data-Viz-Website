@@ -1,6 +1,9 @@
 import {useState, useEffect} from 'react';
 import { useSpring, animated } from 'react-spring';
-import { FaBars, FaTimes, FaAngleLeft, FaAngleRight, FaBackspace } from 'react-icons/fa';
+import { FaBars, FaTimes, 
+  FaAngleLeft, FaAngleRight,
+  FaGithub, FaTwitter, FaLinkedin
+} from 'react-icons/fa';
 import {MdOutlineKeyboardArrowRight} from 'react-icons/md';
 
 import home_page from '../assets/Home_Page_2.jpg';
@@ -65,6 +68,24 @@ const Home = () => {
     },
   ]
 
+  const mediaLinks = [
+    {
+      id: 1,
+      icon: <FaGithub size={20}/>,
+      href: ''
+    },
+    {
+      id: 2,
+      icon: <FaTwitter size={20}/>,
+      href: ''
+    },
+    {
+      id: 3,
+      icon: <FaLinkedin size={20}/>,
+      href: ''
+    },
+  ]
+
   // Define the animations for each element using the useSpring hook
   const titleAnimation = useSpring({
     from: { opacity: 0 },
@@ -111,9 +132,9 @@ const Home = () => {
       </div>
       {/* title */}
       {/* Render animated content */}
-      <animated.h1 style={titleAnimation} className='absolute top-16 left-1/2 transform -translate-x-1/2'><span className='text-white text-3xl font-bold inline-block bg-black px-20 py-4 text-center sm:text-5xl z-10'>{backgroundObj.header}</span></animated.h1>
+      <animated.h1 style={titleAnimation} className='absolute top-16 left-1/2 transform -translate-x-1/2'><span className='text-white text-3xl font-bold inline-block bg-black px-6 py-4 text-center sm:text-5xl sm:px-20'>{backgroundObj.header}</span></animated.h1>
         <animated.div className='absolute top-2/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 z-0 ml-8'>
-          <button className='group text-white font-bold text-sm bg-black px-4 py-2 my-2 hover:bg-red-500 hover:shadow-lg hover:-translate-x-1 transition-all duration-200'>
+          <button className='group text-white font-bold text-sm bg-black px-4 py-2 my-2 hover:bg-red-500 hover:shadow-lg hover:-translate-x-1 transition-all duration-200'> 
             BROWSE SECTION
             <span className='hidden align-middle ml-2 group-hover:inline-block'>
               <MdOutlineKeyboardArrowRight size={25}/>
@@ -153,12 +174,32 @@ const Home = () => {
         </button>
       </div>
       {navOpen && (
+        <div className='absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-gray-500'>
+          <ul className='flex flex-col justify-center items-center mt-16 sm:mt-24'>
+          {navItems.map(({id, name}) => {
+              return <li key={id} className="px-4 cursor-pointer capitalize py-6 text-3xl hover:text-white">{name}</li>
+            })}
+          </ul>
+          <ul className='flex flex-row justify-center items-center pl-0 mt-12'>
+          {mediaLinks.map(({id, icon, href}) => {
+              return <li key={id} className="px-4 cursor-pointer hover:text-white"><a href={href} target='_blank' className='text-decoration-none'>{icon}</a></li>
+            })}
+          </ul>
+        </div>
+      )}
+      {/* {navOpen && (
           <ul className='flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-gray-500'>
               {navItems.map(({id, name}) => {
                 return <li key={id} className="px-4 cursor-pointer capitalize py-6 text-3xl hover:text-white">{name}</li>
               })}
+              <ul className='flex flex-row justify-center align-center'>
+              {mediaLinks.map(({id, name, href}) => {
+                return <li key={id} className='px-4 cursor-pointer text-2xl text-white'><a href={href}
+                  target='_blank' className='text-decoration-none text-white'>{name}</a></li>
+              })}
+              </ul>
           </ul>
-        )}
+        )} */}
     </div>
   );
 };
