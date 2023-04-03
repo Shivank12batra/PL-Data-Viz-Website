@@ -17,25 +17,31 @@ const Home = () => {
     {
       id: 1,
       header: 'EPL ANALYTICS',
-      content: 'Welcome to the English Premier League Data Analytics Website, a place where you get the advanced analytics coverage of the traditional top teams in the form of interactive and detailed data visualizations. Now, even fans have access to detailed and advance analytics but in an easily digestable manner!',
+      content: 'Your ultimate source for in-depth analysis of the English Premier League. Get access to comprehensive statistics, player and team performance metrics, and expert insights to stay ahead of the game. Perfect for passionate fans who want to deepen their knowledge and understanding of the sport!',
       src: home_page,
     },
     {
       id: 2,
       header: 'TEAM STATS',
-      content: 'Providing macro-analysis and in depth-analysis related to the top tier teams. Shotmaps, passmaps, percentile stats for your team, how did your team fair up against the giants and what not. What is the exact usecase of this whole project wallahi, we cannot even compete.',
+      content: "Get the inside scoop on your favorite teams with our Team Stats section. Our interactive visualizations like pass networks, shot maps, and more, give you comprehensive insights into team performance. Get ready to geek out on data and take your fandom to the next level!",
       src: team_stats,
     },
     {
       id: 3,
       header: 'PLAYER STATS',
-      content: 'Get the most in-depth analysis of your favourite player that you can play around with and get to know him in depth so that he helps you back in the most greatest way possible. Its so over that you wouldnt even imagine but we are so back???',
+      content: "Have you ever wondered what makes your favorite players stand out on the field? Our Player Stats section is your one-stop-shop for in-depth insights and comprehensive statistics on each player's performance. From pinpoint passing to clutch goals, find out what makes your favourite player special!",
       src: player_stats,
     },
     {
       id: 4,
       header: 'MATCHDAY',
-      content: 'Its the matchday section! we get what we want and go ahead and build some really awesome stuff with just the matchday content that we have at oiur hands! cheer your team and get the latest updates of who was the match of the player and who fukced up the most! Wohoo let the party begin!',
+      content: 'Get exclusive access to the latest match insights with our Matchday section. From the standout performers to the crucial moments of the game, our detailed visualizations bring you closer to the action than ever before. Experience the thrill of matchday like never before',
+      src: home_page_3,
+    },
+    {
+      id: 5,
+      header: 'GLOSSARY',
+      content: "This section serves as a comprehensive guide to help you understand the key analytic terms used in our website. Whether you're a seasoned fan or new to the game, our glossary is the perfect reference tool to gain a deeper understanding of the analytics behind the sport.",
       src: home_page_3,
     },
   ]
@@ -91,22 +97,28 @@ const Home = () => {
   const [buttonVisible, setButtonVisible] = useState(false)
   const [backgroundObj, setBackgroundObj] = useState(bgmImages[0])
 
+  const arrowAnimation = useSpring({
+    from: {opacity: 0},
+    to: {opacity: 1},
+    config: {duration: 6000}
+  })
+
   const titleAnimation = useSpring({
     from: { opacity: 0 },
     to: { opacity: headerVisible ? 1 : 0 },
-    config: {duration: 3000} // Wait for 2 seconds before animating
+    config: {duration: 2000} // Wait for 2 seconds before animating
   });
 
   const contentAnimation = useSpring({
     from: { opacity: 0 },
     to: { opacity: contentVisible ? 1 : 0 },
-    config: {duration: 3000} // Wait for 4 seconds before animating
+    config: {duration: 1000} // Wait for 4 seconds before animating
   });
 
   const buttonAnimation = useSpring({
     from: { opacity: 0 },
     to: { opacity: buttonVisible ? 1 : 0 },
-    config: {duration : 2000} // Wait for 6 seconds before animating
+    config: {duration : 1000} // Wait for 6 seconds before animating
   });
 
   const imgTransition = useTransition(backgroundObj, {
@@ -122,25 +134,24 @@ const Home = () => {
     }, 2000);
     const headerFadeOut = setTimeout(() => {
       setHeaderVisible(false);
-    }, 13000);
+    }, 15000);
     const contentFadeIn = setTimeout(() => {
       setContentVisible(true);
     }, 5000);
     const contentFadeOut = setTimeout(() => {
       setContentVisible(false);
-    }, 12000);
+    }, 15000);
     const buttonFadeIn = setTimeout(() => {
       setButtonVisible(true);
     }, 6500);
     const buttonFadeOut = setTimeout(() => {
       setButtonVisible(false);
-    }, 12500);
+    }, 15000);
 
   
     const bgTimer = setInterval(() => {
-      const newId = (backgroundObj.id + 1) % bgmImages.length
-      setBackgroundObj(bgmImages[newId]);
-    }, 16000);
+      backgroundObj.id === 4 ? setBackgroundObj(bgmImages[0]) : setBackgroundObj(bgmImages[backgroundObj.id])
+    }, 20000);
   
     return () => {
       console.log('clearing stuff')
@@ -175,16 +186,16 @@ const Home = () => {
         </animated.div>)
       })}
       {/* title, content and button display */}
-      {headerVisible ? 
-      (<animated.h1 style={titleAnimation} key={backgroundObj.id} className='absolute top-16 left-1/2 transform -translate-x-1/2'><span className='text-white text-3xl font-bold inline-block bg-black px-6 py-4 text-center sm:text-5xl sm:px-20'>{backgroundObj.header}</span></animated.h1>) : null}
+      <animated.h1 style={titleAnimation} key={backgroundObj.id} className={`${headerVisible ? '' : 'opacity-0'} absolute top-16 left-1/2 transform -translate-x-1/2`}><span className='text-white text-3xl font-bold inline-block bg-black px-6 py-4 text-center sm:text-5xl sm:px-20'>{backgroundObj.header}</span></animated.h1>
+      {/* description content and button */}
       <animated.div className='absolute top-2/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 z-0 ml-8'>
-        <animated.button style={buttonAnimation} className={`${buttonVisible ? '' : 'invisible'} group text-white font-bold text-sm bg-black px-4 py-2 my-2 hover:bg-red-500 transition-all duration-200`}>
+        <animated.button style={buttonAnimation} className={`${buttonVisible ? '' : 'opacity-0'} group text-white font-bold text-sm bg-black px-4 py-2 my-2 hover:bg-red-500 transition-all duration-200`}>
             BROWSE SECTION
             <span className='hidden align-middle pl-2 group-hover:inline-block'>
               <MdOutlineKeyboardArrowRight size={25}/>
             </span>
           </animated.button>
-        <animated.p style={contentAnimation} className={`${contentVisible ? '' : 'invisible'} text-white text-sm bg-black max-w-md px-2 py-2 sm:text-lg`}>{backgroundObj.content}</animated.p>
+        <animated.p style={contentAnimation} className={`${contentVisible ? '' : 'opacity-0'} text-white text-sm bg-black max-w-md px-2 py-2 sm:text-lg`}>{backgroundObj.content}</animated.p>
       </animated.div>
       {/* Logo */}
       <div className="absolute top-2 left-0 z-10 sm:left-24 sm:top-12 cursor-pointer">
@@ -197,32 +208,34 @@ const Home = () => {
  
       {/* Menu Button */}
       <div className="absolute top-2 right-0 z-10 sm:right-24 sm:top-12" onClick={() => setNavOpen(!navOpen)}>
-        <button className="p-2 text-white bg-gray-900 rounded-md hover:bg-gray-800">
-          {navOpen ? <FaTimes size={20}/> : <FaBars size={20}/>}
-
-        </button>
+      <button className={`p-2 text-white rounded-md bg-black transition-all duration-500 ease-in-out {${!navOpen ? 'bg-black' : ''}}`} onClick={() => setNavOpen(!navOpen)}>
+        <span>
+          {navOpen ? <FaTimes className='transition-all duration-500 ease-in-out' size={20}/> : <FaBars className='transition-all duration-500 ease-in-out' size={25}/>}
+        </span>
+      </button>
       </div>
+
       {/* image slide button */}
-      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 sm:right-6">
-        <button className="bg-gray-500 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
+      <animated.div className="absolute right-0 top-1/2 transform -translate-y-1/2 sm:right-6">
+        <animated.button style={arrowAnimation} className="bg-gray-500 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
           <FaAngleRight size={24} onClick={() => {
             backgroundObj.id === 4 ? setBackgroundObj(bgmImages[0]) : setBackgroundObj(bgmImages[backgroundObj.id])
             setHeaderVisible(false)
             setContentVisible(false)
             setButtonVisible(false)
           }}/>
-        </button>
-      </div>
-      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 sm:left-6">
-        <button className="bg-gray-400 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
+        </animated.button>
+      </animated.div>
+      <animated.div className="absolute left-0 top-1/2 transform -translate-y-1/2 sm:left-6">
+        <animated.button style={arrowAnimation} className="bg-gray-400 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
           <FaAngleLeft size={24}  onClick={() => {
             backgroundObj.id === 1 ? setBackgroundObj(bgmImages[bgmImages.length - 1]) : setBackgroundObj(bgmImages[backgroundObj.id - 2])
             setHeaderVisible(false)
             setContentVisible(false)
             setButtonVisible(false)
           }}/>
-        </button>
-      </div>
+        </animated.button>
+      </animated.div>
       {navOpen && (
         <div className='absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-gray-500'>
           <ul className='flex flex-col justify-center items-center mt-16 sm:mt-24'>
