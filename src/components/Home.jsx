@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useSpring, useTransition, animated } from 'react-spring';
+import { Link } from "react-router-dom";
 import { FaBars, FaTimes, 
   FaAngleLeft, FaAngleRight,
   FaGithub, FaTwitter, FaLinkedin
@@ -49,27 +50,27 @@ const Home = () => {
     {
       id : 1,
       name: 'Home',
-      href: '',
+      href: '/',
     },
     {
       id : 2,
       name: 'Team Stats',
-      href: '',
+      href: '/team-stats',
     },
     {
       id : 3,
       name: 'Player Stats',
-      href: '',
+      href: '/player-stats',
     },
     {
       id : 4,
       name: 'Matchday',
-      href: '',
+      href: '/matchday',
     },
     {
       id : 5,
       name: 'Glossary',
-      href: '',
+      href: '/glossary',
     },
   ]
 
@@ -239,8 +240,10 @@ const Home = () => {
       {navOpen && (
         <div className='absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-gray-500'>
           <ul className='flex flex-col justify-center items-center mt-16 sm:mt-24'>
-          {navItems.map(({id, name}) => {
-              return <li key={id} className="px-4 cursor-pointer capitalize py-6 text-3xl hover:text-white">{name}</li>
+          {navItems.map(({id, name, href}) => {
+              return <li key={id} className="px-4 cursor-pointer capitalize py-6 text-3xl hover:text-white">
+                <Link to={href}>{name}</Link>
+                </li>
             })}
           </ul>
           <ul className='flex flex-row justify-center items-center pl-0 mt-12'>
