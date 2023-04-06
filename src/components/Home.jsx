@@ -7,11 +7,12 @@ import { FaBars, FaTimes,
 } from 'react-icons/fa';
 import {MdOutlineKeyboardArrowRight} from 'react-icons/md';
 
-import home_page from '../assets/Home_Page_2.jpg';
-import home_page_3 from '../assets/home_page_3.jpg';
-import player_stats from '../assets/player_stat.jpg';
-import team_stats from '../assets/team_stats.jpg';
-import pl_logo_new from '../assets/pl_logo_new.png';
+import home_page from '../assets/home_page.png';
+import team_stats from '../assets/team_stats.png';
+import player_stats from '../assets/player_stats.png';
+import matchday from '../assets/matchday.png';
+import glossary from '../assets/glossary.png';
+import pl_logo_new from '../assets/pl_logo_new.png'
 
 const Home = () => {
   const bgmImages = [
@@ -37,13 +38,13 @@ const Home = () => {
       id: 4,
       header: 'MATCHDAY',
       content: 'Get exclusive access to the latest match insights with our Matchday section. From the standout performers to the crucial moments of the game, our detailed visualizations bring you closer to the action than ever before. Experience the thrill of matchday like never before',
-      src: home_page_3,
+      src: matchday,
     },
     {
       id: 5,
       header: 'GLOSSARY',
       content: "This section serves as a comprehensive guide to help you understand the key analytic terms used in our website. Whether you're a seasoned fan or new to the game, our glossary is the perfect reference tool to gain a deeper understanding of the analytics behind the sport.",
-      src: home_page_3,
+      src: glossary,
     },
   ]
   const navItems = [
@@ -101,7 +102,7 @@ const Home = () => {
   const arrowAnimation = useSpring({
     from: {opacity: 0},
     to: {opacity: 1},
-    config: {duration: 6000}
+    config: {duration: 9000}
   })
 
   const titleAnimation = useSpring({
@@ -151,7 +152,7 @@ const Home = () => {
 
   
     const bgTimer = setInterval(() => {
-      backgroundObj.id === 4 ? setBackgroundObj(bgmImages[0]) : setBackgroundObj(bgmImages[backgroundObj.id])
+      backgroundObj.id === bgmImages[bgmImages.length - 1].id ? setBackgroundObj(bgmImages[0]) : setBackgroundObj(bgmImages[backgroundObj.id])
     }, 20000);
   
     return () => {
@@ -182,21 +183,21 @@ const Home = () => {
             key={item.id}
             src={item.src}
             alt="Premier League Data Viz Website"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover z-1"
           />
         </animated.div>)
       })}
       {/* title, content and button display */}
-      <animated.h1 style={titleAnimation} key={backgroundObj.id} className={`${headerVisible ? '' : 'opacity-0'} absolute top-16 left-1/2 transform -translate-x-1/2`}><span className='text-white text-3xl font-bold inline-block bg-black px-6 py-4 text-center sm:text-5xl sm:px-20'>{backgroundObj.header}</span></animated.h1>
+      <animated.h1 style={titleAnimation} key={backgroundObj.id} className={`${headerVisible ? '' : 'opacity-0'} absolute top-16 left-1/2 transform -translate-x-1/2`}><span className='text-white text-3xl font-bold inline-block bg-black bg-opacity-70 px-6 py-4 text-center sm:text-5xl sm:px-20'>{backgroundObj.header}</span></animated.h1>
       {/* description content and button */}
-      <animated.div className='absolute top-2/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 z-0 ml-8'>
-        <animated.button style={buttonAnimation} className={`${buttonVisible ? '' : 'opacity-0'} group text-white font-bold text-sm bg-black px-4 py-2 my-2 hover:bg-red-500 transition-all duration-200`}>
-            BROWSE SECTION
+      <animated.div className='absolute top-2/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 ml-8'>
+        <animated.button style={buttonAnimation} className={`${buttonVisible ? '' : 'opacity-0'} group text-white font-bold text-sm bg-black bg-opacity-70 px-4 py-2 my-2 hover:bg-red-500 transition-all duration-200`}>
+          {backgroundObj.id === 1 ? 'LOGIN/SIGNUP' : 'BROWSE SECTION'}
             <span className='hidden align-middle pl-2 group-hover:inline-block'>
               <MdOutlineKeyboardArrowRight size={25}/>
             </span>
           </animated.button>
-        <animated.p style={contentAnimation} className={`${contentVisible ? '' : 'opacity-0'} text-white text-sm bg-black max-w-md px-2 py-2 sm:text-lg`}>{backgroundObj.content}</animated.p>
+        <animated.p style={contentAnimation} className={`${contentVisible ? '' : 'opacity-0'} text-white text-sm bg-black bg-opacity-70 max-w-md px-2 py-2 sm:text-lg z-0`}>{backgroundObj.content}</animated.p>
       </animated.div>
       {/* Logo */}
       <div className="absolute top-2 left-0 z-10 sm:left-24 sm:top-12 cursor-pointer">
@@ -218,9 +219,9 @@ const Home = () => {
 
       {/* image slide button */}
       <animated.div className="absolute right-0 top-1/2 transform -translate-y-1/2 sm:right-6">
-        <animated.button style={arrowAnimation} className="bg-gray-500 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
-          <FaAngleRight size={24} onClick={() => {
-            backgroundObj.id === 4 ? setBackgroundObj(bgmImages[0]) : setBackgroundObj(bgmImages[backgroundObj.id])
+        <animated.button style={arrowAnimation} className="bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
+          <FaAngleRight size={22} onClick={() => {
+            backgroundObj.id === bgmImages[bgmImages.length - 1].id ? setBackgroundObj(bgmImages[0]) : setBackgroundObj(bgmImages[backgroundObj.id])
             setHeaderVisible(false)
             setContentVisible(false)
             setButtonVisible(false)
@@ -228,8 +229,8 @@ const Home = () => {
         </animated.button>
       </animated.div>
       <animated.div className="absolute left-0 top-1/2 transform -translate-y-1/2 sm:left-6">
-        <animated.button style={arrowAnimation} className="bg-gray-400 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
-          <FaAngleLeft size={24}  onClick={() => {
+        <animated.button style={arrowAnimation} className="bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
+          <FaAngleLeft size={22}  onClick={() => {
             backgroundObj.id === 1 ? setBackgroundObj(bgmImages[bgmImages.length - 1]) : setBackgroundObj(bgmImages[backgroundObj.id - 2])
             setHeaderVisible(false)
             setContentVisible(false)
