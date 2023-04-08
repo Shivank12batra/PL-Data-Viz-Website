@@ -1,8 +1,9 @@
 import React from 'react'
+import TeamTable from './TeamTable'
 
 const TeamStats = () => {
   return (
-    <div>TeamStats</div>
+    <TeamTable/>
   )
 }
 

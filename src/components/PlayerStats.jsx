@@ -2,7 +2,7 @@ import React from 'react'
 
 const PlayerStats = () => {
   return (
-    <div className='text-6xl text-black'>Player Stats</div>
+    <div>Player Stats</div>
   )
 }
 
