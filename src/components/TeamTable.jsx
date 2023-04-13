@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import { useTable, useSortBy } from 'react-table';
+import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 import data from '../data/table';
 
 const TeamTable = () => {
-    const [sortColumn, setSortColumn] = useState("Form");
-    const [sortDirection, setSortDirection] = useState("Desc");
+    // const [columns, setColumns] = useState();
+    // const [sortColumn, setSortColumn] = useState("Rank");
+    // const [sortDirection, setSortDirection] = useState("");
 
     const formSort = (rowA, rowB) => {
       const formA = rowA.original.Form;
@@ -28,6 +30,18 @@ const TeamTable = () => {
       return pointsA > pointsB ? 1 : pointsA < pointsB ? -1 : 0;
     };
 
+    const xGDSort = (rowA, rowB) => {
+      const numA = parseFloat(rowA.original.xGD);
+      const numB = parseFloat(rowB.original.xGD);
+      if (numA > numB) {
+        return 1;
+      }
+      if (numA < numB) {
+        return -1;
+      }
+      return 0;
+    }
+
     const columns = React.useMemo(() => {
         const columnHeaders = Object.keys(data[0]);
       
@@ -35,30 +49,53 @@ const TeamTable = () => {
           return {
             Header: header,
             accessor: header,
-            sortType: header === 'Form' ? formSort : typeof data[0][header] === 'number' ? 'number' : 'alphanumeric',
-            sortDescFirst: true,
-            sortInverted: false,
+            sortType: header === 'Form' ? formSort : header === 'xGD' ? xGDSort : typeof data[0][header] === 'number' ? 'number' : 'alphanumeric',
+            isSortedDesc: true
           };
         });
       }, [data]);
-      console.log(columns)
+
+      const tableInstance = useTable({
+        columns,
+        data
+      },
+      useSortBy
+      )
+
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state : {sortBy},
+      setSortBy} = tableInstance;
+
+    const sortToggle = (column) => {
+        const { isSorted, isSortedDesc, sortDescFirst } = column;
+        console.log(column)
+        console.log(Object.keys(column))
+        console.log(isSorted)
+        console.log(sortDescFirst)
       
-    
-    const tableInstance = useTable(
-        { columns, data, initialState: { sortBy: [{ id: sortColumn, desc: true }] } },
-        useSortBy
-      );
-
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
-
-    const handleSortClick = (columnId) => {
-        if (sortColumn === columnId) {
-          setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+        if (!isSorted) {
+          setSortBy([{ isSorted: true, sortDescFirst: true }]);
         } else {
-          setSortColumn(columnId);
-          setSortDirection("desc");
+          setSortBy([{ sortDescFirst: !sortDescFirst, isSorted: true }]);
         }
-      };
+      
+
+      // toggle sorting order
+      // const newIsSorted = !isSorted;
+      // const newIsSortedDesc = isSorted ? !isSortedDesc : false;
+    
+      // // update column properties
+      // // column.isSorted = newIsSorted;
+      // column.isSortedDesc = newIsSortedDesc;
+    
+      // // update sorting state in React-Table
+      // setSortBy([
+      //   {
+      //     id: column.id,
+      //     desc: newIsSortedDesc,
+      //   },
+      // ]);
+    };
+    
     
     return (
         <div className='flex justify-center items-center mt-8 font-serif'>
@@ -67,7 +104,25 @@ const TeamTable = () => {
                 {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map((column) => (
-                        <th {...column.getHeaderProps()} className="border border-gray-500 p-3 text-gray-700 font-bold uppercase tracking-wider">{column.render('Header')}</th>
+                        <th
+                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                        className="border border-gray-500 p-3 text-gray-700 font-bold uppercase tracking-wider cursor-pointer"
+                      >
+                        {column.render('Header')}
+                        <span className='flex justify-center'>
+                          {column.isSorted ? (
+                            column.isSortedDesc ? (
+                              <FaSortDown onClick={() => sortToggle(column)}/>
+                            ) : (
+                              <FaSortUp onClick={() => sortToggle
+                              (column)}/>
+                            )
+                          ) : (
+                            <FaSort onClick={() => sortToggle
+                            (column)}/>
+                          )}
+                        </span>
+                      </th>
                         ))}
                     </tr>
                 ))}
@@ -91,3 +146,11 @@ const TeamTable = () => {
 }
 
 export default TeamTable
+
+// {
+//   onClick: () => {
+//     console.log(column.id);
+//     setSortColumn(column.id);
+//     setSortDirection(sortColumn === column.id ? (sortDirection === 'Desc' ? 'Asc' : 'Desc') : 'Desc');
+//   }
+// }
