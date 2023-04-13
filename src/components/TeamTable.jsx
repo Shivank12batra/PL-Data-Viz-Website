@@ -1,13 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { useTable, useSortBy } from 'react-table';
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 import data from '../data/table';
 
 const TeamTable = () => {
-    // const [columns, setColumns] = useState();
-    // const [sortColumn, setSortColumn] = useState("Rank");
-    // const [sortDirection, setSortDirection] = useState("");
-
+    
     const formSort = (rowA, rowB) => {
       const formA = rowA.original.Form;
       const formB = rowB.original.Form;
@@ -50,7 +47,7 @@ const TeamTable = () => {
             Header: header,
             accessor: header,
             sortType: header === 'Form' ? formSort : header === 'xGD' ? xGDSort : typeof data[0][header] === 'number' ? 'number' : 'alphanumeric',
-            isSortedDesc: true
+            sortDesc : true
           };
         });
       }, [data]);
@@ -62,39 +59,8 @@ const TeamTable = () => {
       useSortBy
       )
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state : {sortBy},
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,
       setSortBy} = tableInstance;
-
-    const sortToggle = (column) => {
-        const { isSorted, isSortedDesc, sortDescFirst } = column;
-        console.log(column)
-        console.log(Object.keys(column))
-        console.log(isSorted)
-        console.log(sortDescFirst)
-      
-        if (!isSorted) {
-          setSortBy([{ isSorted: true, sortDescFirst: true }]);
-        } else {
-          setSortBy([{ sortDescFirst: !sortDescFirst, isSorted: true }]);
-        }
-      
-
-      // toggle sorting order
-      // const newIsSorted = !isSorted;
-      // const newIsSortedDesc = isSorted ? !isSortedDesc : false;
-    
-      // // update column properties
-      // // column.isSorted = newIsSorted;
-      // column.isSortedDesc = newIsSortedDesc;
-    
-      // // update sorting state in React-Table
-      // setSortBy([
-      //   {
-      //     id: column.id,
-      //     desc: newIsSortedDesc,
-      //   },
-      // ]);
-    };
     
     
     return (
@@ -107,19 +73,18 @@ const TeamTable = () => {
                         <th
                         {...column.getHeaderProps(column.getSortByToggleProps())}
                         className="border border-gray-500 p-3 text-gray-700 font-bold uppercase tracking-wider cursor-pointer"
+                        
                       >
                         {column.render('Header')}
                         <span className='flex justify-center'>
                           {column.isSorted ? (
                             column.isSortedDesc ? (
-                              <FaSortDown onClick={() => sortToggle(column)}/>
+                              <FaSortDown/>
                             ) : (
-                              <FaSortUp onClick={() => sortToggle
-                              (column)}/>
+                              <FaSortUp/>
                             )
                           ) : (
-                            <FaSort onClick={() => sortToggle
-                            (column)}/>
+                            <FaSort/>
                           )}
                         </span>
                       </th>
@@ -146,11 +111,3 @@ const TeamTable = () => {
 }
 
 export default TeamTable
-
-// {
-//   onClick: () => {
-//     console.log(column.id);
-//     setSortColumn(column.id);
-//     setSortDirection(sortColumn === column.id ? (sortDirection === 'Desc' ? 'Asc' : 'Desc') : 'Desc');
-//   }
-// }
