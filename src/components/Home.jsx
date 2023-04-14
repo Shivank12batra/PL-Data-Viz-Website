@@ -77,7 +77,7 @@ const Home = ({navOpen, setNavOpen}) => {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
-    config: { tension: 220, friction: 120 },
+    config: { tension: 100, friction: 100 },
   });
 
   useEffect(() => {
