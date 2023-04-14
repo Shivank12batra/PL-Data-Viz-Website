@@ -1,4 +1,6 @@
+import {useState} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavBar from './components/NavBar';
 import Home from './components/Home';
 import TeamStats from './components/TeamStats';
 import PlayerStats from "./components/PlayerStats";
@@ -7,10 +9,12 @@ import Glossary from "./components/Glossary";
 import NoPage from "./components/NoPage";
 
 function App() {
+  const [navOpen, setNavOpen] = useState(false)
   return (
     <BrowserRouter>
+      <NavBar navOpen={navOpen} setNavOpen={setNavOpen} />
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<Home navOpen={navOpen} setNavOpen={setNavOpen}/>} />
         <Route path="/team-stats" element={<TeamStats />} />
         <Route path="/player-stats" element={<PlayerStats />} />
         <Route path="/matchday" element={<Matchday />} />

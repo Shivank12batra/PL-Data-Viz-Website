@@ -1,20 +1,16 @@
 import {useState, useEffect} from 'react';
 import { useSpring, useTransition, animated } from 'react-spring';
-import { Link } from "react-router-dom";
-import { FaBars, FaTimes, 
-  FaAngleLeft, FaAngleRight,
-  FaGithub, FaTwitter, FaLinkedin
-} from 'react-icons/fa';
+import { FaAngleLeft, FaAngleRight} from 'react-icons/fa';
 import {MdOutlineKeyboardArrowRight} from 'react-icons/md';
+import NavBar from './NavBar';
 
 import home_page from '../assets/home_page.png';
 import team_stats from '../assets/team_stats.png';
 import player_stats from '../assets/player_stats.png';
 import matchday from '../assets/matchday.png';
 import glossary from '../assets/glossary.png';
-import pl_logo_new from '../assets/pl_logo_new.png'
 
-const Home = () => {
+const Home = ({navOpen, setNavOpen}) => {
   const bgmImages = [
     {
       id: 1,
@@ -47,53 +43,7 @@ const Home = () => {
       src: glossary,
     },
   ]
-  const navItems = [
-    {
-      id : 1,
-      name: 'Home',
-      href: '/',
-    },
-    {
-      id : 2,
-      name: 'Team Stats',
-      href: '/team-stats',
-    },
-    {
-      id : 3,
-      name: 'Player Stats',
-      href: '/player-stats',
-    },
-    {
-      id : 4,
-      name: 'Matchday',
-      href: '/matchday',
-    },
-    {
-      id : 5,
-      name: 'Glossary',
-      href: '/glossary',
-    },
-  ]
 
-  const mediaLinks = [
-    {
-      id: 1,
-      icon: <FaGithub size={20}/>,
-      href: ''
-    },
-    {
-      id: 2,
-      icon: <FaTwitter size={20}/>,
-      href: ''
-    },
-    {
-      id: 3,
-      icon: <FaLinkedin size={20}/>,
-      href: ''
-    },
-  ]
-
-  const [navOpen, setNavOpen] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(false)
   const [contentVisible, setContentVisible] = useState(false)
   const [buttonVisible, setButtonVisible] = useState(false)
@@ -168,7 +118,7 @@ const Home = () => {
   }, [backgroundObj]);
 
   return (
-    <div className="relative h-screen">
+    <div className="relative h-screen z-0">
       {/* Background Image */}
       {imgTransition((props, item) => {
         return (
@@ -183,7 +133,7 @@ const Home = () => {
             key={item.id}
             src={item.src}
             alt="Premier League Data Viz Website"
-            className="w-full h-full object-cover z-1"
+            className="w-full h-full object-cover"
           />
         </animated.div>)
       })}
@@ -199,23 +149,6 @@ const Home = () => {
           </animated.button>
         <animated.p style={contentAnimation} className={`${contentVisible ? '' : 'opacity-0'} text-white text-sm bg-black bg-opacity-70 max-w-md px-2 py-2 sm:text-lg z-0`}>{backgroundObj.content}</animated.p>
       </animated.div>
-      {/* Logo */}
-      <div className="absolute top-2 left-0 z-10 sm:left-24 sm:top-12 cursor-pointer">
-        <img
-          src={pl_logo_new} 
-          alt="Premier League Logo"
-          className="w-20 text-6xl"
-        />
-      </div>
- 
-      {/* Menu Button */}
-      <div className="absolute top-2 right-0 z-10 sm:right-24 sm:top-12" onClick={() => setNavOpen(!navOpen)}>
-      <button className={`p-2 text-white rounded-md bg-black transition-all duration-500 ease-in-out {${!navOpen ? 'bg-black' : ''}}`} onClick={() => setNavOpen(!navOpen)}>
-        <span>
-          {navOpen ? <FaTimes className='transition-all duration-500 ease-in-out' size={20}/> : <FaBars className='transition-all duration-500 ease-in-out' size={25}/>}
-        </span>
-      </button>
-      </div>
 
       {/* image slide button */}
       <animated.div className="absolute right-0 top-1/2 transform -translate-y-1/2 sm:right-6">
@@ -238,22 +171,7 @@ const Home = () => {
           }}/>
         </animated.button>
       </animated.div>
-      {navOpen && (
-        <div className='absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-gray-500'>
-          <ul className='flex flex-col justify-center items-center mt-16 sm:mt-24'>
-          {navItems.map(({id, name, href}) => {
-              return <li key={id} className="px-4 cursor-pointer capitalize py-6 text-3xl hover:text-white">
-                <Link to={href}>{name}</Link>
-                </li>
-            })}
-          </ul>
-          <ul className='flex flex-row justify-center items-center pl-0 mt-12'>
-          {mediaLinks.map(({id, icon, href}) => {
-              return <li key={id} className="px-4 cursor-pointer hover:text-white"><a href={href} target='_blank' className='text-decoration-none'>{icon}</a></li>
-            })}
-          </ul>
-        </div>
-      )}
+      <NavBar navOpen={navOpen} setNavOpen={setNavOpen}/>
     </div>
   );
 };

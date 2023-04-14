@@ -5,6 +5,7 @@ import data from '../data/table';
 
 const TeamTable = () => {
     
+    // custom sort for the 'form' column
     const formSort = (rowA, rowB) => {
       const formA = rowA.original.Form;
       const formB = rowB.original.Form;
@@ -26,7 +27,8 @@ const TeamTable = () => {
       }, 0);
       return pointsA > pointsB ? 1 : pointsA < pointsB ? -1 : 0;
     };
-
+    
+    // custom sort for xGD column to sort column containing negative values as well
     const xGDSort = (rowA, rowB) => {
       const numA = parseFloat(rowA.original.xGD);
       const numB = parseFloat(rowB.original.xGD);
@@ -59,8 +61,7 @@ const TeamTable = () => {
       useSortBy
       )
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,
-      setSortBy} = tableInstance;
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = tableInstance;
     
     
     return (

@@ -519,12 +519,23 @@ html {
   --tw-backdrop-sepia:  ;
 }
 
+.fixed{
+  position: fixed;
+}
+
 .absolute{
   position: absolute;
 }
 
 .relative{
   position: relative;
+}
+
+.inset-0{
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 
 .left-0{
@@ -592,6 +603,10 @@ html {
   margin-top: 2rem;
 }
 
+.block{
+  display: block;
+}
+
 .inline-block{
   display: inline-block;
 }
@@ -602,6 +617,10 @@ html {
 
 .table{
   display: table;
+}
+
+.contents{
+  display: contents;
 }
 
 .hidden{
