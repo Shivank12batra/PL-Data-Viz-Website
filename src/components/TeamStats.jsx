@@ -3,7 +3,7 @@ import TeamTable from './TeamTable'
 
 const TeamStats = () => {
   return (
-    <div className='w-full bg-gradient-to-b from-black to-red-500'>
+    <div style={{ border: "2px solid red" }} className='bg-gradient-to-b from-black to-gray-800 '>
       <TeamTable/>
     </div>
   )

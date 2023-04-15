@@ -119,6 +119,7 @@ const Home = ({navOpen, setNavOpen}) => {
 
   return (
     <div className="relative h-screen z-0">
+      {console.log(headerVisible)}
       {/* Background Image */}
       {imgTransition((props, item) => {
         return (
@@ -154,20 +155,20 @@ const Home = ({navOpen, setNavOpen}) => {
       <animated.div className="absolute right-0 top-1/2 transform -translate-y-1/2 sm:right-6">
         <animated.button style={arrowAnimation} className="bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
           <FaAngleRight size={22} onClick={() => {
-            backgroundObj.id === bgmImages[bgmImages.length - 1].id ? setBackgroundObj(bgmImages[0]) : setBackgroundObj(bgmImages[backgroundObj.id])
             setHeaderVisible(false)
             setContentVisible(false)
             setButtonVisible(false)
+            backgroundObj.id === bgmImages[bgmImages.length - 1].id ? setBackgroundObj(bgmImages[0]) : setBackgroundObj(bgmImages[backgroundObj.id])
           }}/>
         </animated.button>
       </animated.div>
       <animated.div className="absolute left-0 top-1/2 transform -translate-y-1/2 sm:left-6">
         <animated.button style={arrowAnimation} className="bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
           <FaAngleLeft size={22}  onClick={() => {
-            backgroundObj.id === 1 ? setBackgroundObj(bgmImages[bgmImages.length - 1]) : setBackgroundObj(bgmImages[backgroundObj.id - 2])
             setHeaderVisible(false)
             setContentVisible(false)
             setButtonVisible(false)
+            backgroundObj.id === 1 ? setBackgroundObj(bgmImages[bgmImages.length - 1]) : setBackgroundObj(bgmImages[backgroundObj.id - 2])
           }}/>
         </animated.button>
       </animated.div>

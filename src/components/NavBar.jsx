@@ -55,7 +55,7 @@ const NavBar = ({navOpen, setNavOpen}) => {
 
   return (
     <div>
-        <div className="fixed top-2 left-0 z-10 sm:left-24 sm:top-12 cursor-pointer">
+        <div className={`${navOpen ? 'fixed' : 'absolute'} top-2 left-0 z-10 sm:left-24 sm:top-12 cursor-pointer`}>
             <img
                 src={pl_logo_new} 
                 alt="Premier League Logo"
@@ -64,7 +64,7 @@ const NavBar = ({navOpen, setNavOpen}) => {
         </div>
 
         {/* Menu Button */}
-        <div className="fixed top-2 right-0 z-10 sm:right-24 sm:top-12" onClick={() => setNavOpen(!navOpen)}>
+        <div className={`${navOpen ? 'fixed' : 'absolute'} top-2 right-0 z-10 sm:right-24 sm:top-12`} onClick={() => setNavOpen(!navOpen)}>
         <button className={`p-2 text-white rounded-md bg-black transition-all duration-500 ease-in-out {${!navOpen ? 'bg-black' : ''}}`} onClick={() => setNavOpen(!navOpen)}>
         <span>
             {navOpen ? <FaTimes className='transition-all duration-500 ease-in-out' size={20}/> : <FaBars className='transition-all duration-500 ease-in-out' size={25}/>}
