@@ -603,6 +603,10 @@ html {
   margin-top: 2rem;
 }
 
+.mt-24{
+  margin-top: 6rem;
+}
+
 .block{
   display: block;
 }
@@ -788,6 +792,10 @@ html {
 
 .to-gray-800{
   --tw-gradient-to: #1f2937;
+}
+
+.to-red-500{
+  --tw-gradient-to: #ef4444;
 }
 
 .object-cover{

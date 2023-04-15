@@ -65,8 +65,11 @@ const TeamTable = () => {
     
     
     return (
-        <div className='flex justify-center items-center mt-8 font-serif'>
-            <table {...getTableProps()} className='border-collapse border border-gray-500 rounded-lg shadow-lg bg-red-500'>
+        <div>
+          <div className=''>
+          <div className='flex justify-center items-center font-serif'>
+            {/* <h1 className='text-white'>Team Table</h1> */}
+            <table {...getTableProps()} className=' mt-16 border-collapse border border-gray-500 rounded-lg shadow-lg bg-red-500'>
             <thead className='bg-red-500'>
                 {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -106,6 +109,8 @@ const TeamTable = () => {
                 })}
             </tbody>
         </table>
+        </div>
+          </div>
         </div>
       );
     
