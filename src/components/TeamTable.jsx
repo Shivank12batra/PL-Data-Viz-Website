@@ -71,7 +71,7 @@ const TeamTable = () => {
           <select className='px-12 py-2 border border-gray-400 rounded-lg shadow-md hover:cursor-pointer'>
             <option>22-23</option>
           </select>
-          <div className='overflow-x-auto w-full sm:w-3/4'>
+          <div className='overflow-x-auto w-full sm:w-4/5'>
           <table {...getTableProps()} className='w-full border-collapse border border-gray-500 rounded-lg shadow-lg mt-8 table-auto'>
             <thead className='bg-gradient-to-b from-black to-gray-800'>
                 {headerGroups.map((headerGroup) => (

@@ -6,11 +6,14 @@ import TeamStats from './components/TeamStats';
 import PlayerStats from "./components/PlayerStats";
 import Matchday from "./components/Matchday";
 import Glossary from "./components/Glossary";
+import SignUp from './components/SignUp';
 import NoPage from "./components/NoPage";
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   const [navOpen, setNavOpen] = useState(false)
   return (
+    <AuthProvider>
     <BrowserRouter>
       <NavBar navOpen={navOpen} setNavOpen={setNavOpen} />
       <Routes>
@@ -19,9 +22,11 @@ function App() {
         <Route path="/player-stats" element={<PlayerStats />} />
         <Route path="/matchday" element={<Matchday />} />
         <Route path="/glossary" element={<Glossary />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   )
 }
 

@@ -33,6 +33,11 @@ const NavBar = ({navOpen, setNavOpen}) => {
           name: 'Glossary',
           href: '/glossary',
         },
+        {
+          id : 6,
+          name: 'Signup',
+          href: '/signup',
+        },
     ]
     
     const mediaLinks = [
