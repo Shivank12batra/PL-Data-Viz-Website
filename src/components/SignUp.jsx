@@ -23,6 +23,7 @@ const SignUpForm = () => {
     } catch(e) {
       console.log(e)
       console.log('error')
+      setLoading(false)
       setError('Failed to create an account! Try again later')
     }
   }
@@ -160,14 +161,15 @@ const SignUpForm = () => {
               />
             </div>
             <button disabled={loading}
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto cursor-pointer"
+                type="submit"
+                className={`${loading ? 'cursor-not-allowed' : 'cursor-pointer'} bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto`}
             >
               Submit
             </button>
           </Form>
         </Formik>
         <div className="mt-4 text-center">
+        <div className="text-red-600 mb-2">{error}</div>
           Already have an account?{" "}
           <Link to='/login' className="text-blue-600 hover:text-blue-800">Sign in</Link>
         </div>

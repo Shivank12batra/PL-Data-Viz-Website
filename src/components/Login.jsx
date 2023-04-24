@@ -22,6 +22,7 @@ const Login = () => {
         }
         catch(err) {
             console.log(err)
+            setLoading(false)
             setError('Invalid email or password')
         }
     }
@@ -83,13 +84,14 @@ const Login = () => {
                 </div>
                 <button disabled={loading}
                   type="submit"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto cursor-pointer"
+                  className={`${loading ? 'cursor-not-allowed' : 'cursor-pointer'} bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto`}
                 >
                   Submit
                 </button>
               </Form>
             </Formik>
             <div className="mt-4 text-center">
+            <div className="text-red-600 mb-2">{error}</div>
               Not registered yet?{" "}
               <Link to='/signup' className="text-blue-600 hover:text-blue-800">Signup</Link>
             </div>

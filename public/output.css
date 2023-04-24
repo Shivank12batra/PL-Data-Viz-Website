@@ -775,6 +775,10 @@ html {
   cursor: pointer;
 }
 
+.cursor-not-allowed{
+  cursor: not-allowed;
+}
+
 .flex-row{
   flex-direction: row;
 }
