@@ -1,9 +1,31 @@
-import React from "react";
+import React, {useState} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import validationSchema from "../validationSchema";
+import {signupSchema} from "../validationSchema";
+import {useAuth} from '../context/AuthContext';
+import { Link, useNavigate } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 
 const SignUpForm = () => {
+  const {signup, currentUser}  = useAuth()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const signupUser = async(values, {resetForm}) => {
+    try {
+      setError('')
+      setLoading(true)
+      console.log(values)
+      await signup(values.email, values.password)
+      resetForm()
+      navigate('/')
+      console.log('done')
+    } catch(e) {
+      console.log(e)
+      console.log('error')
+      setError('Failed to create an account! Try again later')
+    }
+  }
   return (
     <div className="fixed inset-0 h-screen flex items-center justify-center bg-gray-900 bg-opacity-50">
       <div className="bg-white p-8 rounded-lg shadow-lg sm:w-2/5 w-4/5 max-h-full overflow-y-auto">
@@ -21,14 +43,13 @@ const SignUpForm = () => {
             password: "",
             confirmPassword: "",
           }}
-          validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
+          validationSchema={signupSchema}
+          onSubmit={signupUser}
         >
           <Form>
           <div className="sm:flex sm:flex-row">
   <div className="mb-4 mr-4 flex-1">
+  {currentUser && JSON.stringify(currentUser.email)}
     <label htmlFor="name" className="block text-gray-800 font-bold">
       Name
     </label>
@@ -138,9 +159,9 @@ const SignUpForm = () => {
                 className="text-red-600"
               />
             </div>
-            <button
+            <button disabled={loading}
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto cursor-pointer"
             >
               Submit
             </button>
@@ -148,9 +169,7 @@ const SignUpForm = () => {
         </Formik>
         <div className="mt-4 text-center">
           Already have an account?{" "}
-          <a href="#" className="text-blue-600 hover:text-blue-800">
-            Sign In
-          </a>
+          <Link to='/login' className="text-blue-600 hover:text-blue-800">Sign in</Link>
         </div>
       </div>
     </div>

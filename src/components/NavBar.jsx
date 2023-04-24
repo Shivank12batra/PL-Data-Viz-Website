@@ -38,6 +38,11 @@ const NavBar = ({navOpen, setNavOpen}) => {
           name: 'Signup',
           href: '/signup',
         },
+        {
+          id : 7,
+          name: 'Login',
+          href: '/login',
+        },
     ]
     
     const mediaLinks = [

@@ -7,6 +7,7 @@ import PlayerStats from "./components/PlayerStats";
 import Matchday from "./components/Matchday";
 import Glossary from "./components/Glossary";
 import SignUp from './components/SignUp';
+import Login from './components/Login';
 import NoPage from "./components/NoPage";
 import { AuthProvider } from './context/AuthContext';
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/matchday" element={<Matchday />} />
         <Route path="/glossary" element={<Glossary />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login/>} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
