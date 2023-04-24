@@ -8,6 +8,7 @@ import Matchday from "./components/Matchday";
 import Glossary from "./components/Glossary";
 import SignUp from './components/SignUp';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import NoPage from "./components/NoPage";
 import { AuthProvider } from './context/AuthContext';
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/glossary" element={<Glossary />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/logout" element={<Logout/>} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

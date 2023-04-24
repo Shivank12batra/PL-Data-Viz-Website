@@ -12,6 +12,7 @@ const Login = () => {
     const navigate = useNavigate()
 
     const loginUser = async(values, {resetForm}) => {
+        console.log('button clicked')
         try {
             setError("")
             setLoading(true)

@@ -3,9 +3,11 @@ import { NavLink } from 'react-router-dom';
 import { FaBars, FaTimes, 
     FaGithub, FaTwitter, FaLinkedin
   } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 import pl_logo_new from '../assets/pl_logo_new.png';
 
 const NavBar = ({navOpen, setNavOpen}) => {
+    const {currentUser} = useAuth()
 
     const navItems = [
         { 
@@ -35,11 +37,6 @@ const NavBar = ({navOpen, setNavOpen}) => {
         },
         {
           id : 6,
-          name: 'Signup',
-          href: '/signup',
-        },
-        {
-          id : 7,
           name: 'Login',
           href: '/login',
         },
@@ -88,8 +85,8 @@ const NavBar = ({navOpen, setNavOpen}) => {
             <ul className='flex flex-col justify-center items-center mt-16 sm:mt-24'>
             {navItems.map(({id, name, href}) => {
                 return (
-                <li key={id} className='px-4 cursor-pointer capitalize py-6 text-3xl hover:text-white'> 
-                    <NavLink onClick={() => setNavOpen(!navOpen)} className={({isActive}) => isActive ? "text-white": ""} to={href}>{name}</NavLink>
+                <li key={id} className='px-4 cursor-pointer capitalize py-6 text-3xl hover:text-white'>
+                    <NavLink onClick={() => setNavOpen(!navOpen)} className={({isActive}) => isActive ? "text-white": ""} to={currentUser && id === 6 ? '/logout' : href}>{currentUser && id === 6 ? 'logout' : name}</NavLink>
                 </li>
                 );
             })}
