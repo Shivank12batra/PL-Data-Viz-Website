@@ -27,12 +27,12 @@ const Login = () => {
         }
     }
     return (
-        <div className="fixed inset-0 h-screen flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg sm:w-2/5 w-4/5 max-h-full overflow-y-auto">
+        <div className="fixed inset-0 h-screen flex items-center justify-center bg-gradient-to-b from-black to-gray-800 bg-opacity-50">
+          <div className="relative bg-white p-8 rounded-lg shadow-lg sm:w-2/5 w-4/5 max-h-full overflow-y-auto">
+          <button className="absolute top-2 right-2 text-gray-800 hover:text-gray-500" onClick={() => navigate('/')}>
+          <MdClose className="h-8 w-8" />
+        </button>
             <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
-            <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
-              <MdClose className="h-6 w-6" />
-            </button>
             <hr className="my-4 border-blue-500" />
             <Formik
               initialValues={{

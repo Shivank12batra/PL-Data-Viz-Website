@@ -4,8 +4,6 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} fro
 
 const AuthContext = createContext(null)
 
-
-
 export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
@@ -15,7 +13,6 @@ export const AuthProvider = ({children}) => {
             setCurrentUser(user)
             setLoading(false)
         })
-        console.log(unsubscribe)
         return unsubscribe
     }, [])
 
