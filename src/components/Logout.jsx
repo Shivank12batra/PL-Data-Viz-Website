@@ -26,9 +26,15 @@ const Logout = () => {
             </button>
             <h1 className='sm:text-left text-2xl font-bold mb-4'>Do you want to logout?</h1>
             <div className='text-center'>
-            <button className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4  mb-2 block mx-auto cursor-pointer w-2/4 rounded-full' onClick={logoutUser}>log out</button>
-            <Link to='/' className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block mx-auto cursor-pointer w-2/4 rounded-full'>cancel</Link>
-            <p className='text-red-600 mt-2'>{error}</p>
+              <button className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4  mb-2 block mx-auto cursor-pointer w-2/4 rounded-full' onClick={logoutUser}>
+                log out
+              </button>
+              <Link to='/' className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded block mx-auto cursor-pointer w-2/4 rounded-full'>
+                cancel
+              </Link>
+              <p className='text-red-600 mt-2'>
+                {error}
+                </p>
             </div>
         </div>
     </div>

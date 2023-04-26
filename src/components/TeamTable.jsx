@@ -4,7 +4,6 @@ import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
 import data from '../data/table';
 
 const TeamTable = () => {
-    
     // custom sort for the 'form' column
     const formSort = (rowA, rowB) => {
       const formA = rowA.original.Form;
@@ -72,45 +71,45 @@ const TeamTable = () => {
             <option>22-23</option>
           </select>
           <div className='overflow-x-auto w-full sm:w-4/5'>
-          <table {...getTableProps()} className='w-full border-collapse border border-gray-500 rounded-lg shadow-lg mt-8 table-auto'>
-            <thead className='bg-gradient-to-b from-black to-gray-800'>
-                {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map((column) => (
-                        <th
-                        {...column.getHeaderProps(column.getSortByToggleProps())}
-                        className="border border-gray-500 p-3 text-white font-bold uppercase tracking-wider cursor-pointer"
-                      >
-                        {column.render('Header')}
-                        <span className='flex justify-center'>
-                          {column.isSorted ? (
-                            column.isSortedDesc ? (
-                              <FaSortDown/>
+            <table {...getTableProps()} className='w-full border-collapse border border-gray-500 rounded-lg shadow-lg mt-8 table-auto'>
+              <thead className='bg-gradient-to-b from-black to-gray-800'>
+                  {headerGroups.map((headerGroup) => (
+                      <tr {...headerGroup.getHeaderGroupProps()}>
+                          {headerGroup.headers.map((column) => (
+                          <th
+                          {...column.getHeaderProps(column.getSortByToggleProps())}
+                          className="border border-gray-500 p-3 text-white font-bold uppercase tracking-wider cursor-pointer"
+                        >
+                          {column.render('Header')}
+                          <span className='flex justify-center'>
+                            {column.isSorted ? (
+                              column.isSortedDesc ? (
+                                <FaSortDown/>
+                              ) : (
+                                <FaSortUp/>
+                              )
                             ) : (
-                              <FaSortUp/>
-                            )
-                          ) : (
-                            <FaSort/>
-                          )}
-                        </span>
-                      </th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody {...getTableBodyProps()} className='bg-gray-500'>
-                {rows.map((row) => {
-                prepareRow(row);
-                return (
-                    <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => (
-                        <td {...cell.getCellProps()} className='border border-gray-200 p-3'>{cell.render('Cell')}</td>
-                    ))}
-                    </tr>
-                );
-                })}
-            </tbody>
-         </table>
+                              <FaSort/>
+                            )}
+                          </span>
+                        </th>
+                          ))}
+                      </tr>
+                  ))}
+              </thead>
+              <tbody {...getTableBodyProps()} className='bg-gray-500'>
+                  {rows.map((row) => {
+                  prepareRow(row);
+                  return (
+                      <tr {...row.getRowProps()}>
+                      {row.cells.map((cell) => (
+                          <td {...cell.getCellProps()} className='border border-gray-200 p-3'>{cell.render('Cell')}</td>
+                      ))}
+                      </tr>
+                  );
+                  })}
+              </tbody>
+            </table>
           </div>
        </div>
     );

@@ -119,7 +119,6 @@ const Home = ({navOpen, setNavOpen}) => {
 
   return (
     <div className="relative h-screen z-0">
-      {console.log(headerVisible)}
       {/* Background Image */}
       {imgTransition((props, item) => {
         return (
@@ -147,8 +146,9 @@ const Home = ({navOpen, setNavOpen}) => {
             <span className='hidden align-middle pl-2 group-hover:inline-block'>
               <MdOutlineKeyboardArrowRight size={25}/>
             </span>
-          </animated.button>
-        <animated.p style={contentAnimation} className={`${contentVisible ? '' : 'opacity-0'} text-white text-sm bg-black bg-opacity-70 max-w-md px-2 py-2 sm:text-lg z-0`}>{backgroundObj.content}</animated.p>
+        </animated.button>
+        <animated.p style={contentAnimation} className={`${contentVisible ? '' : 'opacity-0'} text-white text-sm bg-black bg-opacity-70 max-w-md px-2 py-2 sm:text-lg z-0`}>{backgroundObj.content}
+        </animated.p>
       </animated.div>
 
       {/* image slide button */}

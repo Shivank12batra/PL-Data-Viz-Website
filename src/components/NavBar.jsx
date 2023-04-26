@@ -4,7 +4,7 @@ import { FaBars, FaTimes,
     FaGithub, FaTwitter, FaLinkedin
   } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
-import pl_logo_new from '../assets/pl_logo_new.png';
+import pl_logo from '../assets/pl_logo.png';
 
 const NavBar = ({navOpen, setNavOpen}) => {
     const {currentUser} = useAuth()
@@ -64,7 +64,7 @@ const NavBar = ({navOpen, setNavOpen}) => {
     <div>
         <div className={`${navOpen ? 'fixed' : 'absolute'} top-2 left-0 z-10 sm:left-24 sm:top-12 cursor-pointer`}>
             <img
-                src={pl_logo_new} 
+                src={pl_logo} 
                 alt="Premier League Logo"
                 className="w-20 text-6xl"
             />
@@ -72,34 +72,35 @@ const NavBar = ({navOpen, setNavOpen}) => {
 
         {/* Menu Button */}
         <div className={`${navOpen ? 'fixed' : 'absolute'} top-2 right-0 z-10 sm:right-24 sm:top-12`} onClick={() => setNavOpen(!navOpen)}>
-        <button className={`p-2 text-white rounded-md bg-black transition-all duration-500 ease-in-out {${!navOpen ? 'bg-black' : ''}}`} onClick={() => setNavOpen(!navOpen)}>
-        <span>
-            {navOpen ? <FaTimes className='transition-all duration-500 ease-in-out' size={20}/> : <FaBars className='transition-all duration-500 ease-in-out' size={25}/>}
-        </span>
-        </button>
+          <button className={`p-2 text-white rounded-md bg-black transition-all duration-500
+          ease-in-out {${!navOpen ? 'bg-black' : ''}}`} onClick={() => setNavOpen(!navOpen)}>
+            <span>
+              {navOpen ? <FaTimes className='transition-all duration-500 ease-in-out' size={20}/> : <FaBars className='transition-all duration-500 ease-in-out' size={25}/>}
+            </span>
+          </button>
         </div>
 
         {/* nav contents */}
         {navOpen && (
-            <div className={`fixed inset-0 w-full h-full bg-gradient-to-b from-black to-gray-800 text-gray-500 z-11 transform transition-transform duration-300`}>
-            <ul className='flex flex-col justify-center items-center mt-16 sm:mt-24'>
-            {navItems.map(({id, name, href}) => {
-                return (
-                <li key={id} className='px-4 cursor-pointer capitalize py-6 text-3xl hover:text-white'>
-                    <NavLink onClick={() => setNavOpen(!navOpen)} className={({isActive}) => isActive ? "text-white": ""} to={currentUser && id === 6 ? '/logout' : href}>{currentUser && id === 6 ? 'logout' : name}</NavLink>
-                </li>
-                );
-            })}
-            </ul>
-            <ul className='flex flex-row justify-center items-center pl-0 mt-12'>
-            {mediaLinks.map(({id, icon, href}) => {
-                return (
-                <li key={id} className="px-4 cursor-pointer hover:text-white">
-                    <a href={href} target='_blank' className='text-decoration-none'>{icon}</a>
-                </li>
-                );
-            })}
-             </ul>
+            <div className={`fixed inset-0 w-full h-full bg-gradient-to-b from-black to-gray-800 text-gray-500 z-11 transform transition-transform duration-300 overflow-y-auto`}>
+              <ul className='flex flex-col justify-center items-center mt-16'>
+              {navItems.map(({id, name, href}) => {
+                  return (
+                  <li key={id} className='px-4 cursor-pointer capitalize py-6 text-3xl hover:text-white'>
+                      <NavLink onClick={() => setNavOpen(!navOpen)} className={({isActive}) => isActive ? "text-white": ""} to={currentUser && id === navItems.length ? '/logout' : href}>{currentUser && id === navItems.length ? 'logout' : name}</NavLink>
+                  </li>
+                  );
+              })}
+              </ul>
+              <ul className='flex flex-row justify-center items-center pl-0 mt-12'>
+              {mediaLinks.map(({id, icon, href}) => {
+                  return (
+                  <li key={id} className="px-4 cursor-pointer hover:text-white">
+                      <a href={href} target='_blank' className='text-decoration-none'>{icon}</a>
+                  </li>
+                  );
+              })}
+              </ul>
             </div>
         )}
     </div>
