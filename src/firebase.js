@@ -1,4 +1,6 @@
 import { initializeApp} from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore"; 
 import {getAuth} from 'firebase/auth';
 
 // Your web app's Firebase configuration
@@ -15,5 +17,24 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app)
+export const db = getFirestore(app);
+export const auth = getAuth(app);
+
+// firestore database function for user collection
+export const addUserData = async(values) => {
+  try {
+    const {name, email, phone, team} = values
+    const docRef = await addDoc(collection(db, "users"), {
+      name,
+      email,
+      phone,
+      team
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+
 export default app

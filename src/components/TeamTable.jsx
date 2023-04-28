@@ -1,9 +1,12 @@
 import React from 'react';
 import { useTable, useSortBy } from 'react-table';
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 import data from '../data/table';
 
 const TeamTable = () => {
+    const {team} = useAuth()
+    console.log(team)
     // custom sort for the 'form' column
     const formSort = (rowA, rowB) => {
       const formA = rowA.original.Form;

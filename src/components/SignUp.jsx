@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { addUserData } from "../firebase";
 import {signupSchema} from "../validationSchema";
 import {useAuth} from '../context/AuthContext';
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +18,7 @@ const SignUpForm = () => {
       setLoading(true)
       console.log(values)
       await signup(values.email, values.password)
+      await addUserData(values)
       resetForm()
       navigate('/')
       console.log('done')
