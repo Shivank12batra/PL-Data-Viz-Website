@@ -12,8 +12,11 @@ const Login = () => {
     const navigate = useNavigate()
 
     const loginUser = async(values, {resetForm}) => {
-        console.log('button clicked')
         try {
+          if (currentUser) {
+            setError("You are already logged in!")
+            return 
+          }
             setError("")
             setLoading(true)
             await login(values.email, values.password)
@@ -44,7 +47,6 @@ const Login = () => {
             >
               <Form>
                 <div className="mb-4 w-70">
-                {currentUser && JSON.stringify(currentUser.email)}
                   <label htmlFor="email" className="block text-gray-800 font-bold">
                     Email
                   </label>

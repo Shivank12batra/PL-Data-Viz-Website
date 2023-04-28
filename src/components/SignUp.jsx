@@ -7,25 +7,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 
 const SignUpForm = () => {
-  const {signup, currentUser}  = useAuth()
+  const {signup}  = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   const signupUser = async(values, {resetForm}) => {
     try {
+      console.log(values)
       setError('')
       setLoading(true)
-      console.log(values)
       await signup(values.email, values.password)
       await addUserData(values)
       resetForm()
       navigate('/')
-      console.log('done')
     } catch(e) {
-      console.log(e)
-      console.log('error')
       setLoading(false)
+      if (e.message === 'Firebase: Error (auth/email-already-in-use).') {
+        setError('This email is already registered with us')
+        return
+      }
       setError('Failed to create an account! Try again later')
     }
   }
@@ -52,7 +53,6 @@ const SignUpForm = () => {
           <Form>
           <div className="sm:flex sm:flex-row">
             <div className="mb-4 mr-4 flex-1">
-            {currentUser && JSON.stringify(currentUser.email)}
               <label htmlFor="name" className="block text-gray-800 font-bold">
                 Name
               </label>
@@ -79,12 +79,12 @@ const SignUpForm = () => {
                 as="select"
                 className="form-select mt-1 p-2 block w-full rounded-md border border-gray-300 shadow-sm active:border-blue-500 focus:border-blue-500 outline-none"
               >
-                <option value="team1">Arsenal</option>
-                <option value="team2">Manchester City</option>
-                <option value="team3">Manchester United</option>
-                <option value="team4">Liverpool</option>
-                <option value="team5">Chelsea</option>
-                <option value="team6">Tottenham</option>
+                <option value="Arsenal">Arsenal</option>
+                <option value="Manchester City">Manchester City</option>
+                <option value="Manchester United">Manchester United</option>
+                <option value="Liverpool">Liverpool</option>
+                <option value="Chelsea">Chelsea</option>
+                <option value="Tottenham">Tottenham</option>
               </Field>
               <ErrorMessage
                 name="team"

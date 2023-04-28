@@ -13,7 +13,6 @@ const ForgotPassword = () => {
     const navigate = useNavigate()
 
     const changePassword = async(values) => {
-        console.log('button clicked')
         try {
             setError("")
             setMessage("")
@@ -23,7 +22,6 @@ const ForgotPassword = () => {
             setLoading(false)
         }
         catch(err) {
-            console.log(err)
             setLoading(false)
             setError('This email is not registered')
         }
