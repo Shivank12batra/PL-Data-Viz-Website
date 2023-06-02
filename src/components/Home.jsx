@@ -159,7 +159,7 @@ const Home = ({navOpen, setNavOpen}) => {
 
       {/* image slide button */}
       <animated.div className="absolute right-0 top-1/2 transform -translate-y-1/2 sm:right-6">
-        <animated.button style={arrowAnimation} className={`${arrowVisible ? '' : 'opacity-0'} bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2`}>
+        <animated.button style={arrowAnimation} className={`${arrowVisible ? '' : 'hidden'} bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2`}>
           <FaAngleRight size={22} onClick={() => {
             setHeaderVisible(false)
             setContentVisible(false)
@@ -169,7 +169,7 @@ const Home = ({navOpen, setNavOpen}) => {
         </animated.button>
       </animated.div>
       <animated.div className="absolute left-0 top-1/2 transform -translate-y-1/2 sm:left-6">
-        <animated.button style={arrowAnimation} className="bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
+        <animated.button style={arrowAnimation} className={`${arrowVisible ? '' : 'hidden'} bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2`}>
           <FaAngleLeft size={22}  onClick={() => {
             setHeaderVisible(false)
             setContentVisible(false)
