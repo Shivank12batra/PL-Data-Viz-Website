@@ -47,12 +47,13 @@ const Home = ({navOpen, setNavOpen}) => {
   const [headerVisible, setHeaderVisible] = useState(false)
   const [contentVisible, setContentVisible] = useState(false)
   const [buttonVisible, setButtonVisible] = useState(false)
+  const [arrowVisible, setArrowVisible] = useState(true)
   const [backgroundObj, setBackgroundObj] = useState(bgmImages[0])
 
   const arrowAnimation = useSpring({
     from: {opacity: 0},
-    to: {opacity: 1},
-    config: {duration: 9000}
+    to: {opacity: arrowVisible ? 1 : 0},
+    config: {duration: 2000}
   })
 
   const titleAnimation = useSpring({
@@ -83,7 +84,7 @@ const Home = ({navOpen, setNavOpen}) => {
   useEffect(() => {
     const headerFadeIn = setTimeout(() => {
       setHeaderVisible(true);
-    }, 2000);
+    }, 4000);
     const headerFadeOut = setTimeout(() => {
       setHeaderVisible(false);
     }, 15000);
@@ -99,15 +100,20 @@ const Home = ({navOpen, setNavOpen}) => {
     const buttonFadeOut = setTimeout(() => {
       setButtonVisible(false);
     }, 15000);
+    const arrowsFadeOut = setTimeout(() => {
+      setArrowVisible(false);
+    }, 4000);
 
   
     const bgTimer = setInterval(() => {
       backgroundObj.id === bgmImages[bgmImages.length - 1].id ? setBackgroundObj(bgmImages[0]) : setBackgroundObj(bgmImages[backgroundObj.id])
+      setArrowVisible(true)
     }, 20000);
   
     return () => {
       console.log('clearing stuff')
       clearTimeout(headerFadeIn);
+      clearTimeout(arrowsFadeOut);
       clearTimeout(headerFadeOut);
       clearTimeout(contentFadeIn);
       clearTimeout(contentFadeOut);
@@ -153,7 +159,7 @@ const Home = ({navOpen, setNavOpen}) => {
 
       {/* image slide button */}
       <animated.div className="absolute right-0 top-1/2 transform -translate-y-1/2 sm:right-6">
-        <animated.button style={arrowAnimation} className="bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2">
+        <animated.button style={arrowAnimation} className={`${arrowVisible ? '' : 'opacity-0'} bg-gray-500 bg-opacity-50 p-1 hover:bg-gray-300 transition-colors duration-300 sm:p-2`}>
           <FaAngleRight size={22} onClick={() => {
             setHeaderVisible(false)
             setContentVisible(false)
