@@ -2,13 +2,14 @@ import React, {useState} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {loginSchema} from "../validationSchema";
 import {useAuth} from '../context/AuthContext';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 
 const Login = () => {
     const {login, currentUser} = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
+    const location = useLocation()
     const navigate = useNavigate()
 
     const loginUser = async(values, {resetForm}) => {
@@ -21,7 +22,7 @@ const Login = () => {
             setLoading(true)
             await login(values.email, values.password)
             resetForm()
-            navigate('/')
+            navigate(location.state.from.pathname)
         }
         catch(err) {
             console.log(err)
