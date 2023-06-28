@@ -179,6 +179,7 @@ const Home = ({navOpen, setNavOpen}) => {
         </animated.button>
       </animated.div>
       <NavBar navOpen={navOpen} setNavOpen={setNavOpen}/>
+      
     </div>
   );
 };
