@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { teamShotsData, teamPassingNetworkData, teamPlayerPassingData } from '../firestore/getTeamStats'
+import { 
+    teamShotsData, teamPassingNetworkData,
+     teamPlayerPassingData, topPlayersData, playerData }
+      from '../firestore/getTeamStats'
 import { useAuth } from '../context/AuthContext'
 
 export const QueryTest = () => {
@@ -7,7 +10,7 @@ export const QueryTest = () => {
     const [data, setData] = useState([])
   useEffect(() => {
     const getData = async() => {
-        // const response = await teamPlayerPassingData('Tottenham', 'Arsenal', 'Tottenham', 'Away', 'Pass', 'Successful', 'Eric Dier')
+        // const response = await playerData('Arsenal', 'Bukayo Saka')
         // setData(response)
     }
     getData()
