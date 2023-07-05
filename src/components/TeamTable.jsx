@@ -6,7 +6,7 @@ import data from '../data/table';
 
 const TeamTable = () => {
     const {team} = useAuth()
-    console.log(team)
+
     // custom sort for the 'form' column
     const formSort = (rowA, rowB) => {
       const formA = rowA.original.Form;
@@ -67,7 +67,7 @@ const TeamTable = () => {
     
     
     return (
-        <div className='flex flex-col items-center' style={{ marginTop: '8rem', border: "2px solid red" }}>
+        <div className='flex flex-col items-center border-transparent border-2' style={{ marginTop: '8rem'}}>
           <h1 className='text-white text-4xl font-bold mb-6 underline underline-offset-4 text-center'>LEAGUE TABLE STATISTICS</h1>
           <h3 className='text-white text-2xl font-bold mb-2'>Season</h3>
           <select className='px-12 py-2 border border-gray-400 rounded-lg shadow-md hover:cursor-pointer'>

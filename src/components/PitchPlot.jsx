@@ -39,7 +39,7 @@ const MyComponent = () => {
   // .attr('preserveAspectRatio', 'xMidYMid meet');
 
   //   svg.call(pitchConfig);
-  const h = 300;
+  const h = 500;
   const w = 500;
 
   const pitchConfig = pitch()
@@ -75,7 +75,7 @@ const MyComponent = () => {
   }, []);
 
   return (
-    <div id="chart" ref={chartRef} className="dark-theme"/>
+    <div id="chart" ref={chartRef} className="w-screen h-screen"></div>
   )
 };
 

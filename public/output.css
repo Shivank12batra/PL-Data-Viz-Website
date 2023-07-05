@@ -649,10 +649,6 @@ html {
   margin-top: 2rem;
 }
 
-.ml-4{
-  margin-left: 1rem;
-}
-
 .block{
   display: block;
 }
@@ -723,6 +719,10 @@ html {
 
 .w-full{
   width: 100%;
+}
+
+.w-screen{
+  width: 100vw;
 }
 
 .max-w-md{
@@ -807,6 +807,10 @@ html {
   border-width: 1px;
 }
 
+.border-2{
+  border-width: 2px;
+}
+
 .border-blue-500{
   --tw-border-opacity: 1;
   border-color: rgb(59 130 246 / var(--tw-border-opacity));
@@ -830,6 +834,10 @@ html {
 .border-gray-500{
   --tw-border-opacity: 1;
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+
+.border-transparent{
+  border-color: transparent;
 }
 
 .bg-black{
@@ -949,10 +957,6 @@ html {
 
 .pt-5{
   padding-top: 1.25rem;
-}
-
-.pl-8{
-  padding-left: 2rem;
 }
 
 .text-center{

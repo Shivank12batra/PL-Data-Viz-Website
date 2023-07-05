@@ -1,13 +1,12 @@
 import React from 'react'
 import TeamTable from './TeamTable'
-import PitchPlot from './PitchPlot'
+import { QueryTest } from './QueryTest'
 
 const TeamStats = () => {
   return (
     <div style={{ border: "2px solid transparent" }} className='bg-gradient-to-b from-black to-gray-800 '>
       <TeamTable/>
-      <PitchPlot/>
-      <PitchPlot/>
+      <QueryTest/>
     </div>
   )
 }
