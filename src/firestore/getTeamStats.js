@@ -7,7 +7,7 @@ export const teamShotsData = async (team) => {
         const q = query(teamShotsRef, where("name", "==", team))
         const querySnapshot = await getDocs(q)
         const shotsDoc = querySnapshot.docs[0]
-        const shotsData = shotsDoc.data()
+        const shotsData = shotsDoc.data().data
         return shotsData
     } catch(e) {
         console.log(error)
@@ -28,7 +28,6 @@ export const teamPassingNetworkData = async (...args) => {
         } else {
             return undefined
         }
-
     } catch (error) {
         console.log(error)
         return new Error('Something went wrong!');
@@ -60,34 +59,4 @@ export const teamPlayerPassingData = async (...args) => {
         console.log(error)
         return new Error('Something went wrong!');
     }
-}
-
-export const topPlayersData = async(team, stat) => {
-    try {
-        const playersDataRef = collection(db, 'teamPlayersData')
-        const q = query(playersDataRef, where("name", "==", team))
-        const querySnapshot = await getDocs(q)
-        const playersDoc = querySnapshot.docs[0]
-        const playersData = playersDoc.data().data
-
-        const filterPlayersData = playersData.filter(player => player['Per 90'][`${stat}`])
-        const sortedPlayersData = filterPlayersData.sort((a, b) => b['Per 90'][`${stat}`] - a['Per 90'][`${stat}`])
-        return sortedPlayersData
-
-    } catch (error) {
-        console.log(error)
-        return new Error('Something went wrong!');
-    }
-}
-
-export const playerData = async(team, playerName, percentile=false) => {
-    const typeOfStat = percentile ? 'Percentile' : 'Per 90'
-    const playersDataRef = collection(db, 'teamPlayersData')
-    const q = query(playersDataRef, where("name", "==", team))
-    const querySnapshot = await getDocs(q)
-    const playersDoc = querySnapshot.docs[0]
-    const playersData = playersDoc.data().data
-
-    const playerData = playersData.filter(player => player.name === playerName).map(player => player[`${typeOfStat}`])[0]
-    return playerData
 }
