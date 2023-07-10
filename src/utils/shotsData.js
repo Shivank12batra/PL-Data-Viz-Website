@@ -1,4 +1,4 @@
-export const filterDataForXGChart = (shotsData, homeTeam, awayTeam) => {
+export const filterShotsData = (shotsData, homeTeam, awayTeam) => {
     return shotsData.filter(shot => (shot.h_team === homeTeam) && (shot.a_team === awayTeam))
 }
 
@@ -43,3 +43,16 @@ export const calculateCumulativeXG = (shots, teamIndicator) => {
   
     return teamArray;
   };
+
+  export const filterDataForShotMap = (shots, team, homeTeam, awayTeam, playerName) => {
+    const matchFilteredShots = filterShotsData(shots, homeTeam, awayTeam)
+    const userTeamVenue = team === homeTeam ? 'h' : 'a'
+    const teamFilteredShots = matchFilteredShots.filter(shot => shot.h_a === userTeamVenue)
+
+    if(playerName) {
+      const playerFilteredShots = teamFilteredShots.filter(shot => shot.player === playerName)
+      return playerFilteredShots
+    }
+
+    return teamFilteredShots
+  }
