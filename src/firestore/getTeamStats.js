@@ -15,11 +15,12 @@ export const teamShotsData = async (team) => {
     }
 }
 
-export const teamPassingNetworkData = async (...args) => {
+export const teamPassingNetworkData = async (args) => {
     try {
         const [team, homeTeam, awayTeam, venue] = args
         const passingNetworkCollection = `${team.toLowerCase()}PassingNetworkData`
         const documentName = `${homeTeam}_${awayTeam}_${venue}`
+        console.log(documentName)
         const passingNetworkRef = doc(db, passingNetworkCollection, documentName)
 
         const documentSnapshot = await getDoc(passingNetworkRef)
@@ -34,9 +35,9 @@ export const teamPassingNetworkData = async (...args) => {
     }
 }
 
-export const teamPlayerPassingData = async (...args) => {
+export const teamPlayerPassingData = async (args) => {
     try {
-        const [team, homeTeam, awayTeam, venue, event, eventOutcome, playerName = ''] = args
+        const [team, homeTeam, awayTeam, venue, event, eventOutcome, playerName] = args
         const playerPassingData = `${team.toLowerCase()}PlayerPassingData`
         const documentName = `${homeTeam}_${awayTeam}_${venue}`
         
@@ -44,7 +45,7 @@ export const teamPlayerPassingData = async (...args) => {
             collection(db, `${playerPassingData}/${documentName}/eventData`),
             where("type_displayName", "==", event),
             where("outcomeType_displayName", "==", eventOutcome),
-            playerName ? where("name", "==", playerName) : null
+            where("name", "==", playerName)
         );
         
         const querySnapshot = await getDocs(queryRef);
@@ -57,6 +58,6 @@ export const teamPlayerPassingData = async (...args) => {
         }
     } catch (error) {
         console.log(error)
-        return new Error('Something went wrong!');
+        return error
     }
 }
