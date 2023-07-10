@@ -3,13 +3,14 @@ import { fetchCumulativeXGChartData, fetchShotMapData } from '../hooks/getShotsD
 import { fetchPassingNetworkData } from '../hooks/getPassingNetworkData'
 import { fetchPassingEventData } from '../hooks/getPassingEventData'
 import { teamPlayerPassingData } from '../firestore/getTeamStats'
+import { fetchTopPlayersData, fetchPlayerData } from '../hooks/getPlayersData'
 import { useAuth } from '../context/AuthContext'
 
 export const QueryTest = () => {
   const {team} = useAuth()
   // const [data, setData] = useState([])
 
-  const {data, isLoading, error, refetch} = fetchPassingEventData('Arsenal', 'Arsenal',  'Tottenham', 'Home', 'Pass', 'Successful', 'Bukayo Saka')
+  const {data, isLoading, error, refetch} = fetchPlayerData(team, 'Bukayo Saka', true)
 
   if (isLoading) {
     return <div>Loading</div>

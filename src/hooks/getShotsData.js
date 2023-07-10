@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { teamShotsData } from "../firestore/getTeamStats";
-import { filterShotsData, calculateCumulativeXG, filterDataForShotMap } from "../utils/shotsData";
+import { filterShotsData, calculateCumulativeXG, filterDataForShotMap } from "../utils/shotsDataUtils";
 
 export const fetchCumulativeXGChartData = (team, homeTeam, awayTeam) => {
    return useQuery('cumulativeXGChart', () => teamShotsData(team), {
