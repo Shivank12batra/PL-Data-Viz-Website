@@ -9,9 +9,9 @@ export const teamShotsData = async (team) => {
         const shotsDoc = querySnapshot.docs[0]
         const shotsData = shotsDoc.data().data
         return shotsData
-    } catch(e) {
+    } catch(error) {
         console.log(error)
-        return new Error('Something went wrong!');
+        return error
     }
 }
 
@@ -31,7 +31,7 @@ export const teamPassingNetworkData = async (args) => {
         }
     } catch (error) {
         console.log(error)
-        return new Error('Something went wrong!');
+        return error
     }
 }
 

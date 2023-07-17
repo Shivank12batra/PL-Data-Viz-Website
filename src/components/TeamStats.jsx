@@ -1,5 +1,6 @@
 import React from 'react'
 import TeamTable from './TeamTable'
+import XgChart from './XgChart'
 import { QueryTest } from './QueryTest'
 
 const TeamStats = () => {
@@ -7,6 +8,7 @@ const TeamStats = () => {
     <div style={{ border: "2px solid transparent" }} className='bg-gradient-to-b from-black to-gray-800 '>
       <TeamTable/>
       <QueryTest/>
+      <XgChart/>
     </div>
   )
 }

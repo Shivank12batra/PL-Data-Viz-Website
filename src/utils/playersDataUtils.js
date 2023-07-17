@@ -1,3 +1,5 @@
+import { playersData } from "../firestore/getPlayerStats"
+
 export const filterByStat = (playersData, stat) => {
     const filterPlayersData = playersData.filter(player => player['Per 90'][`${stat}`])
     const sortedPlayersData = filterPlayersData.sort((a, b) => b['Per 90'][`${stat}`] - a['Per 90'][`${stat}`])

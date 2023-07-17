@@ -10,30 +10,22 @@ export const QueryTest = () => {
   const {team} = useAuth()
   // const [data, setData] = useState([])
 
-  const {data, isLoading, error, refetch} = fetchPlayerData(team, 'Bukayo Saka', true)
+  // const {data, isLoading, error, refetch} = fetchCumulativeXGChartData('Arsenal', 'Arsenal', 'Tottenham')
 
-  if (isLoading) {
-    return <div>Loading</div>
-  }
+  // if (isLoading) {
+  //   return <div>Loading</div>
+  // }
 
-  if (error) {
-    return <div>Something went wrong!</div>
-  }
+  // if (error) {
+  //   return <div>Something went wrong!</div>
+  // }
 
-  if (data) {
-    console.log(data)
-  }
+  // if (data) {
+  //   console.log(data)
+  // }
   return (
     <div>
-        {/* {!isLoading ? (<div>
-          {data.map(event => {
-            return (
-              <li>
-                <h2>{event.home_team}</h2>
-              </li>
-            )
-          })}
-        </div>) : null} */}
+
     </div>
   )
 }

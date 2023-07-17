@@ -8,9 +8,10 @@ export const calculateCumulativeXG = (shots, teamIndicator) => {
   
     let cumulativeXG = 0;
     const teamArray = sortedShots.reduce((acc, shot) => {
-      cumulativeXG += parseFloat(shot.xG);
+      cumulativeXG += parseFloat(shot.xG)
       acc.push({
         minute: shot.minute,
+        xG: shot.xG,
         cumulativeXG,
         player: shot.player,
         result: shot.result,
