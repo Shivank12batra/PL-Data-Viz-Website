@@ -617,6 +617,10 @@ html {
   margin-bottom: 1.5rem;
 }
 
+.ml-16{
+  margin-left: 4rem;
+}
+
 .ml-8{
   margin-left: 2rem;
 }
@@ -880,10 +884,6 @@ html {
 
 .to-gray-800{
   --tw-gradient-to: #1f2937;
-}
-
-.stroke-current{
-  stroke: currentColor;
 }
 
 .object-cover{
