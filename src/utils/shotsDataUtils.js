@@ -23,6 +23,7 @@ export const calculateCumulativeXG = (shots, teamIndicator) => {
   
     teamArray.unshift({
       minute: '0',
+      xG: 0,
       cumulativeXG: 0,
       player: null,
       result: null,
@@ -34,6 +35,7 @@ export const calculateCumulativeXG = (shots, teamIndicator) => {
         const lastCumulativeXG = teamArray[teamArray.length - 1].cumulativeXG;
         teamArray.push({
           minute: '90',
+          xG: 0.001,
           cumulativeXG: lastCumulativeXG + 0.001,
           player: null,
           result: null,

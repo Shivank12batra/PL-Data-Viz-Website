@@ -9,6 +9,14 @@ const XgChart = () => {
 
   const {data, isLoading, error, refetch} = fetchCumulativeXGChartData('Arsenal', 'Arsenal', 'Tottenham')
 
+  const handleMouseOver = () => {
+
+  }
+
+  const handleMouseOut = () => {
+
+  }
+
   const drawChart = () => {
     const chartContainer = d3.select(chartRef.current);
 
@@ -22,10 +30,12 @@ const XgChart = () => {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
+    //star syhmbol svg path
+    const starSymbol = 'M10.5,0.167 L13.458,6.583 L20.333,7.917 L15.625,12.542 L16.208,19.833 L10.5,16.542 L4.792,19.833 L5.375,12.542 L0.667,7.917 L7.542,6.583 L10.5,0.167 Z';
+
     // Prepare data
     const homeData = data?.homeData;
     const awayData = data?.awayData;
-    console.log(awayData)
 
     // Process cumulative xG values
     const homeCumulativeXGValues = homeData.map((d) => +d.cumulativeXG);
@@ -66,7 +76,7 @@ const XgChart = () => {
       .attr('d', homeLine)
       .attr('fill', 'none')
       .attr('stroke', 'blue')
-      .attr('stroke-width', 2)
+      .attr('stroke-width', 4)
     
     // away team line
     svg.append('path')
@@ -75,29 +85,31 @@ const XgChart = () => {
       .attr('d', awayLine)
       .attr('fill', 'none')
       .attr('stroke', 'red')
-      .attr('stroke-width', 2)
+      .attr('stroke-width', 4)
+    
+    // home goals plotted
+    svg.selectAll('.home-shot-dot')
+        .data(homeData.filter((d) => d.result === 'Goal'))
+        .enter()
+        .append('path')
+        .attr('class', 'shot-dot home-shot-dot')
+        .attr('d', starSymbol)
+        .attr('transform', (d) => `translate(${xScale(+d.minute) - 10},${yScale(d.cumulativeXG) - 10})`)
+        .on('mouseover', handleMouseOver)
+        .on('mouseout', handleMouseOut)
+        .attr('fill', 'gold');
 
-    // Draw dots for home shots
-    // svg.selectAll('.home-shot-dot')
-    // .data(homeData)
-    // .enter()
-    // .append('circle')
-    // .attr('class', 'shot-dot home-shot-dot')
-    // .attr('cx', (d) => xScale(+d.minute))
-    // .attr('cy', (_, i) => yScale(homeCumulativeXGValues[i]))
-    // .attr('r', 4)
-    // .attr('fill', 'blue');
-
-    // Draw dots for away shots
-    // svg.selectAll('.away-shot-dot')
-    // .data(awayData)
-    // .enter()
-    // .append('circle')
-    // .attr('class', 'shot-dot away-shot-dot')
-    // .attr('cx', (d) => xScale(+d.minute))
-    // .attr('cy', (_, i) => yScale(awayCumulativeXGValues[i]))
-    // .attr('r', 4)
-    // .attr('fill', 'red');
+    // away goals plotted
+    svg.selectAll('.away-shot-dot')
+        .data(awayData.filter((d) => d.result === 'Goal'))
+        .enter()
+        .append('path')
+        .attr('class', 'shot-dot away-shot-dot')
+        .attr('d', starSymbol)
+        .attr('transform', (d) => `translate(${xScale(+d.minute) - 10},${yScale(d.cumulativeXG) - 10})`)
+        .on('mouseover', handleMouseOver)
+        .on('mouseout', handleMouseOut)
+        .attr('fill', 'gold');
 
     // Create x-axis
     const xAxis = d3.axisBottom(xScale);
@@ -105,14 +117,16 @@ const XgChart = () => {
       .append('g')
       .attr('class', 'x-axis')
       .attr('transform', `translate(0, ${innerHeight})`)
-      .call(xAxis);
+      .call(xAxis)
+      .attr('class', 'stroke-current text-white');
 
     // Create y-axis
     const yAxis = d3.axisLeft(yScale);
     svg
       .append('g')
       .attr('class', 'y-axis')
-      .call(yAxis);
+      .call(yAxis)
+      .attr('class', 'stroke-current text-white');
   };
 
   useEffect(() => {
@@ -120,7 +134,6 @@ const XgChart = () => {
         drawChart()
     }
   }, [data]);
-//   drawChart()
 
   if (isLoading) {
     return <div>Loading</div>

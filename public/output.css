@@ -882,6 +882,10 @@ html {
   --tw-gradient-to: #1f2937;
 }
 
+.stroke-current{
+  stroke: currentColor;
+}
+
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
@@ -1076,6 +1080,10 @@ html {
 .outline-none{
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.filter{
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .transition-all{
