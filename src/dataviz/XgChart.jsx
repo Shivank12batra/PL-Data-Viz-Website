@@ -182,7 +182,7 @@ const XgChart = () => {
     return <div>Something went wrong!</div>
   }
 
-  return <div ref={chartRef} className='ml-16 mt-12 h-screen'/>
+  return <div ref={chartRef} className='ml-16 mt-12'/>
 }
 
 export default XgChart

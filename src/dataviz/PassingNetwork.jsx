@@ -20,8 +20,6 @@ const PassingNetwork = () => {
 
     const {data, isLoading, error, refetch} = fetchPassingNetworkData('Arsenal', 'Arsenal', 'Tottenham', 'Home') 
 
-    console.log(data)
-
     const passNetworkChart = () => {
         const svg = d3.select(chartRef.current)
         

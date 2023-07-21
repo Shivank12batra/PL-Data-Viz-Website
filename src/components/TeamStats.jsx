@@ -2,6 +2,7 @@ import React from 'react'
 import TeamTable from './TeamTable'
 import XgChart from '../dataviz/XgChart'
 import PassingNetwork from '../dataviz/PassingNetwork'
+import TeamShotMap from '../dataviz/TeamShotMap'
 import { QueryTest } from './QueryTest'
 
 const TeamStats = () => {
@@ -11,6 +12,7 @@ const TeamStats = () => {
       <QueryTest/>
       <XgChart/>
       <PassingNetwork/> 
+      <TeamShotMap/>
     </div>
   )
 }
