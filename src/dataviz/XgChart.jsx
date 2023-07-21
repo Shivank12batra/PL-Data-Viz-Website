@@ -23,7 +23,7 @@ const XgChart = () => {
         const tooltip = d3.select('body')
           .append('div')
           .attr('id', 'tooltip')
-          .attr('class', 'absolute bg-black bg-opacity-70 text-white text-xs rounded p-2 z-10')
+          .attr('class', 'absolute bg-black text-white text-xs rounded p-2 z-10')
           .html(`
             <p>Player Name: ${d.player}</p>
             <p>xG: ${roundedxG}</p>
@@ -33,12 +33,12 @@ const XgChart = () => {
           `);
           tooltip.style("top", event.pageY + "px")
         .style("left", event.pageX + "px")
-      };
+    };
       
-      const handleMouseOut = () => {
-        console.log('mouse out')
-        d3.selectAll('#tooltip').remove();
-      };
+    const handleMouseOut = () => {
+      console.log('mouse out')
+      d3.selectAll('#tooltip').remove();
+    };
 
     // Define chart dimensions
     const width = 400;

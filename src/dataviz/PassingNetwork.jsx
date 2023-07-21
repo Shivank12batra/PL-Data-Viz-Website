@@ -24,49 +24,114 @@ const PassingNetwork = () => {
 
     const passNetworkChart = () => {
         const svg = d3.select(chartRef.current)
-
-            svg.selectAll('*').remove()
-
-            svg.call(pitchConfig)
-
-            const averageLocations = data.average_locations
-            const passBetween = data.pass_between
-
-            // Select the pitch SVG container
-            const pitchSvg = svg.select('#pitch');
-
-            // Plot average locations (circles) on the pitch
-            const circleRadius = 4;
-            const circleColor = 'red';
-            const circleBorderWidth = 1;
-            const circleBorderColor = 'white';
-            const shirtNumberColor = 'white';
-            const shirtFontSize = 2;
-
-            const playerCircles = pitchSvg
-            .selectAll('.line')
-            .data(averageLocations)
-            .enter()
-            .append('g')
-            .attr('class', 'player-location')
-            .attr('transform', (d) => `translate(${d.x * 1.05}, ${(100- d.y) * 0.68})`);
         
-          playerCircles
-            .append('circle')
-            .attr('r', circleRadius)
-            .attr('fill', circleColor)
-            .attr('stroke', circleBorderColor)
-            .attr('stroke-width', circleBorderWidth);
-        
-          playerCircles
-            .append('text')
-            .attr('text-anchor', 'middle')
-            .attr('dy', '0.35em')
-            .attr('fill', shirtNumberColor)
-            .attr('font-size', shirtFontSize)
-            .attr('transform', 'rotate(90)')
-            .text((d) => d.shirtNo);
+        svg.selectAll('*').remove()
 
+        const handleMouseOver = (event, d) => {
+            const tooltip = d3.select('body')
+              .append('div')
+              .attr('id', 'tooltip')
+              .attr('class', 'absolute bg-black text-white text-xs rounded p-2 z-10')
+              .html(`
+                <p>Player Name: ${d.name}</p>
+                <p>Total Passes: ${d.count}</p>
+              `);
+              tooltip.style("top", event.pageY + "px")
+            .style("left", event.pageX + "px")
+        };
+          
+        const handleMouseOut = () => {
+          console.log('mouse out')
+          d3.selectAll('#tooltip').remove();
+        };
+
+        svg.call(pitchConfig)
+
+        const averageLocations = data.average_locations
+        const passBetween = data.pass_between
+
+        // Select the pitch SVG container
+        const pitchSvg = svg.select('#pitch');
+
+        // Plot average locations (circles) on the pitch
+
+        const maxPassCount = 10;
+        const minPassCount = 3;
+      
+        const passLines = pitchSvg
+          .selectAll('.line')
+          .data(passBetween)
+          .enter()
+          .append('g')
+          .attr('class', 'pass-line');
+      
+        passLines
+          .append('line')
+          .attr('x1', (d) => (d.x * 1.05))
+          .attr('y1', (d) => ((100 - d.y) * 0.68))
+          .attr('x2', (d) => (d.x_end * 1.05))
+          .attr('y2', (d) => ((100 - d.y_end) * 0.68))
+          .style('stroke', (d) => {
+            // Determine line color based on pass_count
+            const passCount = d.pass_count;
+            if (passCount > maxPassCount) {
+              return 'whitesmoke';
+            } else if (passCount > minPassCount) {
+              return 'whitesmoke';
+            } else if (passCount > 0) {
+              return 'whitesmoke';
+            } else {
+              return 'transparent'; // Hide lines with pass_count less than 3
+            }
+          })
+          .style('stroke-width', (d) => {
+            // Determine line thickness based on pass_count
+            const passCount = d.pass_count;
+            if (passCount > maxPassCount) {
+              return 1;
+            } else if (passCount > minPassCount) {
+              return 0.3;
+            } else if (passCount > 0) {
+              return 0.1;
+            } else {
+              return 0; // Hide lines with pass_count less than 3
+            }
+          })
+
+        const circleRadius = 4;
+        const circleColor = 'red';
+        const circleBorderWidth = 0.3;
+        const circleBorderDash = 1;
+        const circleBorderColor = 'white';
+        const shirtNumberColor = 'white';
+        const shirtFontSize = 2;
+
+        const playerCircles = pitchSvg
+        .selectAll('.line')
+        .data(averageLocations)
+        .enter()
+        .append('g')
+        .attr('class', 'player-location')
+        .attr('transform', (d) => `translate(${d.x * 1.05}, ${(100- d.y) * 0.68})`);
+    
+    playerCircles
+        .append('circle')
+        .attr('r', circleRadius)
+        .attr('fill', circleColor)
+        .attr('stroke', circleBorderColor)
+        .attr('stroke-width', circleBorderWidth)
+        .attr('stroke-dasharray', circleBorderDash)
+        .on('mouseover', handleMouseOver)
+        .on('mouseout', handleMouseOut)
+    
+    playerCircles
+        .append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '0.35em')
+        .attr('fill', shirtNumberColor)
+        .attr('font-size', shirtFontSize)
+        .attr('transform', 'rotate(90)')
+        .text((d) => d.shirtNo);     
     }
 
     useEffect(() => {

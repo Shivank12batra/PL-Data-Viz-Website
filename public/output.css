@@ -921,6 +921,10 @@ html {
   padding: 2rem;
 }
 
+.p-10{
+  padding: 2.5rem;
+}
+
 .px-12{
   padding-left: 3rem;
   padding-right: 3rem;
