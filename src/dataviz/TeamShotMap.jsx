@@ -10,6 +10,30 @@ const TeamShotMap = () => {
     const h = 500
     const w = 500
 
+    const handleMouseOver = (event, d) => {
+        const shotxG = parseFloat(d.xG)
+        const roundedxG = shotxG.toFixed(2)
+        const tooltip = d3.select('body')
+          .append('div')
+          .attr('id', 'tooltip')
+          .attr('class', 'absolute bg-black text-white text-xs rounded p-2 z-10')
+          .html(`
+            <p>Player Name: ${d.player}</p>
+            <p>xG: ${roundedxG}</p>
+            <p>Minute: ${d.minute}</p>
+            <p>Result: ${d.result}</p>
+            <p>Situation: ${d.situation}</p>
+            <p>ShotType: ${d.shotType}</p>
+          `);
+          tooltip.style("top", event.pageY + "px")
+        .style("left", event.pageX + "px")
+    };
+      
+    const handleMouseOut = () => {
+      console.log('mouse out')
+      d3.selectAll('#tooltip').remove();
+    };
+
     const pitchConfig = pitch()
       .height(h)
       .clip([[0, 0], [68, 105]])
@@ -50,8 +74,10 @@ const TeamShotMap = () => {
             .attr('r', (d) => dotSizeScale(d.xG))
             .attr('fill', (d) => (d.result === 'Goal' ? 'lightgreen' : 'red'))
             .attr('stroke', 'black')
-            .attr('stroke-width', 0.5);
-                             // Create an array of data for the four guide dots
+            .attr('stroke-width', 0.5)
+            .on('mouseover', handleMouseOver)
+            .on('mouseleave', handleMouseOut)
+                             
   const guideDotsData = [
     { xG: 0.1 },
     { xG: 0.2 },
