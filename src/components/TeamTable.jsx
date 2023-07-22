@@ -7,6 +7,8 @@ import data from '../data/table';
 const TeamTable = () => {
     const {team} = useAuth()
 
+    const isMatchingTeam = (squad) => squad === team;
+
     // custom sort for the 'form' column
     const formSort = (rowA, rowB) => {
       const formA = rowA.original.Form;
@@ -100,18 +102,30 @@ const TeamTable = () => {
                       </tr>
                   ))}
               </thead>
-              <tbody {...getTableBodyProps()} className='bg-gray-500'>
+              <tbody {...getTableBodyProps()}>
                   {rows.map((row) => {
-                  prepareRow(row);
-                  return (
-                      <tr {...row.getRowProps()}>
-                      {row.cells.map((cell) => (
-                          <td {...cell.getCellProps()} className='border border-gray-200 p-3'>{cell.render('Cell')}</td>
-                      ))}
+                    prepareRow(row);
+                    const isCurrentTeam = isMatchingTeam(row.original.Squad);
+                    const rowStyle = {
+                      backgroundColor: isCurrentTeam ? '#6EE7B7' : '#9CA3AF',
+                    };
+                    return (
+                      <tr
+                        {...row.getRowProps()}
+                        style={rowStyle}
+                      >
+                        {row.cells.map((cell) => (
+                          <td
+                            {...cell.getCellProps()}
+                            className="border border-gray-200 p-3"
+                          >
+                            {cell.render('Cell')}
+                          </td>
+                        ))}
                       </tr>
-                  );
+                    );
                   })}
-              </tbody>
+                </tbody>
             </table>
           </div>
        </div>

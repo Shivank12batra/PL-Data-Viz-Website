@@ -101,6 +101,8 @@ const TeamShotMap = () => {
     .attr('cx', 105 / 2 - 20)
     .attr('r', (d) => dotSizeScale(d.xG))
     .attr('fill', (_, i) => (i === 3 ? 'lightgreen' : 'red'))
+    .attr('stroke', 'black')
+    .attr('stroke-width', 0.5)
 
     // Add text labels for low and high xG
     guideDotsGroup

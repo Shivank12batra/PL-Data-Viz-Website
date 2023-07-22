@@ -7,10 +7,14 @@ module.exports = {
   theme: {
     screens: {
       'sm': '640px',
-      // You can add more breakpoints here
     },
     extend: {
+      backgroundColor: {
+        'green-100': '#d1fae5', 
+        'light-green': '#6EE7B7', 
+      },
     },
   },
   plugins: [],
 }
+
