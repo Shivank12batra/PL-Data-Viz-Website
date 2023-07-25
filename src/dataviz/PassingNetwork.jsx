@@ -146,7 +146,12 @@ const PassingNetwork = () => {
         return <div>Something went wrong!</div>
     }
     
-    return <div id="chart" ref={chartRef} className='mb-12'></div>
+    return (
+      <div>
+        <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Passing Network</h2>
+        <div id='chart' ref={chartRef} className='flex justify-center mt-8'/>
+      </div>
+    )
 }
 
 

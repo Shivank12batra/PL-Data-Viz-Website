@@ -42,7 +42,7 @@ const XgChart = () => {
 
     // Define chart dimensions
     const width = 400;
-    const height = 400;
+    const height = 500;
     const margin = { top: 20, right: 20, bottom: 40, left: 50 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -182,7 +182,12 @@ const XgChart = () => {
     return <div>Something went wrong!</div>
   }
 
-  return <div ref={chartRef} className='ml-16 mt-12'/>
+  return (
+    <div>
+      <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Cumulative xG Chart</h2>
+      <div ref={chartRef} className='flex justify-center mt-12 mb-8'/>
+    </div>
+  )
 }
 
 export default XgChart

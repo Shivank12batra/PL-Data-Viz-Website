@@ -52,9 +52,9 @@ export const teamPlayerPassingData = async (args) => {
 
         if (!querySnapshot.empty) {
             const data = querySnapshot.docs.map((doc) => doc.data());
-            return data;
+            return data
         } else {
-            return undefined;
+            return undefined
         }
     } catch (error) {
         console.log(error)

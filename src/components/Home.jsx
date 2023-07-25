@@ -59,19 +59,19 @@ const Home = ({navOpen, setNavOpen}) => {
   const titleAnimation = useSpring({
     from: { opacity: 0 },
     to: { opacity: headerVisible ? 1 : 0 },
-    config: {duration: 2000} // Wait for 2 seconds before animating
+    config: {duration: 2000}
   });
 
   const contentAnimation = useSpring({
     from: { opacity: 0 },
     to: { opacity: contentVisible ? 1 : 0 },
-    config: {duration: 1000} // Wait for 4 seconds before animating
+    config: {duration: 1000} 
   });
 
   const buttonAnimation = useSpring({
     from: { opacity: 0 },
     to: { opacity: buttonVisible ? 1 : 0 },
-    config: {duration : 1000} // Wait for 6 seconds before animating
+    config: {duration : 1000}
   });
 
   const imgTransition = useTransition(backgroundObj, {
@@ -179,7 +179,6 @@ const Home = ({navOpen, setNavOpen}) => {
         </animated.button>
       </animated.div>
       <NavBar navOpen={navOpen} setNavOpen={setNavOpen}/>
-      
     </div>
   );
 };

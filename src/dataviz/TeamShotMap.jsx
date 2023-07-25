@@ -54,7 +54,7 @@ const TeamShotMap = () => {
         svg.call(pitchConfig)
 
         // Select the pitch SVG container
-        const pitchSvg = svg.select('#pitch');
+        const pitchSvg = svg.select('#pitch')
 
         // Define the size range of the shot dots based on xG values
         const dotSizeScale = d3.scaleLinear().domain([0, 0.1, 0.2, 0.5, 0.75, 1]).range([0.5, 1, 1.5, 2, 2.5, 3]);
@@ -140,7 +140,12 @@ const TeamShotMap = () => {
         return <div>Something went wrong!</div>
     }
     
-    return <div id="chart" ref={chartRef} className='mb-12'></div>
+    return (
+      <div>
+        <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Team Shot Map</h2>
+        <div ref={chartRef} className='flex justify-center mt-8'/>
+      </div>
+    )
 }
 
 export default TeamShotMap
