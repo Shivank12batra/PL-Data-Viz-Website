@@ -37,7 +37,7 @@ const XgChart = () => {
       
     const handleMouseOut = () => {
       console.log('mouse out')
-      d3.selectAll('#tooltip').remove();
+      d3.selectAll('#tooltip').remove()
     };
 
     // Define chart dimensions
@@ -81,11 +81,11 @@ const XgChart = () => {
 
     // Create SVG element
     const svg = chartContainer
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    .append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`) 
+    .attr('preserveAspectRatio', 'xMidYMid meet') 
+    .append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
     // home team line
     svg.append('path')
@@ -183,9 +183,9 @@ const XgChart = () => {
   }
 
   return (
-    <div>
+    <div className='border-2 border-red-500'>
       <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Cumulative xG Chart</h2>
-      <div ref={chartRef} className='flex justify-center mt-12 mb-8'/>
+      <div ref={chartRef} className='flex justify-center mt-12 mb-8 max-w-100'/>
     </div>
   )
 }

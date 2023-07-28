@@ -8,7 +8,6 @@ const PassingNetwork = () => {
     const {team} = useAuth()
     const chartRef = useRef(null)
     const h = 500
-    const w = 500
 
     const pitchConfig = pitch()
       .height(h)
@@ -147,7 +146,7 @@ const PassingNetwork = () => {
     }
     
     return (
-      <div>
+      <div className='border-2 border-red-500'>
         <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Passing Network</h2>
         <div id='chart' ref={chartRef} className='flex justify-center mt-8'/>
       </div>

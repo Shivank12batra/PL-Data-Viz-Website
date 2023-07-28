@@ -141,9 +141,9 @@ const TeamShotMap = () => {
     }
     
     return (
-      <div>
+      <div className='border-2 border-red-500'>
         <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Team Shot Map</h2>
-        <div ref={chartRef} className='flex justify-center mt-8'/>
+        <div id='chart' ref={chartRef} className='flex justify-center mt-8'/>
       </div>
     )
 }

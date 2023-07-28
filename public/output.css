@@ -619,10 +619,6 @@ html {
   margin-bottom: 1rem;
 }
 
-.mb-12{
-  margin-bottom: 3rem;
-}
-
 .mb-2{
   margin-bottom: 0.5rem;
 }
@@ -633,6 +629,10 @@ html {
 
 .mb-6{
   margin-bottom: 1.5rem;
+}
+
+.mb-8{
+  margin-bottom: 2rem;
 }
 
 .ml-4{
@@ -679,8 +679,12 @@ html {
   margin-top: 2rem;
 }
 
-.mb-8{
-  margin-bottom: 2rem;
+.mt-0{
+  margin-top: 0px;
+}
+
+.ml-0{
+  margin-left: 0px;
 }
 
 .block{
@@ -799,14 +803,6 @@ html {
 
 .cursor-pointer{
   cursor: pointer;
-}
-
-.grid-cols-3{
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.grid-cols-1{
-  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .flex-row{
@@ -1258,6 +1254,26 @@ html {
     top: 3rem;
   }
 
+  .sm\:ml-4{
+    margin-left: 1rem;
+  }
+
+  .sm\:mt-4{
+    margin-top: 1rem;
+  }
+
+  .sm\:mt-16{
+    margin-top: 4rem;
+  }
+
+  .sm\:ml-0{
+    margin-left: 0px;
+  }
+
+  .sm\:mt-0{
+    margin-top: 0px;
+  }
+
   .sm\:flex{
     display: flex;
   }
@@ -1274,20 +1290,24 @@ html {
     width: 80%;
   }
 
-  .sm\:grid-cols-2{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .sm\:grid-cols-1{
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
   .sm\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .sm\:flex-row{
     flex-direction: row;
+  }
+
+  .sm\:flex-col{
+    flex-direction: column;
+  }
+
+  .sm\:justify-center{
+    justify-content: center;
+  }
+
+  .sm\:justify-between{
+    justify-content: space-between;
   }
 
   .sm\:p-2{
