@@ -3,11 +3,11 @@ import * as d3 from 'd3'
 import { fetchCumulativeXGChartData } from '../hooks/getShotsData'
 import { useAuth } from '../context/AuthContext'
 
-const XgChart = () => {
+const XgChart = ({homeTeam, awayTeam}) => {
   const {team} = useAuth()
   const chartRef = useRef(null)
 
-  const {data, isLoading, error, refetch} = fetchCumulativeXGChartData('Arsenal', 'Arsenal', 'Tottenham')
+  const {data, isLoading, error, refetch} = fetchCumulativeXGChartData(team, homeTeam, awayTeam)
   
 
   const drawChart = () => {
@@ -19,7 +19,6 @@ const XgChart = () => {
     const handleMouseOver = (event, d) => {
         const shotxG = parseFloat(d.xG)
         const roundedxG = shotxG.toFixed(2)
-        console.log(d)
         const tooltip = d3.select('body')
           .append('div')
           .attr('id', 'tooltip')

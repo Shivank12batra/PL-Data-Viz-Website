@@ -4,35 +4,10 @@ import { pitch } from 'd3-soccer'
 import { fetchShotMapData } from '../hooks/getShotsData'
 import { useAuth } from '../context/AuthContext'
 
-const TeamShotMap = () => {
+const TeamShotMap = ({homeTeam, awayTeam}) => {
     const {team} = useAuth()
     const chartRef = useRef(null)
     const h = 500
-    const w = 500
-
-    const handleMouseOver = (event, d) => {
-        const shotxG = parseFloat(d.xG)
-        const roundedxG = shotxG.toFixed(2)
-        const tooltip = d3.select('body')
-          .append('div')
-          .attr('id', 'tooltip')
-          .attr('class', 'absolute bg-black text-white text-xs rounded p-2 z-10')
-          .html(`
-            <p>Player Name: ${d.player}</p>
-            <p>xG: ${roundedxG}</p>
-            <p>Minute: ${d.minute}</p>
-            <p>Result: ${d.result}</p>
-            <p>Situation: ${d.situation}</p>
-            <p>ShotType: ${d.shotType}</p>
-          `);
-          tooltip.style("top", event.pageY + "px")
-        .style("left", event.pageX + "px")
-    };
-      
-    const handleMouseOut = () => {
-      console.log('mouse out')
-      d3.selectAll('#tooltip').remove();
-    };
 
     const pitchConfig = pitch()
       .height(h)
@@ -42,14 +17,37 @@ const TeamShotMap = () => {
       .showDirOfPlay(true)
       .shadeMiddleThird(false)
 
-    const {data, isLoading, error, refetch} = fetchShotMapData('Arsenal', 'Arsenal', 'Tottenham')
-
-    console.log(data)
+    const {data, isLoading, error, refetch} = fetchShotMapData(team, homeTeam, awayTeam)
 
     const shotMap = () => {
         const svg = d3.select(chartRef.current)
         
         svg.selectAll('*').remove()
+
+        const handleMouseOver = (event, d) => {
+          const shotxG = parseFloat(d.xG)
+          const roundedxG = shotxG.toFixed(2)
+
+          const tooltip = d3.select('body')
+            .append('div')
+            .attr('id', 'tooltip')
+            .attr('class', 'absolute bg-black text-white text-xs rounded p-2 z-10')
+            .html(`
+              <p>Player Name: ${d.player}</p>
+              <p>xG: ${roundedxG}</p>
+              <p>Minute: ${d.minute}</p>
+              <p>Result: ${d.result}</p>
+              <p>Situation: ${d.situation}</p>
+              <p>ShotType: ${d.shotType}</p>
+            `);
+            tooltip.style("top", event.pageY + "px")
+          .style("left", event.pageX + "px")
+          };
+        
+        const handleMouseOut = () => {
+          console.log('mouse out')
+          d3.selectAll('#tooltip').remove()
+        };
 
         svg.call(pitchConfig)
 
@@ -57,7 +55,7 @@ const TeamShotMap = () => {
         const pitchSvg = svg.select('#pitch')
 
         // Define the size range of the shot dots based on xG values
-        const dotSizeScale = d3.scaleLinear().domain([0, 0.1, 0.2, 0.5, 0.75, 1]).range([0.5, 1, 1.5, 2, 2.5, 3]);
+        const dotSizeScale = d3.scaleLinear().domain([0, 0.1, 0.2, 0.5, 0.75, 1]).range([0.5, 1, 1.5, 2, 2.5, 3])
 
         // Plot the shot dots using the `data` array
         const shotsDots = pitchSvg
@@ -66,7 +64,7 @@ const TeamShotMap = () => {
             .enter() 
             .append('g')
             .attr('class', 'shot-location')
-            .attr('transform', (d) => `translate(${d.X * 105}, ${(1 - d.Y) * 68})`);
+            .attr('transform', (d) => `translate(${d.X * 105}, ${(1 - d.Y) * 68})`)
 
         shotsDots
             .append('circle')
@@ -78,52 +76,52 @@ const TeamShotMap = () => {
             .on('mouseover', handleMouseOver)
             .on('mouseleave', handleMouseOut)
                              
-  const guideDotsData = [
-    { xG: 0.1 },
-    { xG: 0.2 },
-    { xG: 0.6 },
-    { xG: 0.8 },
-  ];
+        const guideDotsData = [
+            { xG: 0.1 },
+            { xG: 0.2 },
+            { xG: 0.6 },
+            { xG: 0.8 },
+        ];
 
-  // Define the position of the guide dots along the x-axis (horizontally)
-  const guideDotXPositions = [68 * 0.36, 68 * 0.42, 68 * 0.50, 68 * 0.60];
+        // Define the position of the guide dots along the x-axis (horizontally)
+        const guideDotXPositions = [68 * 0.36, 68 * 0.42, 68 * 0.50, 68 * 0.60];
 
-  // Append the guide dots to the pitchSvg
-  const guideDotsGroup = pitchSvg.append('g').attr('class', 'guide-dots');
-  
-  guideDotsGroup
-    .selectAll('.line')
-    .data(guideDotsData)
-    .enter()
-    .append('circle')
-    .attr('class', 'guide-dot')
-    .attr('cy', (_, i) => guideDotXPositions[i])
-    .attr('cx', 105 / 2 - 20)
-    .attr('r', (d) => dotSizeScale(d.xG))
-    .attr('fill', (_, i) => (i === 3 ? 'lightgreen' : 'red'))
-    .attr('stroke', 'black')
-    .attr('stroke-width', 0.5)
+        // Append the guide dots to the pitchSvg
+        const guideDotsGroup = pitchSvg.append('g').attr('class', 'guide-dots');
+        
+        guideDotsGroup
+          .selectAll('.line')
+          .data(guideDotsData)
+          .enter()
+          .append('circle')
+          .attr('class', 'guide-dot')
+          .attr('cy', (_, i) => guideDotXPositions[i])
+          .attr('cx', 105 / 2 - 20)
+          .attr('r', (d) => dotSizeScale(d.xG))
+          .attr('fill', (_, i) => (i === 3 ? 'lightgreen' : 'red'))
+          .attr('stroke', 'black')
+          .attr('stroke-width', 0.5)
 
-    // Add text labels for low and high xG
-    guideDotsGroup
-    .append('text')
-    .attr('class', 'guide-label')
-    .attr('y', guideDotXPositions[0])
-    .attr('x', 105 / 2 - 30)
-    .text('Low xG')
-    .attr('font-size', '3px')
-    .attr('transform', 'rotate(90, 27, 23)')
-    .attr('fill', 'white');
-    
-    guideDotsGroup
-    .append('text')
-    .attr('class', 'guide-label')
-    .attr('y', guideDotXPositions[3])
-    .attr('x', 105 / 2 - 30)
-    .text('High xG')
-    .attr('font-size', '3px')
-    .attr('transform', 'rotate(90, 27, 39.5)')
-    .attr('fill', 'white')
+          // Add text labels for low and high xG
+          guideDotsGroup
+          .append('text')
+          .attr('class', 'guide-label')
+          .attr('y', guideDotXPositions[0])
+          .attr('x', 105 / 2 - 30)
+          .text('Low xG')
+          .attr('font-size', '3px')
+          .attr('transform', 'rotate(90, 27, 23)')
+          .attr('fill', 'white');
+          
+          guideDotsGroup
+          .append('text')
+          .attr('class', 'guide-label')
+          .attr('y', guideDotXPositions[3])
+          .attr('x', 105 / 2 - 30)
+          .text('High xG')
+          .attr('font-size', '3px')
+          .attr('transform', 'rotate(90, 27, 39.5)')
+          .attr('fill', 'white')
   }
 
     useEffect(() => {

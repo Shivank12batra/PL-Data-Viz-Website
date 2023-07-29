@@ -16,6 +16,7 @@ export const teamShotsData = async (team) => {
 }
 
 export const teamPassingNetworkData = async (args) => {
+    console.log(args)
     try {
         const [team, homeTeam, awayTeam, venue] = args
         const passingNetworkCollection = `${team.toLowerCase()}PassingNetworkData`
@@ -25,7 +26,7 @@ export const teamPassingNetworkData = async (args) => {
 
         const documentSnapshot = await getDoc(passingNetworkRef)
         if (documentSnapshot.exists()) {
-            return documentSnapshot.data();
+            return documentSnapshot.data()
         } else {
             return undefined
         }

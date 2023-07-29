@@ -9,11 +9,13 @@ import data from '../data/table'
 
 const TeamStats = () => {
   const {team} = useAuth()
-  const [oppositionTeam, setOppositionTeam] = useState(team === data[0].Squad ? data[1].Squad : data[0].Squad)
   const [selectedData, setSelectedData] = useState({
     oppositionTeam: team === data[0].Squad ? data[1].Squad : data[0].Squad,
     venue: 'Home'
   })
+
+  const homeTeam = selectedData.venue === 'Home' ? team : selectedData.oppositionTeam
+  const awayTeam = selectedData.venue === 'Away' ? team : selectedData.oppositionTeam
 
   const handleInputChange = (event) => {
     const {name, value} = event.target
@@ -56,9 +58,9 @@ const TeamStats = () => {
         </div>
       </div>
       <div className='grid sm:grid-cols-3 gap-8 md:grid-cols-1'>
-          <XgChart/>
-          <PassingNetwork/> 
-          <TeamShotMap/>
+          <XgChart homeTeam={homeTeam} awayTeam={awayTeam}/>
+          <PassingNetwork homeTeam={homeTeam} awayTeam={awayTeam} venue={selectedData.venue}/> 
+          <TeamShotMap homeTeam={homeTeam} awayTeam={awayTeam}/>
       </div>
     </div>
   )

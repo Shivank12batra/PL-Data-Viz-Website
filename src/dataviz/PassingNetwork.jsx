@@ -4,7 +4,7 @@ import { pitch } from 'd3-soccer'
 import { fetchPassingNetworkData } from '../hooks/getPassingNetworkData'
 import { useAuth } from '../context/AuthContext'
 
-const PassingNetwork = () => {
+const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
     const {team} = useAuth()
     const chartRef = useRef(null)
     const h = 500
@@ -17,7 +17,14 @@ const PassingNetwork = () => {
       .showDirOfPlay(true)
       .shadeMiddleThird(false)
 
-    const {data, isLoading, error, refetch} = fetchPassingNetworkData('Arsenal', 'Arsenal', 'Tottenham', 'Home') 
+    console.log(team)
+    console.log(homeTeam)
+    console.log(awayTeam)
+    console.log(venue)
+
+    const {data, isLoading, error, refetch} = fetchPassingNetworkData(team, homeTeam, awayTeam, venue) 
+
+    console.log(data)
 
     const passNetworkChart = () => {
         const svg = d3.select(chartRef.current)
@@ -48,19 +55,19 @@ const PassingNetwork = () => {
         const passBetween = data.pass_between
 
         // Select the pitch SVG container
-        const pitchSvg = svg.select('#pitch');
+        const pitchSvg = svg.select('#pitch')
 
         // Plot average locations (circles) on the pitch
 
-        const maxPassCount = 10;
-        const minPassCount = 3;
+        const maxPassCount = 10
+        const minPassCount = 3
       
         const passLines = pitchSvg
           .selectAll('.line')
           .data(passBetween)
           .enter()
           .append('g')
-          .attr('class', 'pass-line');
+          .attr('class', 'pass-line')
       
         passLines
           .append('line')
@@ -109,7 +116,7 @@ const PassingNetwork = () => {
         .enter()
         .append('g')
         .attr('class', 'player-location')
-        .attr('transform', (d) => `translate(${d.x * 1.05}, ${(100- d.y) * 0.68})`);
+        .attr('transform', (d) => `translate(${d.x * 1.05}, ${(100- d.y) * 0.68})`)
     
     playerCircles
         .append('circle')
