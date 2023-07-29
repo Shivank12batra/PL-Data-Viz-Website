@@ -10,6 +10,7 @@ export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState()
     const [team, setTeam] = useState()
     const [loading, setLoading] = useState(true)
+    const [teamLoading, setTeamLoading] = useState(true)
     console.log('context render')
 
     useEffect(() => {
@@ -47,6 +48,7 @@ export const AuthProvider = ({children}) => {
             const userDoc = querySnapshot.docs[0]
             const currentUserData = userDoc.data()
             setTeam(currentUserData.team)
+            setTeamLoading(false)
         }
     }
 
@@ -64,7 +66,7 @@ export const AuthProvider = ({children}) => {
     }
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {!loading && !teamLoading && children}
         </AuthContext.Provider>
     )
 }

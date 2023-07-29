@@ -16,7 +16,6 @@ export const teamShotsData = async (team) => {
 }
 
 export const teamPassingNetworkData = async (args) => {
-    console.log(args)
     try {
         const [team, homeTeam, awayTeam, venue] = args
         const passingNetworkCollection = `${team.toLowerCase()}PassingNetworkData`
@@ -52,7 +51,7 @@ export const teamPlayerPassingData = async (args) => {
         const querySnapshot = await getDocs(queryRef);
 
         if (!querySnapshot.empty) {
-            const data = querySnapshot.docs.map((doc) => doc.data());
+            const data = querySnapshot.docs.map((doc) => doc.data())
             return data
         } else {
             return undefined
