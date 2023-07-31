@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 import * as d3 from 'd3'
+import Loader from '../components/Loader'
 import { fetchCumulativeXGChartData } from '../hooks/getShotsData'
 import { useAuth } from '../context/AuthContext'
 
@@ -7,14 +8,14 @@ const XgChart = ({homeTeam, awayTeam}) => {
   const {team} = useAuth()
   const chartRef = useRef(null)
 
-  const {data, isLoading, error, refetch} = fetchCumulativeXGChartData(team, homeTeam, awayTeam)
+  const {data, isLoading, error} = fetchCumulativeXGChartData(team, homeTeam, awayTeam)
   
 
   const drawChart = () => {
-    const chartContainer = d3.select(chartRef.current);
+    const chartContainer = d3.select(chartRef.current)
 
     // Clear previous chart
-    chartContainer.selectAll('*').remove();
+    chartContainer.selectAll('*').remove()
 
     const handleMouseOver = (event, d) => {
         const shotxG = parseFloat(d.xG)
@@ -40,27 +41,27 @@ const XgChart = ({homeTeam, awayTeam}) => {
     };
 
     // Define chart dimensions
-    const width = 400;
-    const height = 500;
-    const margin = { top: 20, right: 20, bottom: 40, left: 50 };
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
+    const width = 400
+    const height = 500
+    const margin = { top: 20, right: 20, bottom: 40, left: 50 }
+    const innerWidth = width - margin.left - margin.right
+    const innerHeight = height - margin.top - margin.bottom
 
     //star syhmbol svg path
-    const starSymbol = 'M10.5,0.167 L13.458,6.583 L20.333,7.917 L15.625,12.542 L16.208,19.833 L10.5,16.542 L4.792,19.833 L5.375,12.542 L0.667,7.917 L7.542,6.583 L10.5,0.167 Z';
+    const starSymbol = 'M10.5,0.167 L13.458,6.583 L20.333,7.917 L15.625,12.542 L16.208,19.833 L10.5,16.542 L4.792,19.833 L5.375,12.542 L0.667,7.917 L7.542,6.583 L10.5,0.167 Z'
 
     // Prepare data
-    const homeData = data?.homeData;
-    const awayData = data?.awayData;
+    const homeData = data?.homeData
+    const awayData = data?.awayData
 
     // Process cumulative xG values
-    const homeCumulativeXGValues = homeData.map((d) => +d.cumulativeXG);
-    const awayCumulativeXGValues = awayData.map((d) => +d.cumulativeXG);
+    const homeCumulativeXGValues = homeData.map((d) => +d.cumulativeXG)
+    const awayCumulativeXGValues = awayData.map((d) => +d.cumulativeXG)
     const combinedCumulativeXGValues = [...homeCumulativeXGValues, ...awayCumulativeXGValues]
 
     // Extract minutes
-    const homeMins = homeData.map((d) => +d.minute);
-    const awayMins = awayData.map((d) => +d.minute);
+    const homeMins = homeData.map((d) => +d.minute)
+    const awayMins = awayData.map((d) => +d.minute)
 
     // Create scales
     const xScale = d3.scaleLinear().domain([d3.min(homeMins), d3.max(homeMins) + 3]).range([0, innerWidth]);
@@ -84,7 +85,7 @@ const XgChart = ({homeTeam, awayTeam}) => {
     .attr('viewBox', `0 0 ${width} ${height}`) 
     .attr('preserveAspectRatio', 'xMidYMid meet') 
     .append('g')
-    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
     // home team line
     svg.append('path')
@@ -155,34 +156,32 @@ const XgChart = ({homeTeam, awayTeam}) => {
       .attr('class', 'x-axis')
       .attr('transform', `translate(0, ${innerHeight})`)
       .call(xAxis)
-      .attr('class', 'text-white');
+      .attr('class', 'text-white')
 
     // Create y-axis
-    const yAxis = d3.axisLeft(yScale);
+    const yAxis = d3.axisLeft(yScale)
 
     svg
       .append('g')
       .attr('class', 'y-axis')
       .call(yAxis)
-      .attr('class', 'text-white');
+      .attr('class', 'text-white')
     };
 
   useEffect(() => {
-    if (data) {
-        drawChart()
-    }
-  }, [data]);
+    drawChart()
+  }, [data])
 
   if (isLoading) {
-    return <div>Loading</div>
+    <Loader/>
   }
 
   if (error) {
-    return <div>Something went wrong!</div>
+    return <div>Something went wrong! Try again later</div>
   }
 
   return (
-    <div className='border-2 border-red-500'>
+    <div className='border-2 border-red-500 min-h-500'>
       <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Cumulative xG Chart</h2>
       <div ref={chartRef} className='flex justify-center mt-12 mb-8 max-w-100'/>
     </div>

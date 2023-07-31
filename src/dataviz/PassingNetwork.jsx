@@ -1,5 +1,6 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
+import Loader from '../components/Loader'
 import { pitch } from 'd3-soccer'
 import { fetchPassingNetworkData } from '../hooks/getPassingNetworkData'
 import { useAuth } from '../context/AuthContext'
@@ -17,14 +18,9 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
       .showDirOfPlay(true)
       .shadeMiddleThird(false)
 
-    console.log(team)
-    console.log(homeTeam)
-    console.log(awayTeam)
-    console.log(venue)
+    const {data, isLoading, error} = fetchPassingNetworkData(team, homeTeam, awayTeam, venue)
 
-    const {data, isLoading, error, refetch} = fetchPassingNetworkData(team, homeTeam, awayTeam, venue) 
-
-    console.log(data)
+    console.log('Passing network data', data)
 
     const passNetworkChart = () => {
         const svg = d3.select(chartRef.current)
@@ -46,13 +42,15 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
           
         const handleMouseOut = () => {
           console.log('mouse out')
-          d3.selectAll('#tooltip').remove();
-        };
+          d3.selectAll('#tooltip').remove()
+        }
 
         svg.call(pitchConfig)
 
-        const averageLocations = data.average_locations
-        const passBetween = data.pass_between
+        if (!data) return
+
+        const averageLocations = data?.average_locations
+        const passBetween = data?.pass_between
 
         // Select the pitch SVG container
         const pitchSvg = svg.select('#pitch')
@@ -102,13 +100,13 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
             }
           })
 
-        const circleRadius = 4;
-        const circleColor = 'red';
-        const circleBorderWidth = 0.3;
-        const circleBorderDash = 1;
-        const circleBorderColor = 'white';
-        const shirtNumberColor = 'white';
-        const shirtFontSize = 2;
+        const circleRadius = 4
+        const circleColor = 'red'
+        const circleBorderWidth = 0.3
+        const circleBorderDash = 1
+        const circleBorderColor = 'white'
+        const shirtNumberColor = 'white'
+        const shirtFontSize = 2
 
         const playerCircles = pitchSvg
         .selectAll('.line')
@@ -135,25 +133,23 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
         .attr('fill', shirtNumberColor)
         .attr('font-size', shirtFontSize)
         .attr('transform', 'rotate(90)')
-        .text((d) => d.shirtNo);     
+        .text((d) => d.shirtNo)
     }
 
     useEffect(() => {
-        if (data) {
-            passNetworkChart()
-        }
-    }, [data])
+      passNetworkChart()
+    })
 
     if (isLoading) {
-        return <div>Loading</div>
-      }
+        return <Loader/>
+    }
     
     if (error) {
         return <div>Something went wrong!</div>
     }
     
     return (
-      <div className='border-2 border-red-500'>
+      <div className='border-2 border-red-500 min-h-500'>
         <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Passing Network</h2>
         <div id='chart' ref={chartRef} className='flex justify-center mt-8'/>
       </div>
@@ -161,4 +157,4 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
 }
 
 
-export default PassingNetwork;
+export default PassingNetwork

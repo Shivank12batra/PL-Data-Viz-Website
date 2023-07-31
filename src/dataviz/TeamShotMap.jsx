@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 import * as d3 from 'd3'
+import Loader from '../components/Loader'
 import { pitch } from 'd3-soccer'
 import { fetchShotMapData } from '../hooks/getShotsData'
 import { useAuth } from '../context/AuthContext'
@@ -17,7 +18,9 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
       .showDirOfPlay(true)
       .shadeMiddleThird(false)
 
-    const {data, isLoading, error, refetch} = fetchShotMapData(team, homeTeam, awayTeam)
+    const {data, isLoading, error} = fetchShotMapData(team, homeTeam, awayTeam)
+
+    console.log('shotmap data', data)
 
     const shotMap = () => {
         const svg = d3.select(chartRef.current)
@@ -125,13 +128,11 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
   }
 
     useEffect(() => {
-        if (data) {
-            shotMap()
-        }
+      shotMap()
     }, [data])
 
     if (isLoading) {
-        return <div>Loading</div>
+        <Loader/>
       }
     
     if (error) {
@@ -139,7 +140,7 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
     }
     
     return (
-      <div className='border-2 border-red-500'>
+      <div className='border-2 border-red-500 min-h-500'>
         <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Team Shot Map</h2>
         <div id='chart' ref={chartRef} className='flex justify-center mt-8'/>
       </div>
