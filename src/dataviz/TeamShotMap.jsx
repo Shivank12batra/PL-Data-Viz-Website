@@ -4,6 +4,7 @@ import { pitch } from 'd3-soccer'
 import Loader from '../components/Loader'
 import Error from '../components/Error'
 import { fetchShotMapData } from '../hooks/getShotsData'
+import { teamColorMapping } from '../utils/dataUtils'
 import { useAuth } from '../context/AuthContext'
 
 const TeamShotMap = ({homeTeam, awayTeam}) => {
@@ -85,7 +86,7 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
             .append('circle')
             .attr('class', 'shot-dot')
             .attr('r', (d) => dotSizeScale(d.xG))
-            .attr('fill', (d) => (d.result === 'Goal' ? 'lightgreen' : 'red'))
+            .attr('fill', (d) => (d.result === 'Goal' ? 'lightgreen' : teamColorMapping[team].color))
             .attr('stroke', 'black')
             .attr('stroke-width', 0.5)
             .on('mouseover', handleMouseOver)
@@ -113,7 +114,7 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
           .attr('cy', (_, i) => guideDotXPositions[i])
           .attr('cx', 105 / 2 - 20)
           .attr('r', (d) => dotSizeScale(d.xG))
-          .attr('fill', (_, i) => (i === 3 ? 'lightgreen' : 'red'))
+          .attr('fill', (_, i) => (i === 3 ? 'lightgreen' : teamColorMapping[team].color))
           .attr('stroke', 'black')
           .attr('stroke-width', 0.5)
 

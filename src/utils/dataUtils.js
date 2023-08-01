@@ -3,3 +3,12 @@ export const alterTeamName = (teamName) => {
     if (teamName === 'Manchester United') return 'Man Utd'
     return teamName
 }
+
+export const teamColorMapping = {
+    'Arsenal' : {color: 'red', oppositionColor: 'blue'},
+    'Liverpool' : {color: 'red', oppositionColor: 'blue'},
+    'Manchester United' : {color: 'red', oppositionColor: 'blue'},
+    'Tottenham' : {color: 'white', oppositionColor: 'blue'},
+    'Chelsea' : {color: 'blue', oppositionColor: 'red'},
+    'Manchester City' : {color: '#1E90FF', oppositionColor: 'red'},
+}

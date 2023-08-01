@@ -3,6 +3,7 @@ import * as d3 from 'd3'
 import Loader from '../components/Loader'
 import Error from '../components/Error'
 import { fetchCumulativeXGChartData } from '../hooks/getShotsData'
+import { teamColorMapping } from '../utils/dataUtils'
 import { useAuth } from '../context/AuthContext'
 
 const XgChart = ({homeTeam, awayTeam}) => {
@@ -133,7 +134,7 @@ const XgChart = ({homeTeam, awayTeam}) => {
       .attr('class', 'home-line')
       .attr('d', homeLine)
       .attr('fill', 'none')
-      .attr('stroke', 'blue')
+      .attr('stroke', teamColorMapping[team].color)
       .attr('stroke-width', 4)
     
     // away team line
@@ -142,7 +143,7 @@ const XgChart = ({homeTeam, awayTeam}) => {
       .attr('class', 'away-line')
       .attr('d', awayLine)
       .attr('fill', 'none')
-      .attr('stroke', 'red')
+      .attr('stroke', teamColorMapping[team].oppositionColor)
       .attr('stroke-width', 4)
     
     // home goals plotted

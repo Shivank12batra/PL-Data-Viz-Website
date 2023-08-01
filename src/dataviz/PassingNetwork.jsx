@@ -4,7 +4,7 @@ import { pitch } from 'd3-soccer'
 import Loader from '../components/Loader'
 import Error from '../components/Error'
 import { fetchPassingNetworkData } from '../hooks/getPassingNetworkData'
-import { alterTeamName } from '../utils/dataUtils'
+import { alterTeamName, teamColorMapping } from '../utils/dataUtils'
 import { useAuth } from '../context/AuthContext'
 
 const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
@@ -115,11 +115,11 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
           })
 
         const circleRadius = 4
-        const circleColor = 'red'
+        const circleColor = teamColorMapping[team].color
         const circleBorderWidth = 0.3
         const circleBorderDash = 1
-        const circleBorderColor = 'white'
-        const shirtNumberColor = 'white'
+        const circleBorderColor = team === 'Tottenham' ? 'black' : 'white'
+        const shirtNumberColor = team === 'Tottenham' ? 'black' : 'white'
         const shirtFontSize = 2
 
         const playerCircles = pitchSvg
