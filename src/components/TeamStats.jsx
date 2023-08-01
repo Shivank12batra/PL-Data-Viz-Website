@@ -6,11 +6,12 @@ import TeamShotMap from '../dataviz/TeamShotMap'
 import { QueryTest } from './QueryTest'
 import { useAuth } from '../context/AuthContext'
 import data from '../data/table'
+import teams from '../data/team'
 
 const TeamStats = () => {
   const {team} = useAuth()
   const [selectedData, setSelectedData] = useState({
-    oppositionTeam: team === data[0].Squad ? data[1].Squad : data[0].Squad,
+    oppositionTeam: team === teams[0] ? teams[1] : teams[0],
     venue: 'Home'
   })
 
@@ -39,9 +40,8 @@ const TeamStats = () => {
             name='oppositionTeam'
             value={selectedData.oppositionTeam}
             onChange={handleInputChange}>
-            {data.map(teamObj => { 
-              const { Rank, Squad } = teamObj
-              return Squad !== team ? <option key={Rank} className='bg-gray-800 hover:cursor-pointer text-white'>{Squad}</option> : null
+            {teams.map(squad => { 
+              return squad !== team ? <option className='bg-gray-800 hover:cursor-pointer text-white'>{squad}</option> : null
             })}
             </select>
           </div>

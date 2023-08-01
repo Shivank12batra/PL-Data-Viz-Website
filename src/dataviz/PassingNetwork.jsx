@@ -1,9 +1,10 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import * as d3 from 'd3'
 import { pitch } from 'd3-soccer'
 import Loader from '../components/Loader'
 import Error from '../components/Error'
 import { fetchPassingNetworkData } from '../hooks/getPassingNetworkData'
+import { alterTeamName } from '../utils/dataUtils'
 import { useAuth } from '../context/AuthContext'
 
 const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
@@ -18,6 +19,9 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
       .rotate(true)
       .showDirOfPlay(true)
       .shadeMiddleThird(false)
+    
+    homeTeam = alterTeamName(homeTeam)
+    awayTeam = alterTeamName(awayTeam)
 
     const {data, isLoading, error} = fetchPassingNetworkData(team, homeTeam, awayTeam, venue)
 
