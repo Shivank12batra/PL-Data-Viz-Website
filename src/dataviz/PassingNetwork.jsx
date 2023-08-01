@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
-import Loader from '../components/Loader'
 import { pitch } from 'd3-soccer'
+import Loader from '../components/Loader'
+import Error from '../components/Error'
 import { fetchPassingNetworkData } from '../hooks/getPassingNetworkData'
 import { useAuth } from '../context/AuthContext'
 
@@ -19,8 +20,6 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
       .shadeMiddleThird(false)
 
     const {data, isLoading, error} = fetchPassingNetworkData(team, homeTeam, awayTeam, venue)
-
-    console.log('Passing network data', data)
 
     const passNetworkChart = () => {
         const svg = d3.select(chartRef.current)
@@ -47,13 +46,24 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
 
         svg.call(pitchConfig)
 
-        if (!data) return
+        // Select the pitch SVG container
+        const pitchSvg = svg.select('#pitch')
+
+        if (!data || data?.length === 0) {
+          pitchSvg
+          .append('text')
+          .attr('class', 'message-text')
+          .attr('y', 40)
+          .attr('x', 105/2)
+          .text('GAME YET TO BE PLAYED')
+          .attr('font-size', '4px')
+          .attr('transform', 'rotate(90, 68, 25)')
+          .attr('fill', 'white')
+          return
+        }
 
         const averageLocations = data?.average_locations
         const passBetween = data?.pass_between
-
-        // Select the pitch SVG container
-        const pitchSvg = svg.select('#pitch')
 
         // Plot average locations (circles) on the pitch
 
@@ -145,7 +155,7 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
     }
     
     if (error) {
-        return <div>Something went wrong!</div>
+      return <Error/>
     }
     
     return (

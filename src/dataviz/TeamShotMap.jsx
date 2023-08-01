@@ -1,7 +1,8 @@
 import React, {useEffect, useRef} from 'react'
 import * as d3 from 'd3'
-import Loader from '../components/Loader'
 import { pitch } from 'd3-soccer'
+import Loader from '../components/Loader'
+import Error from '../components/Error'
 import { fetchShotMapData } from '../hooks/getShotsData'
 import { useAuth } from '../context/AuthContext'
 
@@ -19,8 +20,6 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
       .shadeMiddleThird(false)
 
     const {data, isLoading, error} = fetchShotMapData(team, homeTeam, awayTeam)
-
-    console.log('shotmap data', data)
 
     const shotMap = () => {
         const svg = d3.select(chartRef.current)
@@ -59,6 +58,19 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
 
         // Define the size range of the shot dots based on xG values
         const dotSizeScale = d3.scaleLinear().domain([0, 0.1, 0.2, 0.5, 0.75, 1]).range([0.5, 1, 1.5, 2, 2.5, 3])
+
+        if (!data || data?.length === 0) {
+          pitchSvg
+          .append('text')
+          .attr('class', 'message-text')
+          .attr('y', 40)
+          .attr('x', 105/2)
+          .text('GAME YET TO BE PLAYED')
+          .attr('font-size', '4px')
+          .attr('transform', 'rotate(90, 68, 25)')
+          .attr('fill', 'white')
+          return
+        }
 
         // Plot the shot dots using the `data` array
         const shotsDots = pitchSvg
@@ -132,11 +144,11 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
     }, [data])
 
     if (isLoading) {
-        <Loader/>
+        return <Loader/>
       }
     
     if (error) {
-        return <div>Something went wrong!</div>
+      return <Error/>
     }
     
     return (

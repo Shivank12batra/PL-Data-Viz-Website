@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react'
 import * as d3 from 'd3'
 import Loader from '../components/Loader'
+import Error from '../components/Error'
 import { fetchCumulativeXGChartData } from '../hooks/getShotsData'
 import { useAuth } from '../context/AuthContext'
 
@@ -54,6 +55,47 @@ const XgChart = ({homeTeam, awayTeam}) => {
     const homeData = data?.homeData
     const awayData = data?.awayData
 
+    // Create SVG element
+    const svg = chartContainer
+                .append('svg')
+                .attr('viewBox', `0 0 ${width} ${height}`) 
+                .attr('preserveAspectRatio', 'xMidYMid meet') 
+                .append('g')
+                .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+    if (!homeData || homeData?.length === 2) {
+      svg.append('text')
+        .attr('class', 'x-axis-label')
+        .attr('x', innerWidth/2)
+        .attr('y', innerHeight/2)
+        .attr('text-anchor', 'middle')
+        .attr('fill', 'white')
+        .text('GAME YET TO BE PLAYED!')
+
+    const xScale = d3.scaleLinear().domain([0, 90]).range([0, innerWidth]);
+
+    // Create the x-axis generator using d3.axisBottom() with the xScale
+    const xAxis = d3.axisBottom(xScale).tickValues([0, 15, 30, 45, 60, 75, 90])
+    svg
+      .append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', `translate(0, ${innerHeight})`)
+      .call(xAxis)
+      .attr('class', 'text-white')
+
+    // Create the y-axis scale using d3.scaleLinear()
+    const yScale = d3.scaleLinear().domain([0, 1.5]).range([innerHeight, 0]);
+
+    // Create the y-axis generator using d3.axisLeft() with the yScale
+    const yAxis = d3.axisLeft(yScale).tickValues([0, 0.3, 0.6, 0.9, 1.2, 1.5]);
+    svg
+      .append('g')
+      .attr('class', 'y-axis')
+      .call(yAxis)
+      .attr('class', 'text-white')
+    return 
+   }
+
     // Process cumulative xG values
     const homeCumulativeXGValues = homeData.map((d) => +d.cumulativeXG)
     const awayCumulativeXGValues = awayData.map((d) => +d.cumulativeXG)
@@ -65,7 +107,13 @@ const XgChart = ({homeTeam, awayTeam}) => {
 
     // Create scales
     const xScale = d3.scaleLinear().domain([d3.min(homeMins), d3.max(homeMins) + 3]).range([0, innerWidth]);
-    const yScale = d3.scaleLinear().domain([0, d3.max(combinedCumulativeXGValues)]).range([innerHeight, 0]);
+    let yScale;
+
+    if (!combinedCumulativeXGValues) {
+      yScale = d3.scaleLinear().domain([0, 3]).range([innerHeight, 0]);
+    } else {
+      yScale = d3.scaleLinear().domain([0, d3.max(combinedCumulativeXGValues)]).range([innerHeight, 0])
+    }
 
     // home cumulative XG line
     const homeLine = d3.line()
@@ -78,14 +126,6 @@ const XgChart = ({homeTeam, awayTeam}) => {
       .x((_, i) => xScale(awayMins[i]))
       .y((d) => yScale(d))
       .curve(d3.curveStepAfter)
-
-    // Create SVG element
-    const svg = chartContainer
-    .append('svg')
-    .attr('viewBox', `0 0 ${width} ${height}`) 
-    .attr('preserveAspectRatio', 'xMidYMid meet') 
-    .append('g')
-    .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
     // home team line
     svg.append('path')
@@ -136,7 +176,7 @@ const XgChart = ({homeTeam, awayTeam}) => {
     .attr('y', innerHeight + margin.top + 20)
     .attr('text-anchor', 'middle')
     .attr('fill', 'white')
-    .text('Minutes');
+    .text('Minutes')
 
     // Add y-axis label
     svg.append('text')
@@ -150,7 +190,7 @@ const XgChart = ({homeTeam, awayTeam}) => {
     .text('Cumulative xG');
 
     // Create x-axis
-    const xAxis = d3.axisBottom(xScale);
+    const xAxis = d3.axisBottom(xScale)
     svg
       .append('g')
       .attr('class', 'x-axis')
@@ -173,11 +213,11 @@ const XgChart = ({homeTeam, awayTeam}) => {
   }, [data])
 
   if (isLoading) {
-    <Loader/>
+    return <Loader/>
   }
 
   if (error) {
-    return <div>Something went wrong! Try again later</div>
+    return <Error/>
   }
 
   return (
@@ -187,5 +227,4 @@ const XgChart = ({homeTeam, awayTeam}) => {
     </div>
   )
 }
-
 export default XgChart
