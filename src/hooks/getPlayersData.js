@@ -7,7 +7,10 @@ export const fetchTopPlayersData = (team, stat) => {
         select: (data) => {
             const filteredPlayersData = filterByStat(data, stat) 
             return filteredPlayersData
-        }
+        },
+        staleTime: Infinity,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
     })
 }
 
@@ -16,6 +19,9 @@ export const fetchPlayerData = (team, playerName, percentile=false) => {
         select: (data) => {
             const playerData = filterByPlayerNameAndStatType(data, playerName, percentile)
             return playerData
-        }
+        },
+        staleTime: Infinity,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
     })
 }

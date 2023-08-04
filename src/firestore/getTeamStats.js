@@ -10,7 +10,6 @@ export const teamShotsData = async (team) => {
         const shotsData = shotsDoc.data().data
         return shotsData
     } catch(error) {
-        console.log(error)
         return error
     }
 }
@@ -20,7 +19,6 @@ export const teamPassingNetworkData = async (args) => {
         const [team, homeTeam, awayTeam, venue] = args
         const passingNetworkCollection = `${team.toLowerCase()}PassingNetworkData`
         const documentName = `${homeTeam}_${awayTeam}_${venue}`
-        console.log(documentName)
         const passingNetworkRef = doc(db, passingNetworkCollection, documentName)
 
         const documentSnapshot = await getDoc(passingNetworkRef)
@@ -30,7 +28,6 @@ export const teamPassingNetworkData = async (args) => {
             return undefined
         }
     } catch (error) {
-        console.log(error)
         return error
     }
 }
@@ -57,7 +54,6 @@ export const teamPlayerPassingData = async (args) => {
             return undefined
         }
     } catch (error) {
-        console.log(error)
         return error
     }
 }

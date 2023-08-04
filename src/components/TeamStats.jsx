@@ -5,7 +5,6 @@ import PassingNetwork from '../dataviz/PassingNetwork'
 import TeamShotMap from '../dataviz/TeamShotMap'
 import { QueryTest } from './QueryTest'
 import { useAuth } from '../context/AuthContext'
-import data from '../data/table'
 import teams from '../data/team'
 
 const TeamStats = () => {
@@ -20,7 +19,6 @@ const TeamStats = () => {
 
   const handleInputChange = (event) => {
     const {name, value} = event.target
-    console.log(value)
     setSelectedData((previousData) => ({
       ...previousData,
       [name]: value,

@@ -11,7 +11,6 @@ export const playersData = async(team) => {
 
         return playersData
     } catch (error) {
-        console.log(error)
-        return new Error('Something went wrong!');
+        return new Error('Something went wrong!')
     }
 }
