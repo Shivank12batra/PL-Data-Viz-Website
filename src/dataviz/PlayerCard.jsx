@@ -11,6 +11,8 @@ const PlayerCard = ({ stat }) => {
 
   const { data, isLoading, error } = fetchTopPlayersData(team, stat)
 
+  console.log(data)
+
   if (isLoading) {
     return <Loader />
   }
@@ -58,7 +60,7 @@ const PlayerCard = ({ stat }) => {
            <span className="h-0.5 block w-full" style={{ backgroundColor: teamColorMapping[team].color }}></span>
         </div>
       ))}
-      <Link to="/" className={`${team === 'Tottenham' ? 'text-black' : 'text-white'} w-4/5 flex justify-center mx-auto text-center mt-4 p-2 rounded-full`} style={{
+      <Link to={`/player-stats/${stat}`} className={`${team === 'Tottenham' ? 'text-black' : 'text-white'} w-4/5 flex justify-center mx-auto text-center mt-4 p-2 rounded-full`} style={{
             backgroundColor: teamColorMapping[team].color,
             borderColor: teamColorMapping[team].color,
         }}>

@@ -163,7 +163,7 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
     }
     
     return (
-      <div className='border-2 border-red-500 min-h-500'>
+      <div className='border-2 min-h-500' style={{borderColor: `${teamColorMapping[team].color}`}}>
         <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Passing Network</h2>
         <div id='chart' ref={chartRef} className='flex justify-center mt-8'/>
       </div>
