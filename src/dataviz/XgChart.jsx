@@ -10,6 +10,9 @@ const XgChart = ({homeTeam, awayTeam}) => {
   const {team} = useAuth()
   const chartRef = useRef(null)
 
+  homeTeam = homeTeam === 'Newcastle' ? 'Newcastle United' : homeTeam
+  awayTeam = awayTeam === 'Newcastle' ? 'Newcastle United' : awayTeam
+
   const {data, isLoading, error} = fetchCumulativeXGChartData(team, homeTeam, awayTeam)
   
 

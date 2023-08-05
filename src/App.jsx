@@ -4,7 +4,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import TeamStats from './components/TeamStats';
 import PlayerStats from "./components/PlayerStats";
-import StatChart from './components/StatChart';
+import StatChart from './dataviz/StatChart';
 import Matchday from "./components/Matchday";
 import Glossary from "./components/Glossary";
 import SignUp from './components/SignUp';

@@ -20,6 +20,9 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
       .showDirOfPlay(true)
       .shadeMiddleThird(false)
 
+      homeTeam = homeTeam === 'Newcastle' ? 'Newcastle United' : homeTeam
+      awayTeam = awayTeam === 'Newcastle' ? 'Newcastle United' : awayTeam
+
     const {data, isLoading, error} = fetchShotMapData(team, homeTeam, awayTeam)
 
     const shotMap = () => {
