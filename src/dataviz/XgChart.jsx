@@ -41,7 +41,6 @@ const XgChart = ({homeTeam, awayTeam}) => {
     };
       
     const handleMouseOut = () => {
-      console.log('mouse out')
       d3.selectAll('#tooltip').remove()
     };
 
