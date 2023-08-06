@@ -26,7 +26,7 @@ const StatChart = () => {
 
     const chartData = data.map((d) => ({
       name: d['name'],
-      value: d['Per 90'][stat],
+      value: transformStat !== 'Pass Completion %' ? d['Per 90'][transformStat] : +d['Per 90'][transformStat].replace('%', ''),
     }))
 
     // Clear previous chart
@@ -45,7 +45,7 @@ const StatChart = () => {
           <p>Player Name: ${currentPlayer.name}</p>
           <p>Minutes: ${currentPlayer.minutes}</p>
           <p>Position: ${currentPlayer.position}</p>
-          <p>${stat}: ${currentPlayer['Per 90'][stat]}</p>
+          <p>${transformStat}: ${currentPlayer['Per 90'][transformStat]}</p>
         `);
         tooltip
           .attr('transform', `translate(${event.page.X}, ${event.page.Y})`);
@@ -123,6 +123,32 @@ const StatChart = () => {
       .attr('fill', teamColorMapping[team].color)
       .on('mouseover', handleMouseOver)
       .on('mouseout', handleMouseOut)
+
+      // Calculate the median value for the transformStat
+      const medianValue = d3.median(chartData, (d) => d.value);
+
+      // Add a line for the median
+      svg
+        .append('line')
+        .attr('class', 'median-line')
+        .attr('x1', 0)
+        .attr('x2', innerWidth)
+        .attr('y1', yScale(medianValue))
+        .attr('y2', yScale(medianValue))
+        .attr('stroke', 'white')
+        .attr('stroke-width', 1)
+        .attr('stroke-dasharray', '3 3')
+      
+      // Add text for the median
+      svg
+      .append('text')
+      .attr('class', 'median-text')
+      .attr('x', innerWidth)
+      .attr('y', yScale(medianValue) - 10) // Slightly above the line (adjust 10 for the desired offset)
+      .attr('fill', 'white')
+      .attr('text-anchor', 'end')
+      .attr('font-size', '12px')
+      .text(`median: ${medianValue.toFixed(2)}`);
   }
 
   useEffect(() => {
@@ -135,7 +161,7 @@ const StatChart = () => {
     return(() => {
         window.removeEventListener('resize', updateHeight);
     })
-}, [height])
+})
 
   useEffect(() => {
     if (data) {
