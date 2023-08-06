@@ -5,6 +5,7 @@ import Error from '../components/Error';
 import { fetchTopPlayersData } from '../hooks/getPlayersData';
 import { teamColorMapping } from '../utils/dataUtils';
 import { useAuth } from '../context/AuthContext';
+import ronaldo from '../assets/ronaldo.jpg';
 
 const StatChart = () => {
   const chartRef = useRef()
@@ -21,7 +22,7 @@ const StatChart = () => {
 
   const { data, isLoading, error } = fetchTopPlayersData(team, transformStat)
 
-  const barChart = () => {
+  const barChart = () => { 
     const chartContainer = d3.select(chartRef.current)
 
     const chartData = data.map((d) => ({
@@ -135,7 +136,7 @@ const StatChart = () => {
         .attr('x2', innerWidth)
         .attr('y1', yScale(medianValue))
         .attr('y2', yScale(medianValue))
-        .attr('stroke', 'white')
+        .attr('stroke', team === 'Tottenham' ? 'blue' : 'white')
         .attr('stroke-width', 1)
         .attr('stroke-dasharray', '3 3')
       
@@ -164,10 +165,10 @@ const StatChart = () => {
 })
 
   useEffect(() => {
-    if (data) {
+    if (data && data.length !== 0) {
       barChart()
     }
-  })
+  }, [data])
 
   if (isLoading) {
     return <div className='flex justify-center items-center bg-gradient-to-b from-black to-gray-800 min-h-screen'>
@@ -181,8 +182,17 @@ const StatChart = () => {
     </div>
   }
 
-  if (!data) {
-    return
+  if (!data || data.length === 0) {
+    return (
+      <div className='flex flex-column justify-center bg-gradient-to-b from-black to-gray-800 min-h-screen border-2 border-solid border-transparent'>
+        <div className='mt-32 text-center'>
+          <h1 className='text-white text-2xl sm:text-4xl font-bold'>
+            STAT NOT AVAILABLE!
+          </h1>
+          <img src={ronaldo} alt='Stat not found' className='w-100 h-100 mx-auto mt-8'/>
+        </div>
+      </div>
+    )
   }
 
   return (
