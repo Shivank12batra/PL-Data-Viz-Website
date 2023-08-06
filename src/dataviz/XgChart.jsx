@@ -14,7 +14,6 @@ const XgChart = ({homeTeam, awayTeam}) => {
   awayTeam = awayTeam === 'Newcastle' ? 'Newcastle United' : awayTeam
 
   const {data, isLoading, error} = fetchCumulativeXGChartData(team, homeTeam, awayTeam)
-  
 
   const drawChart = () => {
     const chartContainer = d3.select(chartRef.current)

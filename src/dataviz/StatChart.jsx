@@ -21,8 +21,6 @@ const StatChart = () => {
 
   const { data, isLoading, error } = fetchTopPlayersData(team, transformStat)
 
-  console.log(window.innerWidth)
-
   const barChart = () => {
     const chartContainer = d3.select(chartRef.current)
 
@@ -33,6 +31,31 @@ const StatChart = () => {
 
     // Clear previous chart
     chartContainer.selectAll('*').remove()
+
+    function handleMouseOver (event, d) {
+      d3.select(this).attr('fill', 'rgba(0, 0, 0, 0.2)')
+      const currentPlayer = data[d]
+
+      const tooltip = d3.select('#chart')
+        .append('div')
+        .attr('id', 'tooltip')
+        .attr('class', 'absolute bg-black text-white rounded p-4 z-10 text-center')
+        .html(`
+          <img src=${currentPlayer.image_url} alt=${currentPlayer.name} width="100" height="50" style="border-radius: 50%; margin: auto"/>
+          <p>Player Name: ${currentPlayer.name}</p>
+          <p>Minutes: ${currentPlayer.minutes}</p>
+          <p>Position: ${currentPlayer.position}</p>
+          <p>${stat}: ${currentPlayer['Per 90'][stat]}</p>
+        `);
+        tooltip
+          .attr('transform', `translate(${event.page.X}, ${event.page.Y})`);
+  };
+
+
+    function handleMouseOut() {
+      d3.select(this).attr('fill', teamColorMapping[team].color)
+      d3.selectAll('#tooltip').remove()
+    };
 
     const margin = { top: 20, right: 20, bottom: 20, left: 50 }
     const innerWidth = width - margin.left - margin.right
@@ -73,7 +96,7 @@ const StatChart = () => {
         } else if (length === 2) {
           return nameParts[1]
         } else {
-          return label;
+          return label
         }})
 
     // Y-Axis
@@ -98,6 +121,8 @@ const StatChart = () => {
       .attr('width', xScale.bandwidth())
       .attr('height', (d) => innerHeight - yScale(d.value))
       .attr('fill', teamColorMapping[team].color)
+      .on('mouseover', handleMouseOver)
+      .on('mouseout', handleMouseOut)
   }
 
   useEffect(() => {
@@ -119,11 +144,15 @@ const StatChart = () => {
   })
 
   if (isLoading) {
-    return <Loader/>
+    return <div className='flex justify-center items-center bg-gradient-to-b from-black to-gray-800 min-h-screen'>
+      <Loader/>
+    </div>
   }
 
   if (error) {
-    return <Error/>
+    return <div className='flex justify-center items-center bg-gradient-to-b from-black to-gray-800 min-h-screen'>
+      <Error/>
+    </div>
   }
 
   if (!data) {
@@ -133,7 +162,7 @@ const StatChart = () => {
   return (
     <div className='bg-gradient-to-b from-black to-gray-800 border-2 border-solid border-transparent min-h-screen'>
       <h1 className='text-white text-2xl sm:text-4xl font-bold mb-2 mx-auto underline underline-offset-4 text-center mt-32'>{transformStat.toUpperCase()} CHART</h1>
-      <div ref={chartRef} className='flex justify-center mb-8'/>
+      <div id='chart' ref={chartRef} className='flex justify-center mb-8'/>
     </div>
   )
 }
