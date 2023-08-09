@@ -12,6 +12,9 @@ const XgChart = ({homeTeam, awayTeam}) => {
 
   homeTeam = homeTeam === 'Newcastle' ? 'Newcastle United' : homeTeam
   awayTeam = awayTeam === 'Newcastle' ? 'Newcastle United' : awayTeam
+  const homeColor = homeTeam === team ? teamColorMapping[team].color : teamColorMapping[team].oppositionColor
+  const awayColor = awayTeam === team ? teamColorMapping[team].color : teamColorMapping[team].oppositionColor
+  
 
   const {data, isLoading, error} = fetchCumulativeXGChartData(team, homeTeam, awayTeam)
 
@@ -135,7 +138,7 @@ const XgChart = ({homeTeam, awayTeam}) => {
       .attr('class', 'home-line')
       .attr('d', homeLine)
       .attr('fill', 'none')
-      .attr('stroke', teamColorMapping[team].color)
+      .attr('stroke', homeColor)
       .attr('stroke-width', 4)
     
     // away team line
@@ -144,7 +147,7 @@ const XgChart = ({homeTeam, awayTeam}) => {
       .attr('class', 'away-line')
       .attr('d', awayLine)
       .attr('fill', 'none')
-      .attr('stroke', teamColorMapping[team].oppositionColor)
+      .attr('stroke', awayColor)
       .attr('stroke-width', 4)
     
     // home goals plotted

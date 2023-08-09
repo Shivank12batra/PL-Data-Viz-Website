@@ -11,8 +11,6 @@ const PlayerCard = ({ stat }) => {
 
   const { data, isLoading, error } = fetchTopPlayersData(team, stat)
 
-  console.log(data)
-
   if (isLoading) {
     return <Loader />
   }

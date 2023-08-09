@@ -31,7 +31,7 @@ const TeamStats = () => {
       <QueryTest/>
       <div className='flex flex-col items-center mt-24'>
         <h1 className='text-white text-4xl font-bold mb-6 mx-auto underline underline-offset-4 text-center'>TEAM DATA VISUALIZATIONS</h1>
-        <div className='flex flex-col justify-center items-center items-between m-4 sm:flex-row sm:justify-between'>
+        <div className='flex flex-col justify-between items-center items-between m-4 sm:flex-row sm:justify-between'>
           <div>
             <h3 className='text-white text-xl text-center font-bold mb-2'>Against</h3>
             <select className='px-4 py-2 text-center border border-gray-400 rounded-lg shadow-md hover:cursor-pointer'

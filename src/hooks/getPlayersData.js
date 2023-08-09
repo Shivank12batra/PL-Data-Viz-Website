@@ -17,6 +17,7 @@ export const fetchTopPlayersData = (team, stat) => {
 export const fetchPlayerData = (team, playerName, percentile=false) => {
     return useQuery('playerData', () => playersData(team), {
         select: (data) => {
+            if (!playerName) return data
             const playerData = filterByPlayerNameAndStatType(data, playerName, percentile)
             return playerData
         },

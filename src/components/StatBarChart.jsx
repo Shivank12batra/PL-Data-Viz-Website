@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import Loader from '../components/Loader';
-import Error from '../components/Error';
+import Loader from './Loader';
+import Error from './Error';
 import { fetchTopPlayersData } from '../hooks/getPlayersData';
 import { teamColorMapping } from '../utils/dataUtils';
 import { useAuth } from '../context/AuthContext';
 import ronaldo from '../assets/ronaldo.jpg';
 
-const StatChart = () => {
+const StatBarChart = () => {
   const chartRef = useRef()
   const { team } = useAuth()
   const { stat } = useParams()
@@ -203,5 +203,5 @@ const StatChart = () => {
   )
 }
 
-export default StatChart
+export default StatBarChart
 
