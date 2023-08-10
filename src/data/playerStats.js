@@ -16,8 +16,17 @@ export const attacking = [
     'Non-Penalty xG',
 ]
 
-export const shotStopping = [
+export const gkShotStopping = [
     'Save Percentage',
     'PSxG-GA',
-    'Crosses Stopped %'
+    'Crosses Stopped %',
+]
+
+export const gkPassing = [
+    'Touches',
+    'Launch %',
+]
+
+export const gkSweeping = [
+    'Def. Actions Outside Pen. Area'
 ]

@@ -4,7 +4,10 @@ import Error from '../components/Error'
 import { fetchPlayerData } from '../hooks/getPlayersData'
 import { useAuth } from '../context/AuthContext'
 import { teamColorMapping } from '../utils/dataUtils'
-import { defending, passing, attacking } from '../data/playerStats'
+import { 
+    defending, passing, attacking, 
+    gkShotStopping, gkPassing, gkSweeping
+ } from '../data/playerStats'
 
 
 const PlayerReport = ({player, position}) => {
@@ -43,16 +46,60 @@ const PlayerReport = ({player, position}) => {
     </div>
     {data ? 
     (position === 'GK' ?
-    <div>
-
+    <div>        
+        <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>GK SHOT STOPPING</h2>
+        <div className='w-4/5 grid sm:grid-cols-3 mx-auto'>
+            {gkShotStopping.map((stat, idx) => {
+                return (
+                    <div id={idx} className={`${team === 'Tottenham' ? 'text-black' : 'text-white' } text-center p-2 border-2`} style=
+                    {{'backgroundColor' : `${teamColorMapping[team].color}`,
+                     minHeight: '10px',
+                     borderColor: team === 'Tottenham' ? 'black' : 'white',}}>
+                        <p style={{minHeight : '50px'}}>{stat}</p>
+                        <p className='text-2xl'>{data[stat]}</p>
+                    </div>
+                )
+            })}
+        </div>
+        <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>GK PASSING</h2>
+        <div className='w-4/5 grid sm:grid-cols-2 mx-auto'>
+            {gkPassing.map((stat, idx) => {
+                return (
+                    <div id={idx} className={`${team === 'Tottenham' ? 'text-black' : 'text-white' } text-center p-2 border-2`} style=
+                    {{'backgroundColor' : `${teamColorMapping[team].color}`,
+                     minHeight: '10px',
+                     borderColor: team === 'Tottenham' ? 'black' : 'white',}}>
+                        <p style={{minHeight : '50px'}}>{stat}</p>
+                        <p className='text-2xl'>{data[stat]}</p>
+                    </div>
+                )
+            })}
+        </div>
+        <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>GK SWEEPING</h2>
+        <div className='w-2/4 grid mx-auto'>
+            {gkSweeping.map((stat, idx) => {
+                return (
+                    <div id={idx} className={`${team === 'Tottenham' ? 'text-black' : 'text-white' } text-center p-2 border-2`} style=
+                    {{'backgroundColor' : `${teamColorMapping[team].color}`,
+                     minHeight: '10px',
+                     borderColor: team === 'Tottenham' ? 'black' : 'white',}}>
+                        <p style={{minHeight : '50px'}}>{stat}</p>
+                        <p className='text-2xl'>{data[stat]}</p>
+                    </div>
+                )
+            })}
+        </div>
     </div> : 
     <div>
         <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>DEFENDING</h2>
         <div className='w-4/5 grid sm:grid-cols-3 mx-auto'>
             {defending.map((stat, idx) => {
                 return (
-                    <div id={idx} className={`text-white text-center p-2 border-2`} style={{'backgroundColor' : `${teamColorMapping[team].color}`, minHeight: '10px'}}>
-                        <p style={{minHeight : '40px'}}>{stat}</p>
+                    <div id={idx} className={`${team === 'Tottenham' ? 'text-black' : 'text-white' } text-center p-2 border-2`} style=
+                    {{'backgroundColor' : `${teamColorMapping[team].color}`,
+                     minHeight: '10px',
+                     borderColor: team === 'Tottenham' ? 'black' : 'white',}}>
+                        <p style={{minHeight : '50px'}}>{stat}</p>
                         <p className='text-2xl'>{data[stat]}</p>
                     </div>
                 )
@@ -76,8 +123,11 @@ const PlayerReport = ({player, position}) => {
         <div className='w-4/5 grid sm:grid-cols-3 mx-auto'>
             {attacking.map((stat, idx) => {
                 return (
-                    <div id={idx} className={`text-white text-center p-2 border-2`} style={{'backgroundColor' : `${teamColorMapping[team].color}`, minHeight: '10px'}}>
-                        <p style={{minHeight : '40px'}}>{stat}</p>
+                    <div id={idx} className={`${team === 'Tottenham' ? 'text-black' : 'text-white' } text-center p-2 border-2`} style=
+                    {{'backgroundColor' : `${teamColorMapping[team].color}`,
+                     minHeight: '10px',
+                     borderColor: team === 'Tottenham' ? 'black' : 'white',}}>
+                        <p style={{minHeight : '50px'}}>{stat}</p>
                         <p className='text-2xl'>{data[stat]}</p>
                     </div>
                 )
