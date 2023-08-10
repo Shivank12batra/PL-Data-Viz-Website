@@ -15,11 +15,10 @@ const PlayerReport = ({player, position}) => {
   const [typeOfStat, setTypeOfStat] = useState('Percentile')
   const percentile = typeOfStat === 'Percentile'
 
+  console.log(player)
   console.log(position)
 
   const {data, isLoading, error} = fetchPlayerData(team, player, percentile)
-
-  console.log(data)
 
   if (isLoading) {
     return <Loader/>
@@ -29,6 +28,8 @@ const PlayerReport = ({player, position}) => {
     return <Error/>
   }
   
+
+  //TODO: refactor non-gk position code to reduce duplication
   return (
   <div className='border-2 pb-4' style={{borderColor: `${teamColorMapping[team].color}`, minHeight: '600px'}}>
     <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>
@@ -47,7 +48,9 @@ const PlayerReport = ({player, position}) => {
     {data ? 
     (position === 'GK' ?
     <div>        
-        <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>GK SHOT STOPPING</h2>
+        <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>
+            GK SHOT STOPPING
+        </h2>
         <div className='w-4/5 grid sm:grid-cols-3 mx-auto'>
             {gkShotStopping.map((stat, idx) => {
                 return (
