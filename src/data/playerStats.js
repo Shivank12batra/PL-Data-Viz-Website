@@ -15,3 +15,9 @@ export const attacking = [
     'Successful Take-Ons',
     'Non-Penalty xG',
 ]
+
+export const shotStopping = [
+    'Save Percentage',
+    'PSxG-GA',
+    'Crosses Stopped %'
+]

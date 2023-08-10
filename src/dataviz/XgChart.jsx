@@ -227,9 +227,12 @@ const XgChart = ({homeTeam, awayTeam}) => {
 
   return (
     <div className='border-2 min-h-500' style={{borderColor: `${teamColorMapping[team].color}`}}>
-      <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Cumulative xG Chart</h2>
+      <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>
+        Cumulative xG Chart
+      </h2>
       <div ref={chartRef} className='flex justify-center mt-12 mb-8 max-w-100'/>
     </div>
   )
 }
+
 export default XgChart

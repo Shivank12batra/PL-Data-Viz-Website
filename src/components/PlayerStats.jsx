@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import PlayerCards from './PlayerCards'
+import PlayerReport from '../dataviz/PlayerReport'
+import PlayerEventMap from '../dataviz/PlayerEventMap'
 import { fetchPlayerData } from '../hooks/getPlayersData'
 import { useAuth } from '../context/AuthContext'
 import teams from '../data/team'
@@ -13,12 +15,13 @@ const PlayerStats = () => {
     venue: 'Home'
   })
 
+  const playerData = data?.filter(players => players.name === selectedData.player)[0]
+
   const homeTeam = selectedData.venue === 'Home' ? team : selectedData.oppositionTeam
   const awayTeam = selectedData.venue === 'Away' ? team : selectedData.oppositionTeam
 
   const handleInputChange = (event) => {
     const {name, value} = event.target
-    console.log(name, value)
     setSelectedData((previousData) => ({
       ...previousData,
       [name]: value,
@@ -43,7 +46,9 @@ const PlayerStats = () => {
             </select>
           </div>
           <div>
-            <h3 className='text-white text-xl text-center font-bold mb-2 mt-4 sm:mt-0'>Against</h3>
+            <h3 className='text-white text-xl text-center font-bold mb-2 mt-4 sm:mt-0'>
+              Against
+            </h3>
             <select className='px-4 py-2 text-center border border-gray-400 rounded-lg shadow-md hover:cursor-pointer'
             name='oppositionTeam'
             value={selectedData.oppositionTeam}
@@ -65,7 +70,8 @@ const PlayerStats = () => {
           </div>
         </div>
       <div className='grid sm:grid-cols-2 gap-8 md:grid-cols-1'>
-
+        <PlayerReport player={selectedData.player} position={playerData?.position}/>
+        <PlayerEventMap/>
       </div>
     </div>
   )
