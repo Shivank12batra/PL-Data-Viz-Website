@@ -8,15 +8,12 @@ import teams from '../data/team'
 
 const PlayerStats = () => {
   const {team} = useAuth()
-  const {data, isLoading, error} = fetchPlayerData(team, '')
+  const {data} = fetchPlayerData(team, '')
   const [selectedData, setSelectedData] = useState({
     player: data && data?.length > 0 ? data[0].name : '',
     oppositionTeam: team === teams[0] ? teams[1] : teams[0],
     venue: 'Home'
   })
-  // const [playerData, setPlayerData] = useState({})
-
-  console.log('selected data:', selectedData.player)
 
   useEffect(() => {
     if (data) {
@@ -24,13 +21,10 @@ const PlayerStats = () => {
         ...prevData,
         player : data[0].name
       }))
-      // setPlayerData(data.filter(players => players.name === selectedData.player)[0])
     }
   }, [data])
 
   const playerData = data?.filter(players => players.name === selectedData.player)[0]
-
-  console.log(playerData)
 
   const homeTeam = selectedData.venue === 'Home' ? team : selectedData.oppositionTeam
   const awayTeam = selectedData.venue === 'Away' ? team : selectedData.oppositionTeam
@@ -42,6 +36,7 @@ const PlayerStats = () => {
       [name]: value,
     }))
   }
+
   return (
     <div className='bg-gradient-to-b from-black to-gray-800 border-2 border-solid border-transparent min-h-screen'>
       <PlayerCards/>
@@ -87,7 +82,7 @@ const PlayerStats = () => {
       {playerData ? 
         <div className='flex justify-center p-4 text-white'>
           <span>{playerData.name}</span>
-          <span>| Position: {playerData.position} |</span>
+          <span> | Position: {playerData.position} |</span>
           <span> Minutes Played: {playerData.minutes}</span>
         </div> :
         null}

@@ -49,6 +49,7 @@ export const calculateCumulativeXG = (shots, teamIndicator) => {
 
   export const filterDataForShotMap = (shots, team, homeTeam, awayTeam, playerName) => {
     const matchFilteredShots = filterShotsData(shots, homeTeam, awayTeam)
+    if (matchFilteredShots.length === 0) return undefined
     const userTeamVenue = team === homeTeam ? 'h' : 'a'
     const teamFilteredShots = matchFilteredShots.filter(shot => shot.h_a === userTeamVenue)
 

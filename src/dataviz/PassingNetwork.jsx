@@ -44,7 +44,6 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
         };
           
         const handleMouseOut = () => {
-          console.log('mouse out')
           d3.selectAll('#tooltip').remove()
         }
 

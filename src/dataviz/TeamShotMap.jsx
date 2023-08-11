@@ -31,6 +31,8 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
         svg.selectAll('*').remove()
 
         const handleMouseOver = (event, d) => {
+          console.log(event)
+          console.log(d)
           const shotxG = parseFloat(d.xG)
           const roundedxG = shotxG.toFixed(2)
 
