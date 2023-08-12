@@ -612,12 +612,12 @@ html {
   z-index: 10;
 }
 
-.m-4{
-  margin: 1rem;
-}
-
 .m-2{
   margin: 0.5rem;
+}
+
+.m-4{
+  margin: 1rem;
 }
 
 .mx-auto{
@@ -633,11 +633,6 @@ html {
 .my-4{
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-
-.my-6{
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
 }
 
 .mb-2{
@@ -708,10 +703,6 @@ html {
   margin-top: 2rem;
 }
 
-.mt-0{
-  margin-top: 0px;
-}
-
 .block{
   display: block;
 }
@@ -770,14 +761,6 @@ html {
 
 .h-screen{
   height: 100vh;
-}
-
-.h-10{
-  height: 2.5rem;
-}
-
-.h-80{
-  height: 20rem;
 }
 
 .max-h-full{
@@ -870,10 +853,6 @@ html {
 
 .resize{
   resize: both;
-}
-
-.grid-cols-3{
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flex-row{
@@ -1041,6 +1020,11 @@ html {
   padding: 2rem;
 }
 
+.px-1{
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
 .px-12{
   padding-left: 3rem;
   padding-right: 3rem;
@@ -1061,6 +1045,11 @@ html {
   padding-right: 1.5rem;
 }
 
+.px-8{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .py-1{
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -1079,16 +1068,6 @@ html {
 .py-6{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-
-.px-1{
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-
-.px-8{
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 
 .pb-4{
@@ -1263,12 +1242,8 @@ html {
   transition-duration: 150ms;
 }
 
-.transition{
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+.duration-100{
+  transition-duration: 100ms;
 }
 
 .duration-200{
@@ -1281,10 +1256,6 @@ html {
 
 .duration-500{
   transition-duration: 500ms;
-}
-
-.duration-100{
-  transition-duration: 100ms;
 }
 
 .ease-in-out{
@@ -1389,12 +1360,12 @@ html {
     width: 80%;
   }
 
-  .sm\:grid-cols-3{
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .sm\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-3{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .sm\:flex-row{

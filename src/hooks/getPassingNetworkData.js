@@ -3,6 +3,7 @@ import { teamPassingNetworkData } from "../firestore/getTeamStats";
 
 export const fetchPassingNetworkData = (...args) => {
     return useQuery(['passingNetworkData', ...args], () => teamPassingNetworkData(args), {
+        staleTime: Infinity,
         refetchOnWindowFocus: false,
         keepPreviousData: true,
     })

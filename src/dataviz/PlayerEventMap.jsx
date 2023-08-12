@@ -86,7 +86,52 @@ const PlayerEventMap = ({homeTeam, awayTeam, venue, player}) => {
         return
     }
 
-    if (mapType === 'Other Events') return
+    if (mapType === 'Other Events') {
+      if (eventType === 'Pass') {
+        const passLines = pitchSvg
+          .selectAll('.line')
+          .data(data)
+          .enter()
+          .append('g')
+          .attr('class', 'pass-line')
+
+        passLines
+        .append('line')
+        .attr('x1', (d) => (d.x * 1.05))
+        .attr('y1', (d) => ((100 - d.y) * 0.68))
+        .attr('x2', (d) => (d.endX * 1.05))
+        .attr('y2', (d) => ((100 - d.endY) * 0.68))
+        .attr('stroke', eventOutcome === 'Successful' ? 'green' : 'red')
+        .attr('stroke-width', 0.4)
+
+        passLines
+        .append('circle')
+        .attr('cx', (d) => (d.endX * 1.05))
+        .attr('cy', (d) => ((100 - d.endY) * 0.68))
+        .attr('r', 1)
+        .attr('stroke', eventOutcome === 'Successful' ? 'green' : 'red')
+        .attr('stroke-width', 0.5)
+        
+      } else {
+        // Plot the ball recoveries using the `data` array
+        const ballRecoveries = pitchSvg
+        .selectAll('.line') 
+        .data(data) 
+        .enter()
+        .append('g')
+        .attr('class', 'event-location')
+        .attr('transform', (d) => `translate(${d.x * 1.05}, ${(100 - d.y) * 0.68})`)
+
+        ballRecoveries
+        .append('circle')
+        .attr('class', 'ball-recovery')
+        .attr('r', 2)
+        .attr('fill', eventOutcome === 'Successful' ? 'lightgreen' : 'red')
+        .attr('stroke', 'black')
+        .attr('stroke-width', 0.5)
+      }
+      return
+    }
 
     // Plot the shot dots using the `data` array
     const shotsDots = pitchSvg
@@ -207,8 +252,13 @@ const PlayerEventMap = ({homeTeam, awayTeam, venue, player}) => {
             onClick={() => setEventOutcome('Unsuccessful')}>
                 Unsuccessful
             </button>
-         </div> 
+         </div>
          :
+          null}
+          {mapType === 'Other Events' && data ? 
+            <div className='flex justify-center text-white mt-4'>
+              {data.length} {eventOutcome} {eventType === 'Pass' ? 'Passes' : 'Ball Recoveries'}
+            </div> : 
           null}
         <div id='chart' ref={chartRef} className='flex justify-center mt-8'/>
   </div>

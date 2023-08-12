@@ -40,10 +40,9 @@ export const teamPlayerPassingData = async (args) => {
 
         const sampleQueryRef = query(
               collection(db, `${playerPassingData}/${documentName}/eventData`),
-              where("type_displayName", "==", event),
-              where("outcomeType_displayName", "==", eventOutcome)
+              where("type_displayName", "==", event)
               )
-         const sampleQuerySnap = await getDocs(sampleQueryRef)
+        const sampleQuerySnap = await getDocs(sampleQueryRef)
         
         if (!sampleQuerySnap.empty) {
             const queryRef = query(
