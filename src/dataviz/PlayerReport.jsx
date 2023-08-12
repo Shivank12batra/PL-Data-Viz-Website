@@ -15,9 +15,6 @@ const PlayerReport = ({player, position}) => {
   const [typeOfStat, setTypeOfStat] = useState('Percentile')
   const percentile = typeOfStat === 'Percentile'
 
-  console.log(player)
-  console.log(position)
-
   const {data, isLoading, error} = fetchPlayerData(team, player, percentile)
 
   if (isLoading) {
@@ -78,7 +75,9 @@ const PlayerReport = ({player, position}) => {
                 )
             })}
         </div>
-        <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>GK SWEEPING</h2>
+        <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>
+            GK SWEEPING
+        </h2>
         <div className='w-2/4 grid mx-auto'>
             {gkSweeping.map((stat, idx) => {
                 return (
@@ -94,7 +93,9 @@ const PlayerReport = ({player, position}) => {
         </div>
     </div> : 
     <div>
-        <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>DEFENDING</h2>
+        <h2 className='flex justify-center text-white text-2xl font-bold mt-8 mb-4'>
+            DEFENDING
+        </h2>
         <div className='w-4/5 grid sm:grid-cols-3 mx-auto'>
             {defending.map((stat, idx) => {
                 return (

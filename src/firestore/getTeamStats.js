@@ -37,22 +37,32 @@ export const teamPlayerPassingData = async (args) => {
         const [team, homeTeam, awayTeam, venue, event, eventOutcome, playerName] = args
         const playerPassingData = `${team.toLowerCase()}PlayerPassingData`
         const documentName = `${homeTeam}_${awayTeam}_${venue}`
-        
-        const queryRef = query(
-            collection(db, `${playerPassingData}/${documentName}/eventData`),
-            where("type_displayName", "==", event),
-            where("outcomeType_displayName", "==", eventOutcome),
-            where("name", "==", playerName)
-        );
-        
-        const querySnapshot = await getDocs(queryRef);
 
-        if (!querySnapshot.empty) {
-            const data = querySnapshot.docs.map((doc) => doc.data())
-            return data
-        } else {
-            return undefined
+        const sampleQueryRef = query(
+              collection(db, `${playerPassingData}/${documentName}/eventData`),
+              where("type_displayName", "==", event),
+              where("outcomeType_displayName", "==", eventOutcome)
+              )
+         const sampleQuerySnap = await getDocs(sampleQueryRef)
+        
+        if (!sampleQuerySnap.empty) {
+            const queryRef = query(
+                collection(db, `${playerPassingData}/${documentName}/eventData`),
+                where("type_displayName", "==", event),
+                where("outcomeType_displayName", "==", eventOutcome),
+                where("name", "==", playerName)
+            );
+            
+            const querySnapshot = await getDocs(queryRef);
+    
+            if (!querySnapshot.empty) {
+                const data = querySnapshot.docs.map((doc) => doc.data())
+                return data
+            } else {
+                return []
+            }
         }
+        return undefined
     } catch (error) {
         return error
     }

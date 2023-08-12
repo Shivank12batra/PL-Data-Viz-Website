@@ -6,20 +6,33 @@ import { fetchShotMapData } from '../hooks/getShotsData'
 import { fetchPassingEventData } from '../hooks/getPassingEventData'
 import { useAuth } from '../context/AuthContext'
 import { pitchConfig } from '../utils/pitchUtils'
+import { alterTeamName } from '../utils/dataUtils'
 import { teamColorMapping } from '../utils/dataUtils'
 
-const PlayerEventMap = ({homeTeam, awayTeam, player}) => {
+const PlayerEventMap = ({homeTeam, awayTeam, venue, player}) => {
   const {team} = useAuth()
   const [mapType, setMapType] = useState('Shotmap')
-  const [selectedEvent, setSelectedEvent] = useState('Pass')
-  const [eventType, setEventType] = useState('Successful')
+  const [eventType, setEventType] = useState('Pass')
+  const [eventOutcome, setEventOutcome] = useState('Successful')
   const chartRef = useRef(null)
 
-  homeTeam = homeTeam === 'Newcastle' ? 'Newcastle United' : homeTeam
-  awayTeam = awayTeam === 'Newcastle' ? 'Newcastle United' : awayTeam
+  if (mapType === 'Shotmap') {
+    homeTeam = homeTeam === 'Newcastle' ? 'Newcastle United' : homeTeam
+    awayTeam = awayTeam === 'Newcastle' ? 'Newcastle United' : awayTeam
+  } else {
+    homeTeam = alterTeamName(homeTeam)
+    awayTeam = alterTeamName(awayTeam)
+  }
 
-  const {data, isLoading, error} = fetchShotMapData(team, homeTeam, awayTeam, player)
-
+  let data, isLoading, error;
+  if (mapType === 'Shotmap') {
+    ({data, isLoading, error} = fetchShotMapData(team, homeTeam, awayTeam, player))
+  } else {
+    ({data, isLoading, error} = fetchPassingEventData(team, homeTeam, awayTeam,
+        venue, eventType, eventOutcome,
+        player))
+  }
+   
   console.log(data)
 
   const eventMap = () => {
@@ -65,12 +78,15 @@ const PlayerEventMap = ({homeTeam, awayTeam, player}) => {
         .attr('class', 'message-text')
         .attr('y', 40)
         .attr('x', 105/2)
-        .text(!data ? 'GAME YET TO BE PLAYED' : 'PLAYER HAS NO EVENTS')
+        .text(!data ? 'GAME YET TO BE PLAYED' : mapType === 'Shotmap' ? 'PLAYER HAS NO SHOTS' : 
+        'PLAYER HAS NO EVENTS')
         .attr('font-size', '4px')
         .attr('transform', 'rotate(90, 68, 25)')
         .attr('fill', 'white')
         return
     }
+
+    if (mapType === 'Other Events') return
 
     // Plot the shot dots using the `data` array
     const shotsDots = pitchSvg
@@ -151,6 +167,8 @@ const PlayerEventMap = ({homeTeam, awayTeam, player}) => {
     return <Error/>
    }
   
+
+   // TODO: a lot of refactoring needed // create a different component for the input parameters, also lot of repeatable button code to be wrapped around a map function
   return (
     <div className='border-2 min-h-500' style={{borderColor: `${teamColorMapping[team].color}`}}>
         <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>
@@ -166,6 +184,32 @@ const PlayerEventMap = ({homeTeam, awayTeam, player}) => {
                 Other Events
             </button>
         </div>
+        {mapType === 'Other Events' ? 
+         <div className='flex justify-center text-white m-2'>
+            <button className={`${eventType === 'Pass' && team === 'Tottenham' ? 'text-black' : null} py-2 px-8 border-2 cursor-pointer transition-colors duration-100`} style={{borderColor: `${teamColorMapping[team].color}`, backgroundColor: `${eventType === 'Pass' ? teamColorMapping[team].color  : ''}`}}
+            onClick={() => setEventType('Pass')}>
+                Passes
+            </button>
+            <button className={`${eventType === 'BallRecovery' && team === 'Tottenham' ? 'text-black' : null} py-2 px-8 border-2 cursor-pointer transition-colors duration-100`} style={{borderColor: `${teamColorMapping[team].color}`, backgroundColor: `${eventType === 'BallRecovery' ? teamColorMapping[team].color  : ''}`}}
+            onClick={() => setEventType('BallRecovery')}>
+                BallRecovery
+            </button>
+         </div> 
+         :
+          null}
+        {mapType === 'Other Events' ? 
+         <div className='flex justify-center text-white m-2'>
+            <button className={`${eventOutcome === 'Successful' && team === 'Tottenham' ? 'text-black' : null} py-2 px-8 border-2 cursor-pointer transition-colors duration-100`} style={{borderColor: `${teamColorMapping[team].color}`, backgroundColor: `${eventOutcome === 'Successful' ? teamColorMapping[team].color  : ''}`}}
+            onClick={() => setEventOutcome('Successful')}>
+                Successful
+            </button>
+            <button className={`${eventOutcome === 'Unsuccessful' && team === 'Tottenham' ? 'text-black' : null} py-2 px-8 border-2 cursor-pointer transition-colors duration-100`} style={{borderColor: `${teamColorMapping[team].color}`, backgroundColor: `${eventOutcome === 'Unsuccessful' ? teamColorMapping[team].color  : ''}`}}
+            onClick={() => setEventOutcome('Unsuccessful')}>
+                Unsuccessful
+            </button>
+         </div> 
+         :
+          null}
         <div id='chart' ref={chartRef} className='flex justify-center mt-8'/>
   </div>
   )

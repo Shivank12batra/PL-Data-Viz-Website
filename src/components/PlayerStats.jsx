@@ -88,7 +88,7 @@ const PlayerStats = () => {
         null}
       <div className='grid sm:grid-cols-2 gap-8 md:grid-cols-1'>
         <PlayerReport player={selectedData.player} position={playerData?.position}/>
-        <PlayerEventMap homeTeam={homeTeam} awayTeam={awayTeam} player={selectedData.player}/>
+        <PlayerEventMap homeTeam={homeTeam} awayTeam={awayTeam} venue={selectedData.venue} player={selectedData.player}/>
       </div>
     </div>
   )
