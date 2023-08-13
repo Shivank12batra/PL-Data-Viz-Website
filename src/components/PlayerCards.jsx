@@ -1,10 +1,8 @@
 import React from 'react'
 import { defending, passing, attacking } from '../data/playerStats'
 import PlayerCard from '../dataviz/PlayerCard'
-import { useAuth } from '../context/AuthContext'
 
 const PlayerCards = () => {
-  const {team} = useAuth()
   return (
     <div className='items-center border-transparent border-2 mt-32'>
         <h1 className='text-white text-4xl font-bold mb-6 underline underline-offset-4 text-center'>

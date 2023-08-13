@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSpring, useTransition, animated } from 'react-spring';
-import { FaAngleLeft, FaAngleRight} from 'react-icons/fa';';
+import { FaAngleLeft, FaAngleRight} from 'react-icons/fa';
 import NavBar from './NavBar';
 import bgmImages from '../data/animationContent';
 
