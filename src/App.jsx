@@ -28,8 +28,8 @@ function App() {
           <Route path="/player-stats" element={<PlayerStats />} />
           <Route path='/player-stats/:stat' element={<StatBarChart />}/>
           <Route path="/matchday" element={<Matchday />} />
-          <Route path="/glossary" element={<Glossary />} />
         </Route>
+        <Route path="/glossary" element={<Glossary />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/logout" element={<Logout/>} />
