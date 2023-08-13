@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes, 
     FaGithub, FaTwitter, FaLinkedin
   } from 'react-icons/fa';
@@ -8,7 +8,7 @@ import pl_logo from '../assets/pl_logo.png';
 
 const NavBar = ({navOpen, setNavOpen}) => {
     const {currentUser} = useAuth()
-
+    const navigate = useNavigate()
     const navItems = [
         { 
           id : 1,
@@ -46,17 +46,17 @@ const NavBar = ({navOpen, setNavOpen}) => {
         {
             id: 1,
             icon: <FaGithub size={20}/>,
-            href: ''
+            href: 'https://github.com/Shivank12batra'
         },
         {
             id: 2,
             icon: <FaTwitter size={20}/>,
-            href: ''
+            href: 'https://twitter.com/shvnk_12'
         },
         {
             id: 3,
             icon: <FaLinkedin size={20}/>,
-            href: ''
+            href: 'https://www.linkedin.com/in/shivank-batra-4594b9202/'
         },
     ]
 
@@ -64,7 +64,8 @@ const NavBar = ({navOpen, setNavOpen}) => {
     <div>
         <div className={`${navOpen ? 'fixed' : 'absolute'} top-2 left-0 z-10 sm:left-24 sm:top-12 cursor-pointer`}>
             <img
-                src={pl_logo} 
+                src={pl_logo}
+                onClick={() => navigate('/')} 
                 alt="Premier League Logo"
                 className="w-20 text-6xl"
             />

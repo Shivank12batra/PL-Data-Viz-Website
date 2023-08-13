@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSpring, useTransition, animated } from 'react-spring';
-import { FaAngleLeft, FaAngleRight} from 'react-icons/fa';
-import {MdOutlineKeyboardArrowRight} from 'react-icons/md';
+import { FaAngleLeft, FaAngleRight} from 'react-icons/fa';';
 import NavBar from './NavBar';
 import bgmImages from '../data/animationContent';
 
@@ -11,6 +11,7 @@ const Home = ({navOpen, setNavOpen}) => {
   const [buttonVisible, setButtonVisible] = useState(false)
   const [arrowVisible, setArrowVisible] = useState(true)
   const [backgroundObj, setBackgroundObj] = useState(bgmImages[0])
+  const navigate = useNavigate()
 
   const arrowAnimation = useSpring({
     from: {opacity: 0},
@@ -73,7 +74,6 @@ const Home = ({navOpen, setNavOpen}) => {
     }, 20000);
   
     return () => {
-      console.log('clearing stuff')
       clearTimeout(headerFadeIn);
       clearTimeout(arrowsFadeOut);
       clearTimeout(headerFadeOut);
@@ -109,12 +109,14 @@ const Home = ({navOpen, setNavOpen}) => {
       <animated.h1 style={titleAnimation} key={backgroundObj.id} className={`${headerVisible ? '' : 'opacity-0'} absolute top-16 left-1/2 transform -translate-x-1/2`}><span className='text-white text-3xl font-bold inline-block bg-black bg-opacity-70 px-6 py-4 text-center sm:text-5xl sm:px-20'>{backgroundObj.header}</span></animated.h1>
       {/* description content and button */}
       <animated.div className='absolute top-2/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 ml-8'>
-        <animated.button style={buttonAnimation} className={`${buttonVisible ? '' : 'opacity-0'} group text-white font-bold text-sm bg-black bg-opacity-70 px-4 py-2 my-2 hover:bg-red-500 transition-all duration-200`}>
-          {backgroundObj.id === 1 ? 'LOGIN/SIGNUP' : 'BROWSE SECTION'}
-            <span className='hidden align-middle pl-2 group-hover:inline-block'>
-              <MdOutlineKeyboardArrowRight size={25}/>
-            </span>
+        {backgroundObj.id !== 1 ? (
+          <animated.button style={buttonAnimation} className={`${buttonVisible ? '' : 'opacity-0'} group text-white font-bold text-sm bg-black bg-opacity-70 px-4 py-2 my-2 hover:bg-red-500 transition-all duration-200`}
+          onClick={() => navigate(backgroundObj.href)}>
+            BROWSE SECTION
         </animated.button>
+        )
+        : 
+        null}
         <animated.p style={contentAnimation} className={`${contentVisible ? '' : 'opacity-0'} text-white text-sm bg-black bg-opacity-70 max-w-md px-2 py-2 sm:text-lg z-0`}>{backgroundObj.content}
         </animated.p>
       </animated.div>
