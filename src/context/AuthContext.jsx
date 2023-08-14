@@ -17,7 +17,6 @@ export const AuthProvider = ({children}) => {
         console.log('running useEffect')
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
-            console.log(user)
             setLoading(false)
         })
         return unsubscribe
@@ -53,7 +52,9 @@ export const AuthProvider = ({children}) => {
     }
 
     useEffect(() => {
-        getUserTeam()
+        if (currentUser) {
+            getUserTeam()
+        }
     }, [currentUser])
 
     const value = {
@@ -66,7 +67,7 @@ export const AuthProvider = ({children}) => {
     }
     return (
         <AuthContext.Provider value={value}>
-            {!loading && !teamLoading && children}
+            {!loading && children}
         </AuthContext.Provider>
     )
 }
