@@ -13,7 +13,7 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
     const h = 500
 
     const pitchConfig = pitch()
-      .height(h)
+      .height(h) 
       .clip([[0, 0], [68, 105]])
       .goals('line')
       .rotate(true)
@@ -24,6 +24,8 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
     awayTeam = alterTeamName(awayTeam)
 
     const {data, isLoading, error} = fetchPassingNetworkData(team, homeTeam, awayTeam, venue)
+
+    console.log(data)
 
     const passNetworkChart = () => {
         const svg = d3.select(chartRef.current)

@@ -3,7 +3,6 @@ import TeamTable from './TeamTable'
 import XgChart from '../dataviz/XgChart'
 import PassingNetwork from '../dataviz/PassingNetwork'
 import TeamShotMap from '../dataviz/TeamShotMap'
-import { QueryTest } from './QueryTest'
 import { useAuth } from '../context/AuthContext'
 import teams from '../data/team'
 
@@ -28,7 +27,6 @@ const TeamStats = () => {
   return (
     <div className='bg-gradient-to-b from-black to-gray-800 border-2 border-solid border-transparent'>
       <TeamTable/>
-      <QueryTest/>
       <div className='flex flex-col items-center mt-24'>
         <h1 className='text-white text-4xl font-bold mb-6 mx-auto underline underline-offset-4 text-center'>TEAM DATA VISUALIZATIONS</h1>
         <div className='flex flex-col justify-between items-center items-between m-4 sm:flex-row sm:justify-between'>

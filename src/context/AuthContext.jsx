@@ -11,10 +11,8 @@ export const AuthProvider = ({children}) => {
     const [team, setTeam] = useState()
     const [loading, setLoading] = useState(true)
     const [teamLoading, setTeamLoading] = useState(true)
-    console.log('context render')
 
     useEffect(() => {
-        console.log('running useEffect')
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false)

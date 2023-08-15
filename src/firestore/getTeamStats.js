@@ -17,7 +17,7 @@ export const teamShotsData = async (team) => {
 export const teamPassingNetworkData = async (args) => {
     try {
         const [team, homeTeam, awayTeam, venue] = args
-        const passingNetworkCollection = `${team.toLowerCase()}PassingNetworkData`
+        const passingNetworkCollection = team === 'Manchester City' || 'Manchester United' ? `${team.split(' ').join('-').toLowerCase()}PassingNetworkData` : `${team.toLowerCase()}PassingNetworkData`
         const documentName = `${homeTeam}_${awayTeam}_${venue}`
         const passingNetworkRef = doc(db, passingNetworkCollection, documentName)
 
@@ -35,7 +35,7 @@ export const teamPassingNetworkData = async (args) => {
 export const teamPlayerPassingData = async (args) => {
     try {
         const [team, homeTeam, awayTeam, venue, event, eventOutcome, playerName] = args
-        const playerPassingData = `${team.toLowerCase()}PlayerPassingData`
+        const playerPassingData = team === 'Manchester City' || 'Manchester United' ? `${team.split(' ').join('-').toLowerCase()}PlayerPassingData` : `${team.toLowerCase()}PlayerPassingData`
         const documentName = `${homeTeam}_${awayTeam}_${venue}`
 
         const sampleQueryRef = query(

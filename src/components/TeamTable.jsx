@@ -7,7 +7,9 @@ import data from '../data/table';
 const TeamTable = () => {
     const {team} = useAuth()
 
-    const isMatchingTeam = (squad) => squad === team
+    const userTeam = team === 'Manchester United' ? 'Manchester Utd' : team
+
+    const isMatchingTeam = (squad) => squad === userTeam
 
     // custom sort for the 'form' column
     const formSort = (rowA, rowB) => {
