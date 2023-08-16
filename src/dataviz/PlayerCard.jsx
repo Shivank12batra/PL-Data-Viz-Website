@@ -59,8 +59,8 @@ const PlayerCard = ({ stat }) => {
         </div>
       ))}
       <Link to={`/player-stats/${stat}`} className={`${team === 'Tottenham' ? 'text-black' : 'text-white'} w-4/5 flex justify-center mx-auto text-center mt-4 p-2 rounded-full`} style={{
-            backgroundColor: teamColorMapping[team].color,
-            borderColor: teamColorMapping[team].color,
+            backgroundColor: teamColorMapping[team]?.color,
+            borderColor: teamColorMapping[team]?.color,
         }}>
         View All
       </Link>

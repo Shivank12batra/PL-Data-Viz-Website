@@ -12,8 +12,8 @@ const XgChart = ({homeTeam, awayTeam}) => {
 
   homeTeam = homeTeam === 'Newcastle' ? 'Newcastle United' : homeTeam
   awayTeam = awayTeam === 'Newcastle' ? 'Newcastle United' : awayTeam
-  const homeColor = homeTeam === team ? teamColorMapping[team].color : teamColorMapping[team].oppositionColor
-  const awayColor = awayTeam === team ? teamColorMapping[team].color : teamColorMapping[team].oppositionColor
+  const homeColor = homeTeam === team ? teamColorMapping[team]?.color : teamColorMapping[team]?.oppositionColor
+  const awayColor = awayTeam === team ? teamColorMapping[team]?.color : teamColorMapping[team]?.oppositionColor
   
 
   const {data, isLoading, error} = fetchCumulativeXGChartData(team, homeTeam, awayTeam)
@@ -226,7 +226,7 @@ const XgChart = ({homeTeam, awayTeam}) => {
   }
 
   return (
-    <div className='border-2 min-h-500' style={{borderColor: `${teamColorMapping[team].color}`}}>
+    <div className='border-2 min-h-500' style={{borderColor: `${teamColorMapping[team]?.color}`}}>
       <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>
         Cumulative xG Chart
       </h2>

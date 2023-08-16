@@ -25,7 +25,8 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
 
     const {data, isLoading, error} = fetchPassingNetworkData(team, homeTeam, awayTeam, venue)
 
-    console.log(data)
+    console.log(typeof data)
+    console.log(error)
 
     const passNetworkChart = () => {
         const svg = d3.select(chartRef.current)
@@ -164,7 +165,7 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
     }
     
     return (
-      <div className='border-2 min-h-500' style={{borderColor: `${teamColorMapping[team].color}`}}>
+      <div className='border-2 min-h-500' style={{borderColor: `${teamColorMapping[team]?.color}`}}>
         <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>Passing Network</h2>
         <div id='chart' ref={chartRef} className='flex justify-center mt-8'/>
       </div>

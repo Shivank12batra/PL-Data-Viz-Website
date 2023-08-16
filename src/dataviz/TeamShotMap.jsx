@@ -22,7 +22,7 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
 
       homeTeam = homeTeam === 'Newcastle' ? 'Newcastle United' : homeTeam
       awayTeam = awayTeam === 'Newcastle' ? 'Newcastle United' : awayTeam
-
+      
     const {data, isLoading, error} = fetchShotMapData(team, homeTeam, awayTeam)
 
     const shotMap = () => {
@@ -155,7 +155,7 @@ const TeamShotMap = ({homeTeam, awayTeam}) => {
     }
     
     return (
-      <div className='border-2 min-h-500' style={{borderColor: `${teamColorMapping[team].color}`}}>
+      <div className='border-2 min-h-500' style={{borderColor: `${teamColorMapping[team]?.color}`}}>
         <h2 className='text-white text-2xl font-bold m-4 mx-auto text-center'>
           Team Shot Map
         </h2>

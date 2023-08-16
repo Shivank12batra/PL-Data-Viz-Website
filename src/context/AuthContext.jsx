@@ -10,7 +10,6 @@ export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState()
     const [team, setTeam] = useState()
     const [loading, setLoading] = useState(true)
-    const [teamLoading, setTeamLoading] = useState(true)
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -37,16 +36,13 @@ export const AuthProvider = ({children}) => {
     }
 
     const getUserTeam = async() => {
-        if (currentUser) {
-            const {email} = currentUser
-            const usersRef = collection(db, 'users')
-            const q = query(usersRef, where('email', '==', email))
-            const querySnapshot = await getDocs(q)
-            const userDoc = querySnapshot.docs[0]
-            const currentUserData = userDoc.data()
-            setTeam(currentUserData.team)
-            setTeamLoading(false)
-        }
+        const {email} = currentUser
+        const usersRef = collection(db, 'users')
+        const q = query(usersRef, where('email', '==', email))
+        const querySnapshot = await getDocs(q)
+        const userDoc = querySnapshot.docs[0]
+        const currentUserData = userDoc.data()
+        setTeam(currentUserData.team)
     }
 
     useEffect(() => {
@@ -65,7 +61,7 @@ export const AuthProvider = ({children}) => {
     }
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+          {!loading && children}
         </AuthContext.Provider>
     )
 }

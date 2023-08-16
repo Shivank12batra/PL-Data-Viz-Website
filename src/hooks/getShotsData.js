@@ -3,7 +3,7 @@ import { teamShotsData } from "../firestore/getTeamStats";
 import { filterShotsData, calculateCumulativeXG, filterDataForShotMap } from "../utils/shotsDataUtils";
 
 export const fetchCumulativeXGChartData = (team, homeTeam, awayTeam) => {
-    return useQuery('cumulativeXGChart', () => teamShotsData(team), {
+    return useQuery(['cumulativeXGChart', team], () => teamShotsData(team), {
         select: (data) => {
             const filteredData = filterShotsData(data, homeTeam, awayTeam)
             const homeData = calculateCumulativeXG([...filteredData], 'h')
@@ -15,9 +15,10 @@ export const fetchCumulativeXGChartData = (team, homeTeam, awayTeam) => {
         refetchOnWindowFocus: false,
         })
 }
+// return useQuery(['passingEventData', ...args], () => teamPlayerPassingData(args)
 
 export const fetchShotMapData = (team, homeTeam, awayTeam, playerName='') => {
-    return useQuery('shotMap', () => teamShotsData(team), {
+    return useQuery(['shotMap', team], () => teamShotsData(team), {
         select: (data) => {
             const filteredData = filterDataForShotMap(data, team, homeTeam, awayTeam, playerName)
             return filteredData 
