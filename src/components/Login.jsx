@@ -22,10 +22,11 @@ const Login = () => {
             setLoading(true)
             await login(values.email, values.password)
             resetForm()
-            navigate(location.state.from.pathname)
+            const path = location?.state?.from?.pathname ?? '/'
+            navigate(path)
+            // navigate('/')
         }
         catch(err) {
-            console.log(err)
             setLoading(false)
             setError('Invalid email or password')
         }

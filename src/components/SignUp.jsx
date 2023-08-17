@@ -3,13 +3,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { addUserData } from "../firebase";
 import {signupSchema} from "../validationSchema";
 import {useAuth} from '../context/AuthContext';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 
 const SignUpForm = () => {
   const {signup}  = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const location = useLocation()
   const navigate = useNavigate()
 
   const signupUser = async(values, {resetForm}) => {
@@ -20,7 +21,9 @@ const SignUpForm = () => {
       await signup(values.email, values.password)
       await addUserData(values)
       resetForm()
-      navigate('/')
+      const path = location?.state?.from?.pathname ?? '/'
+      navigate(path)
+      // navigate('/')
     } catch(e) {
       setLoading(false)
       if (e.message === 'Firebase: Error (auth/email-already-in-use).') {

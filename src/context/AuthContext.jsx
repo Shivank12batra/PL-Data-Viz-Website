@@ -37,6 +37,7 @@ export const AuthProvider = ({children}) => {
 
     const getUserTeam = async() => {
         const {email} = currentUser
+        console.log(email)
         const usersRef = collection(db, 'users')
         const q = query(usersRef, where('email', '==', email))
         const querySnapshot = await getDocs(q)

@@ -25,9 +25,6 @@ const PassingNetwork = ({homeTeam, awayTeam, venue}) => {
 
     const {data, isLoading, error} = fetchPassingNetworkData(team, homeTeam, awayTeam, venue)
 
-    console.log(typeof data)
-    console.log(error)
-
     const passNetworkChart = () => {
         const svg = d3.select(chartRef.current)
         
