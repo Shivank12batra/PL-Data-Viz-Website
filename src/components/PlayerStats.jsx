@@ -80,10 +80,12 @@ const PlayerStats = () => {
         </div>
       </div>
       {playerData ? 
-        <div className='flex justify-center p-4 text-white'>
-          <span>{playerData.name}</span>
-          <span> | Position: {playerData.position} |</span>
-          <span> Minutes Played: {playerData.minutes}</span>
+        <div className='flex flex-col items-center sm:flex-row justify-center p-4 text-white'>
+          <p>{playerData.name}</p>
+          <span>|</span>
+          <p> Position: {playerData.position} </p>
+          <span>|</span>
+          <p> Minutes Played: {playerData.minutes}</p>
         </div> :
         null}
       <div className='grid sm:grid-cols-2 gap-8 md:grid-cols-1'>

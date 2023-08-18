@@ -36,7 +36,7 @@ const StatBarChart = () => {
 
     function handleMouseOver (event, d) {
       d3.select(this).attr('fill', 'rgba(0, 0, 0, 0.2)')
-      const currentPlayer = data[d]
+      const currentPlayer = data.find(({name}) => d.name === name)
 
       const tooltip = d3.select('#chart')
         .append('div')
@@ -49,8 +49,8 @@ const StatBarChart = () => {
           <p>Position: ${currentPlayer.position}</p>
           <p>${transformStat}: ${currentPlayer['Per 90'][transformStat]}</p>
         `);
-        tooltip
-          .attr('transform', `translate(${event.page.X}, ${event.page.Y})`);
+        // tooltip.style("top", event.pageY - 100 + "px")
+        // .style("left", event.pageX + "px")
   };
 
 

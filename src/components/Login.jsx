@@ -24,7 +24,6 @@ const Login = () => {
             resetForm()
             const path = location?.state?.from?.pathname ?? '/'
             navigate(path)
-            // navigate('/')
         }
         catch(err) {
             setLoading(false)
@@ -86,7 +85,7 @@ const Login = () => {
                   type="submit"
                   className={`${loading ? 'cursor-not-allowed' : 'cursor-pointer'} bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto`}
                 >
-                  Submit
+                  Login
                 </button>
               </Form>
             </Formik>

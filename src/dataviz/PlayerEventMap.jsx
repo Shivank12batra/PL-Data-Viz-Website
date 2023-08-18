@@ -32,8 +32,6 @@ const PlayerEventMap = ({homeTeam, awayTeam, venue, player}) => {
         venue, eventType, eventOutcome,
         player))
   }
-   
-  console.log(data)
 
   const eventMap = () => {
     const svg = d3.select(chartRef.current)

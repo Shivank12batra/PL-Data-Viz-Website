@@ -6,7 +6,6 @@ import data from '../data/table';
 
 const TeamTable = () => {
     const {team} = useAuth()
-    console.log(team)
 
     const userTeam = team === 'Manchester United' ? 'Manchester Utd' : team
 
