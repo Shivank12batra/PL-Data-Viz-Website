@@ -11,7 +11,7 @@ const PlayerStats = () => {
   const {data} = fetchPlayerData(team, '')
   const [selectedData, setSelectedData] = useState({
     player: data && data?.length > 0 ? data[0].name : '',
-    oppositionTeam: team === teams[0] ? teams[1] : teams[0],
+    oppositionTeam: 'Aston Villa',
     venue: 'Home'
   })
 

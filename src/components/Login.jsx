@@ -13,7 +13,6 @@ const Login = () => {
     const navigate = useNavigate()
 
     const loginUser = async(values, {resetForm}) => {
-        console.log(values)
         try {
           if (currentUser) {
             setError("You are already logged in!")
@@ -99,7 +98,7 @@ const Login = () => {
                       password: import.meta.env.VITE_GUEST_PASSWORD,
                     };
                   
-                  setValues(newValues);
+                  setValues(newValues)
                   }}
                 >
                   Login As Guest

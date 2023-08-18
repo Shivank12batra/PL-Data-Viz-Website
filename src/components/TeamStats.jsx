@@ -8,8 +8,9 @@ import teams from '../data/team'
 
 const TeamStats = () => {
   const {team} = useAuth()
+  console.log(team)
   const [selectedData, setSelectedData] = useState({
-    oppositionTeam: team === teams[0] ? teams[1] : teams[0],
+    oppositionTeam: 'Aston Villa',
     venue: 'Home'
   })
 
