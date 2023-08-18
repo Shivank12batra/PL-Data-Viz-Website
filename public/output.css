@@ -796,6 +796,10 @@ html {
   width: 100%;
 }
 
+.w-2\/5{
+  width: 40%;
+}
+
 .max-w-md{
   max-width: 28rem;
 }

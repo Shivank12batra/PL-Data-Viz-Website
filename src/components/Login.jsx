@@ -13,6 +13,7 @@ const Login = () => {
     const navigate = useNavigate()
 
     const loginUser = async(values, {resetForm}) => {
+        console.log(values)
         try {
           if (currentUser) {
             setError("You are already logged in!")
@@ -46,6 +47,7 @@ const Login = () => {
               validationSchema={loginSchema}
               onSubmit={loginUser}
             >
+            {({ values, setValues, resetForm, ...formikProps }) => (
               <Form>
                 <div className="mb-4 w-70">
                   <label htmlFor="email" className="block text-gray-800 font-bold">
@@ -83,11 +85,27 @@ const Login = () => {
                 </div>
                 <button disabled={loading}
                   type="submit"
-                  className={`${loading ? 'cursor-not-allowed' : 'cursor-pointer'} bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto`}
+                  className={`${loading ? 'cursor-not-allowed' : 'cursor-pointer'} w-2/5 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto`}
                 >
                   Login
                 </button>
+                <button disabled={loading}
+                  type="submit"
+                  className={`${loading ? 'cursor-not-allowed' : 'cursor-pointer'} w-2/5 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto`}
+                  onClick={() => {
+                    const newValues = {
+                      ...values,
+                      email: "messi123@gmail.com",
+                      password: import.meta.env.VITE_GUEST_PASSWORD,
+                    };
+                  
+                  setValues(newValues);
+                  }}
+                >
+                  Login As Guest
+                </button>
               </Form>
+            )}
             </Formik>
             <div className="mt-4 text-center">
             <div className="text-red-600 mb-2">{error}</div>
