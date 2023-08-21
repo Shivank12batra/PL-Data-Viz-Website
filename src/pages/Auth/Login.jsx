@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import {loginSchema} from "../validationSchema";
-import {useAuth} from '../context/AuthContext';
+import {loginSchema} from "../../validationSchema";
+import {useAuth} from '../../context/AuthContext';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 

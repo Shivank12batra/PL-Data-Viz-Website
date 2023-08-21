@@ -1,13 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3'
-import Loader from '../components/Loader'
-import Error from '../components/Error'
-import { fetchShotMapData } from '../hooks/getShotsData'
-import { fetchPassingEventData } from '../hooks/getPassingEventData'
-import { useAuth } from '../context/AuthContext'
-import { pitchConfig } from '../utils/pitchUtils'
-import { alterTeamName } from '../utils/dataUtils'
-import { teamColorMapping } from '../utils/dataUtils'
+import Loader from '../../components/Loader'
+import Error from '../../components/Error'
+import { fetchShotMapData } from '../../hooks/getShotsData'
+import { fetchPassingEventData } from '../../hooks/getPassingEventData'
+import { useAuth } from '../../context/AuthContext'
+import { pitchConfig } from '../../utils/pitchUtils'
+import { alterTeamName } from '../../utils/dataUtils'
+import { teamColorMapping } from '../../utils/dataUtils'
 
 const PlayerEventMap = ({homeTeam, awayTeam, venue, player}) => {
   const {team} = useAuth()

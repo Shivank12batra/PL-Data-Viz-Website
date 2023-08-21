@@ -1,10 +1,10 @@
 import React, {useEffect, useRef} from 'react'
 import * as d3 from 'd3'
-import Loader from '../components/Loader'
-import Error from '../components/Error'
-import { fetchCumulativeXGChartData } from '../hooks/getShotsData'
-import { teamColorMapping } from '../utils/dataUtils'
-import { useAuth } from '../context/AuthContext'
+import Loader from '../../components/Loader'
+import Error from '../../components/Error'
+import { fetchCumulativeXGChartData } from '../../hooks/getShotsData'
+import { teamColorMapping } from '../../utils/dataUtils'
+import { useAuth } from '../../context/AuthContext'
 
 const XgChart = ({homeTeam, awayTeam}) => {
   const {team} = useAuth()

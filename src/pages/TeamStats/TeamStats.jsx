@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import TeamTable from './TeamTable'
-import XgChart from '../dataviz/XgChart'
-import PassingNetwork from '../dataviz/PassingNetwork'
-import TeamShotMap from '../dataviz/TeamShotMap'
-import { useAuth } from '../context/AuthContext'
-import teams from '../data/team'
+import TeamTable from '../../dataviz/TeamGraphics/TeamTable'
+import XgChart from '../../dataviz/TeamGraphics/XgChart'
+import PassingNetwork from '../../dataviz/TeamGraphics/PassingNetwork'
+import TeamShotMap from '../../dataviz/TeamGraphics/TeamShotMap'
+import { useAuth } from '../../context/AuthContext'
+import teams from '../../data/team'
 
 const TeamStats = () => {
   const {team} = useAuth()

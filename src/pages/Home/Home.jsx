@@ -2,8 +2,8 @@ import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSpring, useTransition, animated } from 'react-spring';
 import { FaAngleLeft, FaAngleRight} from 'react-icons/fa';
-import NavBar from './NavBar';
-import bgmImages from '../data/animationContent';
+import NavBar from '../../components/NavBar';
+import bgmImages from '../../data/animationContent';
 
 const Home = ({navOpen, setNavOpen}) => {
   const [headerVisible, setHeaderVisible] = useState(false)

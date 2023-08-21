@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
-import Loader from '../components/Loader'
-import Error from '../components/Error'
-import { fetchPlayerData } from '../hooks/getPlayersData'
-import { useAuth } from '../context/AuthContext'
-import { teamColorMapping } from '../utils/dataUtils'
+import Loader from '../../components/Loader'
+import Error from '../../components/Error'
+import { fetchPlayerData } from '../../hooks/getPlayersData'
+import { useAuth } from '../../context/AuthContext'
+import { teamColorMapping } from '../../utils/dataUtils'
 import { 
     defending, passing, attacking, 
     gkShotStopping, gkPassing, gkSweeping
- } from '../data/playerStats'
+ } from '../../data/playerStats'
 
 
 const PlayerReport = ({player, position}) => {

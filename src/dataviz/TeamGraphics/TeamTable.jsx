@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTable, useSortBy } from 'react-table';
 import { FaSort, FaSortUp, FaSortDown } from 'react-icons/fa';
-import { useAuth } from '../context/AuthContext';
-import data from '../data/table';
+import { useAuth } from '../../context/AuthContext';
+import data from '../../data/table';
 
 const TeamTable = () => {
     const {team} = useAuth()

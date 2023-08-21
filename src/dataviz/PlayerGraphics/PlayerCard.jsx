@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Loader from '../components/Loader';
-import Error from '../components/Error';
-import { fetchTopPlayersData } from '../hooks/getPlayersData';
-import { teamColorMapping } from '../utils/dataUtils';
-import { useAuth } from '../context/AuthContext';
+import Loader from '../../components/Loader';
+import Error from '../../components/Error';
+import { fetchTopPlayersData } from '../../hooks/getPlayersData';
+import { teamColorMapping } from '../../utils/dataUtils';
+import { useAuth } from '../../context/AuthContext';
 
 const PlayerCard = ({ stat }) => {
   const { team } = useAuth()
