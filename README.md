@@ -53,19 +53,19 @@ Since, there was no freely available public API for the kind of data I wanted, I
 
 I had three types of data that I required for displaying various types of graphs/vizzes:
 
-![db-design](src/assets/firestoreDesign.jpg)
+![db-design](src/assets/firestoreDesign.png)
 
 Schemas For Each Kind Of Collection:
 
-shotsData(event) and playersData (aggregated) firestore schema
+### shotsData(event) and playersData (aggregated) firestore schema:
 
 ![shots-db](src/assets/shotsDataDB.jpg)
 
-playerEventData firestore schema
+### playerEventData firestore schema:
 
 ![player-db](src/assets/playerEventDataDB.jpg)
 
-passingNetworkData firestore schema
+### passingNetworkData firestore schema:
 
 ![network-db](src/assets/passingNetworkDB.jpg)
 
