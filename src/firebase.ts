@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { IUser } from "./context/AuthContext";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,7 +22,7 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 
 // firestore database function for user collection
-export const addUserData = async (values) => {
+export const addUserData = async (values: IUser) => {
   try {
     const { name, email, phone, team } = values;
     const docRef = await addDoc(collection(db, "users"), {

@@ -1,6 +1,8 @@
 import { TTeam, TTopSixTeam } from "../types";
 
-export const alterTeamName = (teamName: TTeam) => {
+export type TTeamForNetworkData = TTeam | "Man Utd" | "Man City";
+
+export const alterTeamName = (teamName: TTeamForNetworkData) => {
   if (teamName === "Manchester City") return "Man City";
   if (teamName === "Manchester United") return "Man Utd";
   return teamName;
