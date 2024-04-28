@@ -4,6 +4,7 @@ export type TTeam =
   | "Manchester United"
   | "Tottenham"
   | "Newcastle"
+  | "Newcastle United"
   | "Liverpool"
   | "Brighton"
   | "Brentford"
@@ -18,7 +19,9 @@ export type TTeam =
   | "Leicester"
   | "West Ham"
   | "Bournemouth"
-  | "Southampton";
+  | "Southampton"
+  | "Man Utd"
+  | "Man City";
 
 export type TTopSixTeam = Extract<
   TTeam,
@@ -65,7 +68,7 @@ export interface ICumulativeXG
   cumulativeXG: number;
 }
 
-interface IAverageLocation {
+export interface IAverageLocation {
   count: number;
   name: string;
   passer: number;
@@ -74,7 +77,7 @@ interface IAverageLocation {
   y: number;
 }
 
-interface IPassBetween {
+export interface IPassBetween {
   count: number;
   count_end: number;
   pass_count: number;
@@ -113,4 +116,18 @@ export interface IPassingData {
   type_value: number;
   x: number;
   y: number;
+}
+
+export interface TTeamTable {
+  Rank: number;
+  Squad: TTeam;
+  MP: number;
+  W: number;
+  D: number;
+  L: number;
+  Pts: number;
+  xG: number;
+  xGA: number;
+  xGD: number;
+  Form: string;
 }

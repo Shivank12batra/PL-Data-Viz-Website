@@ -14,7 +14,7 @@ interface IFetchCumulativeXGChartData {
 }
 
 interface IFetchShotMapData extends IFetchCumulativeXGChartData {
-  playerName: string;
+  playerName?: string;
 }
 
 export const fetchCumulativeXGChartData = ({

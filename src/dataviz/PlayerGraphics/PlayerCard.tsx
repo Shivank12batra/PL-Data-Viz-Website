@@ -5,11 +5,16 @@ import Error from "../../components/Error";
 import { fetchTopPlayersData } from "../../hooks/getPlayersData";
 import { teamColorMapping } from "../../utils/dataUtils";
 import { useAuth } from "../../context/AuthContext";
+import { TPlayerStat } from "../../types";
 
-const PlayerCard = ({ stat }) => {
+interface IPlayerCardProps {
+  stat: TPlayerStat;
+}
+
+const PlayerCard = ({ stat }: IPlayerCardProps) => {
   const { team } = useAuth();
 
-  const { data, isLoading, error } = fetchTopPlayersData(team, stat);
+  const { data, isLoading, error } = fetchTopPlayersData({ team, stat });
 
   if (isLoading) {
     return <Loader />;
@@ -19,7 +24,7 @@ const PlayerCard = ({ stat }) => {
     return <Error />;
   }
 
-  const topFivePlayers = data.slice(0, 5);
+  const topFivePlayers = data?.slice(0, 5);
 
   return (
     <div
@@ -29,7 +34,7 @@ const PlayerCard = ({ stat }) => {
         borderWidth: "2px",
       }}
     >
-      {topFivePlayers.map((player, index) => (
+      {topFivePlayers?.map((player, index) => (
         <div key={index}>
           {index === 0 ? (
             <div className="flex flex-col text-white">

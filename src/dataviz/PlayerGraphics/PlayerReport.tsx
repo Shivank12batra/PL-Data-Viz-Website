@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import { fetchPlayerData } from "../../hooks/getPlayersData";
@@ -13,12 +13,21 @@ import {
   gkSweeping,
 } from "../../data/playerStats";
 
-const PlayerReport = ({ player, position }) => {
+interface IPlayerReportProps {
+  player: string;
+  position: string;
+}
+
+const PlayerReport = ({ player, position }: IPlayerReportProps) => {
   const { team } = useAuth();
   const [typeOfStat, setTypeOfStat] = useState("Percentile");
   const percentile = typeOfStat === "Percentile";
 
-  const { data, isLoading, error } = fetchPlayerData(team, player, percentile);
+  const { data, isLoading, error } = fetchPlayerData({
+    team,
+    playerName: player,
+    percentile,
+  });
 
   if (isLoading) {
     return <Loader />;
@@ -72,7 +81,7 @@ const PlayerReport = ({ player, position }) => {
               {gkShotStopping.map((stat, idx) => {
                 return (
                   <div
-                    id={idx}
+                    id={String(idx)}
                     className={`${team === "Tottenham" ? "text-black" : "text-white"} text-center p-2 border-2`}
                     style={{
                       backgroundColor: `${teamColorMapping[team].color}`,
@@ -93,7 +102,7 @@ const PlayerReport = ({ player, position }) => {
               {gkPassing.map((stat, idx) => {
                 return (
                   <div
-                    id={idx}
+                    id={String(idx)}
                     className={`${team === "Tottenham" ? "text-black" : "text-white"} text-center p-2 border-2`}
                     style={{
                       backgroundColor: `${teamColorMapping[team].color}`,
@@ -114,7 +123,7 @@ const PlayerReport = ({ player, position }) => {
               {gkSweeping.map((stat, idx) => {
                 return (
                   <div
-                    id={idx}
+                    id={String(idx)}
                     className={`${team === "Tottenham" ? "text-black" : "text-white"} text-center p-2 border-2`}
                     style={{
                       backgroundColor: `${teamColorMapping[team].color}`,
@@ -138,7 +147,7 @@ const PlayerReport = ({ player, position }) => {
               {defending.map((stat, idx) => {
                 return (
                   <div
-                    id={idx}
+                    id={String(idx)}
                     className={`${team === "Tottenham" ? "text-black" : "text-white"} text-center p-2 border-2`}
                     style={{
                       backgroundColor: `${teamColorMapping[team].color}`,
@@ -159,7 +168,7 @@ const PlayerReport = ({ player, position }) => {
               {passing.map((stat, idx) => {
                 return (
                   <div
-                    id={idx}
+                    id={String(idx)}
                     className={`${team === "Tottenham" ? "text-black" : "text-white"} text-center p-2 border-2`}
                     style={{
                       backgroundColor: `${teamColorMapping[team].color}`,
@@ -180,7 +189,7 @@ const PlayerReport = ({ player, position }) => {
               {attacking.map((stat, idx) => {
                 return (
                   <div
-                    id={idx}
+                    id={String(idx)}
                     className={`${team === "Tottenham" ? "text-black" : "text-white"} text-center p-2 border-2`}
                     style={{
                       backgroundColor: `${teamColorMapping[team].color}`,

@@ -8,8 +8,21 @@ import { useAuth } from "../../context/AuthContext";
 import { pitchConfig } from "../../utils/pitchUtils";
 import { alterTeamName } from "../../utils/dataUtils";
 import { teamColorMapping } from "../../utils/dataUtils";
+import { IPassingData, TShotData, TTeam, TVenue } from "../../types";
 
-const PlayerEventMap = ({ homeTeam, awayTeam, venue, player }) => {
+interface IPLayerEventMapProps {
+  homeTeam: TTeam;
+  awayTeam: TTeam;
+  venue: TVenue;
+  player: string;
+}
+
+const PlayerEventMap = ({
+  homeTeam,
+  awayTeam,
+  venue,
+  player,
+}: IPLayerEventMapProps) => {
   const { team } = useAuth();
   const [mapType, setMapType] = useState("Shotmap");
   const [eventType, setEventType] = useState("Pass");
@@ -24,24 +37,26 @@ const PlayerEventMap = ({ homeTeam, awayTeam, venue, player }) => {
     awayTeam = alterTeamName(awayTeam);
   }
 
-  let data, isLoading, error;
+  let data: IPassingData[] | TShotData[] | undefined,
+    isLoading: boolean,
+    error: unknown;
   if (mapType === "Shotmap") {
-    ({ data, isLoading, error } = fetchShotMapData(
+    ({ data, isLoading, error } = fetchShotMapData({
       team,
       homeTeam,
       awayTeam,
-      player
-    ));
+      playerName: player,
+    }));
   } else {
-    ({ data, isLoading, error } = fetchPassingEventData(
+    ({ data, isLoading, error } = fetchPassingEventData({
       team,
       homeTeam,
       awayTeam,
       venue,
-      eventType,
+      event: eventType,
       eventOutcome,
-      player
-    ));
+      playerName: player,
+    }));
   }
 
   const eventMap = () => {
@@ -49,7 +64,10 @@ const PlayerEventMap = ({ homeTeam, awayTeam, venue, player }) => {
 
     svg.selectAll("*").remove();
 
-    const handleMouseOver = (event, d) => {
+    const handleMouseOver = (
+      event: React.MouseEvent<HTMLButtonElement>,
+      d: TShotData
+    ) => {
       const shotxG = parseFloat(d.xG);
       const roundedxG = shotxG.toFixed(2);
 
@@ -109,7 +127,7 @@ const PlayerEventMap = ({ homeTeam, awayTeam, venue, player }) => {
       if (eventType === "Pass") {
         const passLines = pitchSvg
           .selectAll(".line")
-          .data(data)
+          .data(data as IPassingData[])
           .enter()
           .append("g")
           .attr("class", "pass-line");
@@ -134,7 +152,7 @@ const PlayerEventMap = ({ homeTeam, awayTeam, venue, player }) => {
         // Plot the ball recoveries using the `data` array
         const ballRecoveries = pitchSvg
           .selectAll(".line")
-          .data(data)
+          .data(data as IPassingData[])
           .enter()
           .append("g")
           .attr("class", "event-location")
@@ -157,16 +175,19 @@ const PlayerEventMap = ({ homeTeam, awayTeam, venue, player }) => {
     // Plot the shot dots using the `data` array
     const shotsDots = pitchSvg
       .selectAll(".line")
-      .data(data)
+      .data(data as TShotData[])
       .enter()
       .append("g")
       .attr("class", "shot-location")
-      .attr("transform", (d) => `translate(${d.X * 105}, ${(1 - d.Y) * 68})`);
+      .attr(
+        "transform",
+        (d) => `translate(${Number(d.X) * 105}, ${(1 - Number(d.Y)) * 68})`
+      );
 
     shotsDots
       .append("circle")
       .attr("class", "shot-dot")
-      .attr("r", (d) => dotSizeScale(d.xG))
+      .attr("r", (d) => dotSizeScale(Number(d.xG)))
       .attr("fill", (d) =>
         d.result === "Goal" ? "lightgreen" : teamColorMapping[team].color
       )
