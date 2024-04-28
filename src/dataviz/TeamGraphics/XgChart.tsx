@@ -181,7 +181,7 @@ const XgChart = ({ homeTeam, awayTeam }: IXGChartProps) => {
       .append("path")
       .datum(homeCumulativeXGValues)
       .attr("class", "home-line")
-      .attr("d", homeLine as unknown as number)
+      .attr("d", homeLine as unknown as number) // TODO: see if there is a better way to tackle this than using type assertion
       .attr("fill", "none")
       .attr("stroke", homeColor)
       .attr("stroke-width", 4);

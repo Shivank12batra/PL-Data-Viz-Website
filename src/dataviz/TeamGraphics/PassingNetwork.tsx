@@ -4,24 +4,13 @@ import { pitch } from "d3-soccer";
 import Loader from "../../components/Loader";
 import Error from "../../components/Error";
 import { fetchPassingNetworkData } from "../../hooks/getPassingNetworkData";
-import {
-  TTeamForNetworkData,
-  alterTeamName,
-  teamColorMapping,
-} from "../../utils/dataUtils";
+import { alterTeamName, teamColorMapping } from "../../utils/dataUtils";
 import { useAuth } from "../../context/AuthContext";
-import {
-  IAverageLocation,
-  IPassBetween,
-  IPassingNetworkData,
-  TTeam,
-  TTopSixTeam,
-  TVenue,
-} from "../../types";
+import { IAverageLocation, IPassBetween, TTeam, TVenue } from "../../types";
 
 interface IPassingNetworkProps {
-  homeTeam: TTeamForNetworkData;
-  awayTeam: TTeamForNetworkData;
+  homeTeam: TTeam;
+  awayTeam: TTeam;
   venue: TVenue;
 }
 

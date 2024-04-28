@@ -53,7 +53,10 @@ export const filterByPlayerNameAndStatType = ({
   playersData,
   playerName,
   percentile,
-}: IFilterByPlayerNameAndStatTypeProps) => {
+}: IFilterByPlayerNameAndStatTypeProps):
+  | Record<TPlayerStat, string>
+  | Record<TPlayerStat, number>
+  | undefined => {
   const typeOfStat = percentile ? "Percentile" : "Per 90";
   const playerData = playersData
     ?.filter((player) => player.name === playerName)

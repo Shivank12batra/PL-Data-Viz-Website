@@ -19,7 +19,9 @@ export type TTeam =
   | "Leicester"
   | "West Ham"
   | "Bournemouth"
-  | "Southampton";
+  | "Southampton"
+  | "Man Utd"
+  | "Man City";
 
 export type TTopSixTeam = Extract<
   TTeam,

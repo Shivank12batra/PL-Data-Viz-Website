@@ -1,10 +1,10 @@
-import { useQuery } from "react-query";
+import { UseQueryResult, useQuery } from "react-query";
 import { playersData } from "../firestore/getPlayerStats";
 import {
   filterByStat,
   filterByPlayerNameAndStatType,
 } from "../utils/playersDataUtils";
-import { TPlayerStat, TTopSixTeam } from "../types";
+import { IPlayerData, TPlayerStat, TTopSixTeam } from "../types";
 
 interface IFetchTopPlayersDataProps {
   team: TTopSixTeam;
@@ -13,8 +13,8 @@ interface IFetchTopPlayersDataProps {
 
 interface IFetchPlayerDataProps {
   team: TTopSixTeam;
-  playerName: string;
-  percentile: boolean;
+  playerName?: string;
+  percentile?: boolean;
 }
 
 export const fetchTopPlayersData = ({
@@ -32,14 +32,37 @@ export const fetchTopPlayersData = ({
   });
 };
 
-export const fetchPlayerData = ({
+// Overload signatures
+export function fetchPlayerData(props: {
+  team: TTopSixTeam;
+  playerName: string;
+  percentile: boolean;
+}): UseQueryResult<
+  Record<TPlayerStat, string> | Record<TPlayerStat, number> | undefined,
+  unknown
+>;
+
+export function fetchPlayerData(props: {
+  team: TTopSixTeam;
+  playerName?: never;
+  percentile?: never;
+}): UseQueryResult<IPlayerData[] | undefined, unknown>;
+
+export function fetchPlayerData({
   team,
   playerName,
   percentile = false,
-}: IFetchPlayerDataProps) => {
+}: IFetchPlayerDataProps): UseQueryResult<
+  | IPlayerData[]
+  | Record<TPlayerStat, string>
+  | Record<TPlayerStat, number>
+  | undefined,
+  unknown
+> {
   return useQuery(["playerData", team], () => playersData(team), {
     select: (data) => {
       if (!playerName) return data;
+
       const playerData = filterByPlayerNameAndStatType({
         playersData: data,
         playerName,
@@ -51,4 +74,4 @@ export const fetchPlayerData = ({
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
-};
+}
