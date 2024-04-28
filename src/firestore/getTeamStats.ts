@@ -15,12 +15,11 @@ import {
   TTopSixTeam,
   TVenue,
 } from "../types";
-import { TTeamForNetworkData } from "../utils/dataUtils";
 
 export interface ITeamPassingNetworkDataProps {
   team: TTopSixTeam;
-  homeTeam: TTeamForNetworkData;
-  awayTeam: TTeamForNetworkData;
+  homeTeam: TTeam;
+  awayTeam: TTeam;
   venue: TVenue;
 }
 

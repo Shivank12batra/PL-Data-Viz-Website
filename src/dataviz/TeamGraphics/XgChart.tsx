@@ -151,7 +151,7 @@ const XgChart = ({ homeTeam, awayTeam }: IXGChartProps) => {
       .domain([d3.min(homeMins) as number, (d3.max(homeMins) as number) + 3])
       .range([0, innerWidth]);
 
-    let yScale;
+    let yScale: d3.ScaleLinear<number, number, never>;
 
     if (!combinedCumulativeXGValues) {
       yScale = d3.scaleLinear().domain([0, 3]).range([innerHeight, 0]);
