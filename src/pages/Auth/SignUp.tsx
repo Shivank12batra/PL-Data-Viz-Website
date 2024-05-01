@@ -28,9 +28,12 @@ const SignUpForm = () => {
 
       const path = location?.state?.from?.pathname ?? "/";
       navigate(path);
-    } catch (e: any) {
+    } catch (e) {
       setLoading(false);
-      if (e.message === "Firebase: Error (auth/email-already-in-use).") {
+      if (
+        e instanceof Error &&
+        e.message === "Firebase: Error (auth/email-already-in-use)."
+      ) {
         setError("This email is already registered with us");
         return;
       }
