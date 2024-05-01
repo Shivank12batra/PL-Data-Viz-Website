@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import PlayerCards from "../../dataviz/PlayerGraphics/PlayerCards";
-import PlayerReport from "../../dataviz/PlayerGraphics/PlayerReport";
-import PlayerEventMap from "../../dataviz/PlayerGraphics/PlayerEventMap";
-import { fetchPlayerData } from "../../hooks/getPlayersData";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import teams from "../../data/team";
+import PlayerCards from "../../dataviz/PlayerGraphics/PlayerCards";
+import PlayerEventMap from "../../dataviz/PlayerGraphics/PlayerEventMap";
+import PlayerReport from "../../dataviz/PlayerGraphics/PlayerReport";
+import { fetchPlayerData } from "../../hooks/getPlayersData";
 
 const PlayerStats = () => {
   const { team } = useAuth();

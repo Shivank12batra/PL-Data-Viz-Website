@@ -1,15 +1,22 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { auth } from "../firebase";
 import {
+  UserCredential,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
-  sendPasswordResetEmail,
-  UserCredential,
 } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { auth, db } from "../firebase";
 import { TTopSixTeam } from "../types";
+
+export interface IUser {
+  email: string;
+  password: string;
+  name: string;
+  phone: string;
+  team: TTopSixTeam;
+}
 
 interface IAuthContext {
   currentUser: IUser | null;
@@ -26,19 +33,12 @@ interface IAuthProviderProps {
   children: React.ReactNode;
 }
 
-export interface IUser {
-  email: string;
-  name: string;
-  phone: string;
-  team: TTopSixTeam;
-}
-
-interface IAuthProps {
+export interface IAuthProps {
   email: string;
   password: string;
 }
 
-interface IResetPasswordProps extends Pick<IAuthProps, "email"> {}
+export interface IResetPasswordProps extends Pick<IAuthProps, "email"> {}
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [currentUser, setCurrentUser] = useState<IUser | null>(null);

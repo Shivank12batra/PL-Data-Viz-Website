@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Home from "./pages/Home/Home";
-import TeamStats from "./pages/TeamStats/TeamStats";
-import PlayerStats from "./pages/PlayerStats/PlayerStats";
-import StatBarChart from "./pages/PlayerStats/StatBarChart";
-import Matchday from "./pages/Matchday/Matchday";
-import Glossary from "./pages/Glossary/Glossary";
-import SignUp from "./pages/Auth/SignUp";
-import Login from "./pages/Auth/Login";
-import Logout from "./pages/Auth/Logout";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
 import NoPage from "./components/NoPage";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import Login from "./pages/Auth/Login";
+import Logout from "./pages/Auth/Logout";
+import SignUp from "./pages/Auth/SignUp";
+import Glossary from "./pages/Glossary/Glossary";
+import Home from "./pages/Home/Home";
+import Matchday from "./pages/Matchday/Matchday";
+import PlayerStats from "./pages/PlayerStats/PlayerStats";
+import StatBarChart from "./pages/PlayerStats/StatBarChart";
+import TeamStats from "./pages/TeamStats/TeamStats";
 
 function App() {
   const [navOpen, setNavOpen] = useState(false);

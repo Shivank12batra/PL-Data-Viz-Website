@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import Loader from "../../components/Loader";
+import ronaldo from "../../assets/ronaldo.jpg";
 import Error from "../../components/Error";
+import Loader from "../../components/Loader";
+import { useAuth } from "../../context/AuthContext";
 import { fetchTopPlayersData } from "../../hooks/getPlayersData";
 import { teamColorMapping } from "../../utils/dataUtils";
-import { useAuth } from "../../context/AuthContext";
-import ronaldo from "../../assets/ronaldo.jpg";
 
 const StatBarChart = () => {
   const chartRef = useRef();

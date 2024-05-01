@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
-import Loader from "../../components/Loader";
+import React, { useEffect, useRef, useState } from "react";
 import Error from "../../components/Error";
-import { fetchShotMapData } from "../../hooks/getShotsData";
-import { fetchPassingEventData } from "../../hooks/getPassingEventData";
+import Loader from "../../components/Loader";
 import { useAuth } from "../../context/AuthContext";
-import { pitchConfig } from "../../utils/pitchUtils";
-import { alterTeamName } from "../../utils/dataUtils";
-import { teamColorMapping } from "../../utils/dataUtils";
+import { fetchPassingEventData } from "../../hooks/getPassingEventData";
+import { fetchShotMapData } from "../../hooks/getShotsData";
 import { IPassingData, TShotData, TTeam, TVenue } from "../../types";
+import { alterTeamName, teamColorMapping } from "../../utils/dataUtils";
+import { pitchConfig } from "../../utils/pitchUtils";
 
 interface IPLayerEventMapProps {
   homeTeam: TTeam;
