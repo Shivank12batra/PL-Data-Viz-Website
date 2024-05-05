@@ -5,11 +5,18 @@ import PlayerCards from "../../dataviz/PlayerGraphics/PlayerCards";
 import PlayerEventMap from "../../dataviz/PlayerGraphics/PlayerEventMap";
 import PlayerReport from "../../dataviz/PlayerGraphics/PlayerReport";
 import { fetchPlayerData } from "../../hooks/getPlayersData";
+import { TTeam, TVenue } from "../../types";
+
+interface ISelectedData {
+  player: string;
+  oppositionTeam: TTeam;
+  venue: TVenue;
+}
 
 const PlayerStats = () => {
   const { team } = useAuth();
-  const { data } = fetchPlayerData(team, "");
-  const [selectedData, setSelectedData] = useState({
+  const { data } = fetchPlayerData({ team });
+  const [selectedData, setSelectedData] = useState<ISelectedData>({
     player: data && data?.length > 0 ? data[0].name : "",
     oppositionTeam: "Aston Villa",
     venue: "Home",
@@ -33,7 +40,7 @@ const PlayerStats = () => {
   const awayTeam =
     selectedData.venue === "Away" ? team : selectedData.oppositionTeam;
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     setSelectedData((previousData) => ({
       ...previousData,
@@ -60,10 +67,7 @@ const PlayerStats = () => {
           >
             {data?.map((player) => {
               return (
-                <option
-                  key={player.id}
-                  className="bg-gray-800 hover:cursor-pointer text-white"
-                >
+                <option className="bg-gray-800 hover:cursor-pointer text-white">
                   {player.name}
                 </option>
               );

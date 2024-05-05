@@ -16,6 +16,8 @@ interface IPLayerEventMapProps {
   player: string;
 }
 
+type TMapType = "Shotmap" | "Other Events";
+
 const PlayerEventMap = ({
   homeTeam,
   awayTeam,
@@ -23,7 +25,7 @@ const PlayerEventMap = ({
   player,
 }: IPLayerEventMapProps) => {
   const { team } = useAuth();
-  const [mapType, setMapType] = useState("Shotmap");
+  const [mapType, setMapType] = useState<TMapType>("Shotmap");
   const [eventType, setEventType] = useState("Pass");
   const [eventOutcome, setEventOutcome] = useState("Successful");
   const chartRef = useRef(null);
@@ -39,6 +41,7 @@ const PlayerEventMap = ({
   let data: IPassingData[] | TShotData[] | undefined,
     isLoading: boolean,
     error: unknown;
+
   if (mapType === "Shotmap") {
     ({ data, isLoading, error } = fetchShotMapData({
       team,

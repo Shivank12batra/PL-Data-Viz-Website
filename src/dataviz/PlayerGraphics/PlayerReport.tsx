@@ -15,7 +15,7 @@ import { teamColorMapping } from "../../utils/dataUtils";
 
 interface IPlayerReportProps {
   player: string;
-  position: string;
+  position: string | undefined;
 }
 
 const PlayerReport = ({ player, position }: IPlayerReportProps) => {
