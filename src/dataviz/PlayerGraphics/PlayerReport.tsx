@@ -1,21 +1,21 @@
 import { useState } from "react";
-import Loader from "../../components/Loader";
 import Error from "../../components/Error";
-import { fetchPlayerData } from "../../hooks/getPlayersData";
+import Loader from "../../components/Loader";
 import { useAuth } from "../../context/AuthContext";
-import { teamColorMapping } from "../../utils/dataUtils";
 import {
-  defending,
-  passing,
   attacking,
-  gkShotStopping,
+  defending,
   gkPassing,
+  gkShotStopping,
   gkSweeping,
+  passing,
 } from "../../data/playerStats";
+import { fetchPlayerData } from "../../hooks/getPlayersData";
+import { teamColorMapping } from "../../utils/dataUtils";
 
 interface IPlayerReportProps {
   player: string;
-  position: string;
+  position: string | undefined;
 }
 
 const PlayerReport = ({ player, position }: IPlayerReportProps) => {

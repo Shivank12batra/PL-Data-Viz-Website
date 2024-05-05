@@ -1,5 +1,4 @@
-import React from "react";
-import { defending, passing, attacking } from "../../data/playerStats";
+import { attacking, defending, passing } from "../../data/playerStats";
 import PlayerCard from "./PlayerCard";
 
 const PlayerCards = () => {

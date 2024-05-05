@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { pitch } from "d3-soccer";
-import Loader from "../../components/Loader";
+import React, { useEffect, useRef } from "react";
 import Error from "../../components/Error";
-import { fetchShotMapData } from "../../hooks/getShotsData";
-import { teamColorMapping } from "../../utils/dataUtils";
+import Loader from "../../components/Loader";
 import { useAuth } from "../../context/AuthContext";
+import { fetchShotMapData } from "../../hooks/getShotsData";
 import { TShotData, TTeam } from "../../types";
+import { teamColorMapping } from "../../utils/dataUtils";
 
 interface ITeamShotMapProps {
   homeTeam: TTeam;

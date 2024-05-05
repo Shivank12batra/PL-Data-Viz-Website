@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { loginSchema } from "../../validationSchema";
-import { useAuth } from "../../context/AuthContext";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ComponentProps, useState } from "react";
 import { MdClose } from "react-icons/md";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { IAuthProps, useAuth } from "../../context/AuthContext";
+import { loginSchema } from "../../validationSchema";
 
 const Login = () => {
   const { login, currentUser } = useAuth();
@@ -12,7 +12,9 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const loginUser = async (values, { resetForm }) => {
+  const loginUser: ComponentProps<
+    typeof Formik<IAuthProps>
+  >["onSubmit"] = async (values, { resetForm }) => {
     try {
       if (currentUser) {
         setError("You are already logged in!");
@@ -20,7 +22,7 @@ const Login = () => {
       }
       setError("");
       setLoading(true);
-      await login(values.email, values.password);
+      await login(values);
       resetForm();
       const path = location?.state?.from?.pathname ?? "/";
       navigate(path);
@@ -49,7 +51,11 @@ const Login = () => {
           onSubmit={loginUser}
         >
           {({ values, setValues, resetForm, ...formikProps }) => (
-            <Form>
+            <Form
+              placeholder=""
+              onPointerEnterCapture={() => {}}
+              onPointerLeaveCapture={() => {}}
+            >
               <div className="mb-4 w-70">
                 <label
                   htmlFor="email"

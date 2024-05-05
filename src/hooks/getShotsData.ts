@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
 import { teamShotsData } from "../firestore/getTeamStats";
+import { TTeam, TTopSixTeam } from "../types";
 import {
-  filterShotsData,
   calculateCumulativeXG,
   filterDataForShotMap,
+  filterShotsData,
 } from "../utils/shotsDataUtils";
-import { TTeam, TTopSixTeam } from "../types";
 
 interface IFetchCumulativeXGChartData {
   team: TTopSixTeam;

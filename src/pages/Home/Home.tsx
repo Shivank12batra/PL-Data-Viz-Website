@@ -5,7 +5,12 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import NavBar from "../../components/NavBar";
 import bgmImages from "../../data/animationContent";
 
-const Home = ({ navOpen, setNavOpen }) => {
+interface IHomeProps {
+  navOpen: boolean;
+  setNavOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Home = ({ navOpen, setNavOpen }: IHomeProps) => {
   const [headerVisible, setHeaderVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);

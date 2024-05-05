@@ -1,15 +1,14 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaBars,
-  FaTimes,
   FaGithub,
-  FaTwitter,
   FaLinkedin,
+  FaTimes,
+  FaTwitter,
 } from "react-icons/fa";
-import { useAuth } from "../context/AuthContext";
+import { NavLink, useNavigate } from "react-router-dom";
 import pl_logo from "../assets/pl_logo.png";
-import { IconType } from "react-icons";
+import { useAuth } from "../context/AuthContext";
 
 interface INavBarProps {
   navOpen: boolean;

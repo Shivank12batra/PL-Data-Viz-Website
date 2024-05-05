@@ -1,6 +1,6 @@
 import React from "react";
-import { useTable, useSortBy, type Row } from "react-table";
-import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
+import { useSortBy, useTable, type Row } from "react-table";
 import { useAuth } from "../../context/AuthContext";
 import data from "../../data/table";
 import { TTeam, TTeamTable } from "../../types";

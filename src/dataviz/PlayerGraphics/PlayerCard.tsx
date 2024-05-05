@@ -1,11 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import Loader from "../../components/Loader";
 import Error from "../../components/Error";
-import { fetchTopPlayersData } from "../../hooks/getPlayersData";
-import { teamColorMapping } from "../../utils/dataUtils";
+import Loader from "../../components/Loader";
 import { useAuth } from "../../context/AuthContext";
+import { fetchTopPlayersData } from "../../hooks/getPlayersData";
 import { TPlayerStat } from "../../types";
+import { teamColorMapping } from "../../utils/dataUtils";
 
 interface IPlayerCardProps {
   stat: TPlayerStat;

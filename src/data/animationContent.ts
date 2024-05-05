@@ -1,8 +1,8 @@
-import home_page from "../assets/home_page.png";
-import team_stats from "../assets/team_stats.png";
-import player_stats from "../assets/player_stats.png";
-import matchday from "../assets/matchday.png";
 import glossary from "../assets/glossary.png";
+import home_page from "../assets/home_page.png";
+import matchday from "../assets/matchday.png";
+import player_stats from "../assets/player_stats.png";
+import team_stats from "../assets/team_stats.png";
 
 interface IBgmImages {
   id: number;

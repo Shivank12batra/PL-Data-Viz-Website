@@ -1,4 +1,3 @@
-import React from "react";
 import red_card from "../assets/red_card.jpg";
 
 const NoPage = () => {

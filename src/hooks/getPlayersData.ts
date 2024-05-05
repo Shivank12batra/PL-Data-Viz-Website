@@ -1,10 +1,10 @@
 import { UseQueryResult, useQuery } from "react-query";
 import { playersData } from "../firestore/getPlayerStats";
-import {
-  filterByStat,
-  filterByPlayerNameAndStatType,
-} from "../utils/playersDataUtils";
 import { IPlayerData, TPlayerStat, TTopSixTeam } from "../types";
+import {
+  filterByPlayerNameAndStatType,
+  filterByStat,
+} from "../utils/playersDataUtils";
 
 interface IFetchTopPlayersDataProps {
   team: TTopSixTeam;
