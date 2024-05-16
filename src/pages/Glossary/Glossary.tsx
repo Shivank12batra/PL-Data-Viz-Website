@@ -1,7 +1,6 @@
-import React from "react";
-import shotmap from "../../assets/shotmap.jpg";
 import cumulativeChart from "../../assets/cumulativeChart.jpg";
 import networkChart from "../../assets/networkChart.jpg";
+import shotmap from "../../assets/shotmap.jpg";
 
 const Glossary = () => {
   return (
