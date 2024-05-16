@@ -1,6 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import { MdClose } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Matchday = () => {
   const navigate = useNavigate();
