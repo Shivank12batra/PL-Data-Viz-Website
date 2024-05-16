@@ -50,7 +50,7 @@ const Login = () => {
           validationSchema={loginSchema}
           onSubmit={loginUser}
         >
-          {({ values, setValues, resetForm, ...formikProps }) => (
+          {({ values, setValues }) => (
             <Form
               placeholder=""
               onPointerEnterCapture={() => {}}
@@ -110,7 +110,7 @@ const Login = () => {
                 type="submit"
                 className={`${
                   loading ? "cursor-not-allowed" : "cursor-pointer"
-                } w-2/5 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto`}
+                } w-2/5 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 block mx-auto`}
                 onClick={() => {
                   const newValues = {
                     ...values,
